@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>HTMLViewGo htmlview,url$</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+htmlview - A htmlview gadget handle<br />
+url$ - A URL identifier
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Changes the page currently displayed to that of the specified URL.<br />
+<br />
+After calling HtmlViewGo, a gadget event will be generated with an event data value of 0 once the page's html has loaded.
+<br>
+<br>
+See also: <a class=small href=CreateHtmlView.htm>CreateHtmlView</a>, <a class=small href=HtmlViewBack.htm>HtmlViewBack</a>, <a class=small href=HtmlViewForward.htm>HtmlViewForward</a>, <a class=small href=HtmlViewCurrentURL.htm>HtmlViewCurrentURL</a>, <a class=small href=HtmlViewEventURL.htm>HtmlViewEventURL</a>, <a class=small href=HtmlViewStatus.htm>HtmlViewStatus</a>, <a class=small href=HtmlViewRun.htm>HtmlViewRun</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/HTMLViewGo.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; A Basic Blitz Web Browser!<br />
+win=CreateWindow("Basic Blitz Web Browser",100,100,500,500,0,35)<br />
+html = CreateHtmlView(0,0,500,500,win)<br />
+SetGadgetLayout html,1,1,1,1 ; ensure the HTML view will stretch to meet the size of the window when it is resized.<br />
+HtmlViewGo html,"http:\\www.blitzbasic.com"<br />
+<br />
+; a simple loop<br />
+Repeat<br />
+id = WaitEvent()<br />
+If id=$803 Then Exit<br />
+Forever<br />
+<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=HTMLViewGo&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

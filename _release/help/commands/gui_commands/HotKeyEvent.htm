@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>HotKeyEvent rawkey,modifier,event_id[,event_data,event_x,event_y,event_z,event_source]</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+rawkey - raw scan code of the key to trigger the event<br />
+modifier - Modifier flags<br />
+event_id,event_data,event_x,event_y,event_z,event_source - event to be generated when the hotkey is pressed.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+HotKeyEvent allows you to specify a 'canned' event to be generated whenever a particular key is pressed.<br />
+<br />
+This is great for implementing shortcut keys that correspond to menu, gadget or window events.<br />
+<br />
+Modifier flags are:<br />
+<br />
+1 : Shift key<br />
+2 : Control key<br />
+4 : Alt key<br />
+<br />
+An existing hotkey event can be removed like this:<br />
+HotKeyEvent rawkey,modifier,0
+<br>
+<br>
+See also: <a class=small href=WaitEvent,EventID,EventData.htm>WaitEvent,EventID,EventData</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/HotKeyEvent.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+;create a window<br />
+window=CreateWindow( "",0,0,640,480 )<br />
+<br />
+;create file menu<br />
+file_menu=CreateMenu( "File",0,WindowMenu(window) )<br />
+<br />
+;create open menu<br />
+open_menu=CreateMenu( "Open",1,file_menu )<br />
+<br />
+;update menus<br />
+UpdateWindowMenu window<br />
+<br />
+;create hotkey - F1 generates a menu_action event with EventData() of 1<br />
+HotKeyEvent 59,0,$1001,1<br />
+<br />
+;another hotkey - ESC generates a window_close event from the main window<br />
+HotKeyEvent 1,0,$803,0,0,0,0,window<br />
+<br />
+;let 'em know what we're up to!<br />
+Notify "Hot keys installed - ESC to close window, F1 to select File/Open menu"<br />
+<br />
+While WaitEvent()<>$803		;loop until window closed<br />
+	If EventID()=$1001		;menu event?<br />
+		If EventData()=1	;file/open menu?<br />
+			Notify "File/Open selected!"<br />
+		EndIf<br />
+	EndIf<br />
+Wend
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=HotKeyEvent&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

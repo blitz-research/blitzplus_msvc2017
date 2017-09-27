@@ -1,0 +1,10 @@
+﻿  b2d_link.cpp
+  basic.cpp
+  dllmain.cpp
+  gui_link.cpp
+  link.cpp
+  sys_link.cpp
+  userlibs.cpp
+  Generating Code...
+     Creating library .\Debug\runtime_dbg.lib and object .\Debug\runtime_dbg.exp
+  blitzplus.vcxproj -> D:\dev\blitzplus_msvc2017\blitzplus\..\_release\bin\runtime_dbg.dll

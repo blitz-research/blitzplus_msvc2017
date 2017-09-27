@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>EventData()</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+None.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Returns event specific data that depends upon the last event received.<br />
+<br />
+For example, if the last event received was a keystroke event, EventData will return the ascii code of the keystroke.  Or, in the case of a menu click event, EventData will return the id of that menu item specified when it was created.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/EventData.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Example originally provided by Mag, tidied up by Mark Tiffany<br />
+<br />
+; First, we create a window<br />
+WinHandle=CreateWindow("Window, Menu and EventData Example",0,0,400,200) <br />
+<br />
+; Now we set up the menus.  Two menus, File and Edit, with different sub menu items.<br />
+menu=WindowMenu(WinHandle) <br />
+<br />
+; Set up the first main menu.  <br />
+; Note that the second parameter specifies a unique ID For the menu item.  <br />
+; This will be returned to us in EventData() when the event occurs.<br />
+file=CreateMenu("File",0,menu) <br />
+CreateMenu "Open",1,file ; the first child menu item<br />
+CreateMenu "Shortcut F5",2,file ;child menu with shortcut sample <br />
+CreateMenu "",0,file ; a separator can be implemented by leaving the text blank<br />
+CreateMenu "Quit",3,file ; and another child menu item<br />
+<br />
+; Now set up the second menu.  <br />
+; Note that ALT shortcuts have been enabled by prefixing the desired letter with an ampersand "&"<br />
+edit=CreateMenu("&Edit",0,menu)<br />
+CreateMenu "&Copy",4,edit <br />
+CreateMenu "&Paste",5,edit<br />
+CreateMenu "Cu&t",6,edit<br />
+UpdateWindowMenu WinHandle <br />
+<br />
+; Now that we have set up the window and menus, we need to a main loop to handle their events<br />
+Repeat <br />
+id=WaitEvent()<br />
+If ID=$803 Then Exit ; Handle the close gadget on the window being hit<br />
+If ID=$1001 Then ; Handle any menu item hit events<br />
+; extract the EventData as this will contain our unique id for the menu item<br />
+EID=EventData() <br />
+If EID=1 Then Notify "Open selected" <br />
+If EID=2 Then Notify "Shortcut selected" <br />
+If EID=3 Then Notify "Quit selected": Exit<br />
+If EID=4 Then Notify "Copy selected" <br />
+If EID=5 Then Notify "Paste selected" <br />
+If EID=6 Then Notify "Cut selected"<br />
+End If <br />
+Forever <br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=EventData&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

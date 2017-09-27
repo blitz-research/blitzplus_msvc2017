@@ -1,0 +1,16 @@
+
+#ifndef STDQID_H
+#define STDQID_H
+
+//Windows stuff
+const int BBQID_WIN32HWND=1;
+const int BBQID_WIN32CLIENTHWND=2;
+const int BBQID_WIN32HFONT=3;
+const int BBQID_WIN32HBITMAP=4;
+const int BBQID_WIN32HIMAGELIST=5;
+
+//DirectX stuff
+const int BBQID_WIN32DDGRAPHICSSURFACE=101;
+const int BBQID_WIN32DDPRIMARYSURFACE=102;
+
+#endif

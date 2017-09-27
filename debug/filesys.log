@@ -1,0 +1,4 @@
+﻿  filesys.cpp
+  filesys_win32.cpp
+  Generating Code...
+  filesys.vcxproj -> D:\dev\blitzplus_msvc2017\filesys\.\Debug\filesys.lib

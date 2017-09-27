@@ -1,0 +1,14 @@
+Human
+Elf
+Half-Elf
+Half-Orc
+Dwarf
+Gnome
+Ratman
+Goblin
+Half-Dragon
+Half-Lizard
+Half-Troll
+Half-Ogre
+Orc
+Halfing

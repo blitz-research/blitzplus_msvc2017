@@ -1,0 +1,414 @@
+
+***** V1.47 *****
+
+Fixed 'End' causing 'Wrong Thread' error on 64bit Vista.
+
+Fixed rand() occasionally returning an out of range value. Sorry!
+
+
+***** V1.46 *****
+
+Fixed FreeImage bug causing certain sized images to crash.
+
+
+***** V1.45 *****
+
+Fixed movie leak.
+
+
+***** V1.44 *****
+
+Added linker to update package.
+
+
+***** V1.43 *****
+
+Fixed another DEP issue in linker.
+
+
+***** V1.42 *****
+
+Updated FMOD to version 375.
+
+Fixed function param used in For...Each causing mysterious object deletions.
+
+
+***** V1.41 *****
+
+Added TreeViewNodeText( node ).
+
+Added toolbar separators. A 'blank' icon in a toolbar image (ie: an icon with all colors transparent) will 
+be shown as a separator in a toolbar.
+
+Added 'okay' and 'cancel' style buttons (flags 4 and 5), which are 'auto-clicked' when you hit 'return' or 
+'escape' (but only when a button or textfield within the same group is currently active).
+
+Added support for tabbing between buttons and textfields. 
+
+Fixed slider events. 'Modeless' clicks (eg: line/page up/down) used to generate a single BeginModal event but
+no matching EndModal event. Modeless clicks no generate no BeginModal/EndModal event at all. Modal events (ie:
+slider draggin) used to generate a spurious gadget action event when the slider was released. No more.
+
+Listboxes now generate action events when keys are used to switch between items.
+
+Improved fast user switching support. Probably not 100% in all cases, but works on my test stuff here.
+
+Fixed sliders auto-enabling when using SetSliderRange. Note though that disabled sliders appear to always 
+'hide their range'. Kind of understandable.
+
+Tabber initial border corruption fixed.
+
+Fixed infinite loop when using HtmlViewGo in response to a NONAVIGATE style gadget event.
+
+
+***** V1.40 *****
+
+Fixed DEP ('data execution prevention') issue with WinXP SP2.
+
+
+***** V1.39 *****
+
+Fixed slow mem deallocation.
+
+Updated FMOD to V3.72
+
+CreateImage now defaults to dynamic (LoadImage still defaults to managed) 
+
+CreateHtmlView supports style parameter - 1=NOCONTEXTMENU 2=NONAVIGATE
+
+HtmlView now generates GadgetEvents with eventdata setings 0=pageloads 1=usernavigate 
+
+New HtmlView commands : HtmlViewCurrentURL() HtmlViewEventURL(html) HtmlViewStatus(html) HtmlViewRun(html,script$)
+ eg: HtmlViewRun html,"document.body.innerHTML='<form method=GET><input type=text name=login value=simon></form>'"
+
+RemoveGadgetItem on last item now clears Tabber completely
+
+RequestFile and RequestDir now have optional default values
+
+RequestFile no longer appends "All Files" option when extension$ parameter is used
+
+Win32DSMovie DrawMovie render now uses BitBlt if IDirectSurface::Blt fails due to unsupported pixel conversion
+
+better checking for negative sized banks and copybank ranges
+
+Delay now resets negative parameters to 0
+
+Added FontSize FontName FontStyle FontAscend and FontDescend getters
+
+Return key on List Item now causes event, still no arrow key messages:(
+
+TreeViewNodes now have icon parameters and TreeView supports SetGadgetIconStrip
+
+
+***** V1.38 *****
+
+Fixed: Evil ImagesCollide bug
+
+Fixed: LoadFont now works with a path.
+
+Fixed: String comparison bug with strings containing Chr$(0)
+
+
+***** V1.37 *****
+
+Fixed: Flip!
+
+Fixed: Crash if incorrect DirectInput version installed on NT.
+
+Fixed: ReadDir path error on Win98.
+
+Fixed: FileSize not working with open file.
+
+
+***** V1.36 *****
+
+Fixed: Crash if audio driver init fails.
+
+Fixed: Viewport not clipped to buffer size.
+
+Fixed: FlipCanvas not working after EndGraphics.
+
+Fixed: FileType not working properly with some dirs.
+
+Fixed: ReadDir returning a handle for non-existant dirs.
+
+Fixed: FreeBank CreateBank()
+
+Note:  "c:" technically isn't a directory but a device. This seems to be a hangover from DOS days, where each device had its own current dir. Windows appears to have progressively cleaned up this weirdness, but I would recommend using "c:\" instead when accessing root directories.
+
+
+***** V1.35 *****
+
+Fixed: No item selected after currently selected tabber item removed
+
+Fixed: wrong font being released when context deleted
+
+Fixed: Fkeys not generating initial key char event
+
+Fixed: CreateBank/ResizeBank not zeroing memory
+
+Fixed: StartNetGame failing in debug mode
+
+Fixed: SetTextAreaText not working with empty text areas
+
+Fixed: CommandLine$() not working in exe
+
+Fixed: Notify 'serious' flag being ignored
+
+Fixed: RemoveGadgetItem bug with tabbers
+
+Fixed: ModifyGadgetItem causing corrupt text with tabbers
+
+Fixed: AddGadgetItem causing all sorts of problems!
+
+Fixed: GadgetText$() crashing when gadget has no text
+
+Fixed: HotKeyEvent overflowing.
+
+Fixed: Recursive End syndrome!
+
+***** V1.34 *****
+
+Public Release!
+
+Major additions/changes:
+
+* Improved Blitz2D compatiblity - WaitTimer, FontWidth, StringHeight are back.
+
+* Improved debugger performance - should be possible to break out of any program now!
+
+* Ability to modify gadget fonts - see SetGadgetFont
+
+* Textarea formatting commands - see TextArea docs
+
+* New events for mouse enter/exit - see WaitEvent docs
+
+* Greater control over image memory management - see LoadImage 'flags' discussion
+
+* IconStrips; for adding icons to listboxes, comboboxes and tabbers - see Icon-Strips docs
+
+* Hotkey support - see HotKeyEvent in Event docs
+
+* Direct access to underlying OS gadget handles (HWNDs) - see QueryObject
+
+* Experimental OpenGL and 'Native' graphics drivers - use CountGfxDrivers/SetGfxDriver to access alternate
+graphics drivers.
+
+Some miscellaneous notes:
+
+* OpenGL and Native drivers are highly experimental - but results so far are good. Locking OpenGL buffers
+is currently very slow, and not recommended for realtime use.
+
+* DesktopBuffer() is currently only available under the DirectDraw graphics driver.
+
+* Textarea formatting is still a little flaky, and requires a fair bit of experimentation in order to
+get good results. The textarea gadget really needs to be rewritten from scratch; the windows RichEdit
+control is pretty rough.
+
+
+***** V1.33 *****
+
+Fixed: 'Lock failed' problem and associated glitches.
+
+
+***** V1.31 *****
+
+Fixed: Crash when using debugger to kill app.
+
+Fixed: DebugLog in release mode using console.
+
+Fixed: GraphicsDepth() returning bytes instead of pixels.
+
+
+***** V1.30 *****
+
+Fixed: Crash when using banks with userlibs.
+
+Fixed: Crash when freeing an event source while in handler.
+
+Changed: HotKeyEvent now takes scancodes. Modifier flags are 1=shift, 2=ctrl, 4=alt, or any combination of.
+
+
+***** V1.29 *****
+
+Fixed: FreeTreeViewNode.
+
+Fixed: Slider value not changing when window resized.
+
+Fixed: Losing capture when different mouse button released.
+
+Added: Mouse enter ($205) and Mouse leave ($206) events for canvas gadgets.
+
+Added: AppBeginModal ($2004) and AppEndModal ($2005) events.
+
+Added: HotKeyEvent char,modifier,event_id,event_data,event_x,event_y,event_z,event_source
+
+
+***** V1.28 *****
+
+Fixed: uninitialized slider variables.
+
+Fixed: DirectDraw display mode same as desktop problem.
+
+
+***** V1.27 *****
+
+Fixed: DisableMenu not working when used on a menu with children.
+
+Fixed: Crash when CreateToolBar image doesn't exist - returns 0 instead.
+
+Fixed: OpenGL font positioning - now adjusted by ascent not height.
+
+Fixed: missing trailing '0' on FP->str conversion with negative vals.
+
+Fixed: asc() returning negative values for results >127.
+
+
+***** V1.26 *****
+
+Added OpenGL and DIB drivers: use CountGfxDrivers/GfxDriverName/SetGfxDriver.
+
+SetGfxDriver restarts all drivers, so GUI, Audio etc will close down and reopen too (hopefully with
+no leaks!)
+
+GDI driver uses my own crusty-but-stable blit routines as they appear to be faster than BitBlt!
+More research required...
+
+OpenGL driver is currently very simple: one tex-per-graphic, no max tex size checking etc. No pbuffers
+or render-to-texture, so rendering to offscreen buffers and using lockbuffer/unlockbuffer on backbuffer()
+is *slow*.
+
+Fixed userlibs.
+
+Fixed RectsOverlap bug.
+
+Fixed AutoMidhandle bug.
+
+Fixed...oh...a bunch of other stuff...
+
+Added:
+
+QueryObject( obj,qid )  queries an object for 'platform specific' properties.
+
+QueryObject() is a mechanism to get at platform specific handles within platform neutral Blitz objects.
+
+Its intentionally ugly to remind users they're going 'outside' of Blitz, and to save me having to add
+platform specific commands, which I really, really want to avoid.
+
+qid means 'query id' and can be one of:
+
+1   : Win32 HWND          (for use with gadgets)
+2   : Win32 Client HWND   (use this instead if you're after a 'parent' hwnd - some gadgets use 2 hwnds)
+3   : Win32 HFONT         (for use with fonts)
+
+eg:
+
+window=CreateWindow( "My Window",0,0,640,480 )
+
+hwnd=QueryObject( window,1 )	;returns windows HWND
+
+
+***** V1.25 *****
+
+Lost events fixed.
+
+Replace fixed again.
+
+IDE open initial dir set to most recent file
+
+
+***** V1.24 *****
+
+Rset$() fixed.
+
+Trim$() fixed.
+
+Replace$() fixed.
+
+ListBox selection of null item fixed.
+
+Excessive mouse move events fixed.
+
+Vidmem reps of managed surfaces now created 'on demand'. Should speed up graphic mode switches.
+
+Fixed gadget layout div-by-0 bug.
+
+Fixed loading of un-installed fonts.
+
+
+***** V1.23 *****
+
+Fixed desktop->fullscreen crash.
+
+Fixed window style flags behaviour.
+
+
+***** V1.22 *****
+
+Fixed (on my machine anyway) crash on exit/exception problem under Win95/98.
+
+Fixed strings. May still be leaks - test hard!
+
+Fixed error checking of null bank for CallDll.
+
+Fixed ResizeBank.
+
+Fixed SaveBuffer/SaveImage.
+
+Fixed CommandLine.
+
+
+***** V1.21 *****
+
+Fixed ButtonState.
+
+Fixed multiple ComboBox gadget action events.
+
+Fixed missing trailing '\' from CurrentDir$(). Again.
+
+Restored SystemProperty$().
+
+
+***** V1.20 *****
+
+Lots of bug fixes.
+
+Major internal rearrangement.
+
+Scaled windowed 'Graphics' gone - use a canvas instead.
+
+RequestColor() now returns true for 'OK', false for 'CANCEL'.
+
+New image flags added for LoadImage, LoadAnimImage, CreateImage:
+
+1 : managed (image is frequently drawn but seldomn modified - this is the default)
+2 : dynamic (image is frequently drawn and modified)
+4 : scratch (image is seldomn drawn or modified)
+
+Managed images are the default.
+
+Dynamic images are the fastest, but can be 'lost' when the display mode changes. This means the
+content of the image will be scrambled, and you will need to restore the image content.
+
+Scratch images are slow all round but consume no videomemory. Good for title pages etc.
+
+Note that canvas buffers and back buffers should be considered 'dynamic'.
+
+The are now 2 runtimes - release (runtime.dll) and debug (runtime_dbg.dll).
+
+
+***** V1.11 *****
+
+Fixed Origin() bug.
+
+Fixed Eof() bug.
+
+Appended '\' to  CurrentDir() for backwards compatibility.
+
+Modified audio lib so it silently fails on all funcs if FMOD failed to initialize.
+
+
+***** V1.10 *****
+
+Initial release version!
+

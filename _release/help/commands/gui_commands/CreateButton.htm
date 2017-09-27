@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>CreateButton( text$,x,y,width,height,group[,style] )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+text$ - Initial text for the button<br />
+x,y,width,height - Initial shape for the button<br />
+group - A group gadget handle<br />
+style - Optional style flags
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+CreateButton creates a button gadget, and returns its handle.<br />
+<br />
+Style can be one of:<br />
+<br />
+1 - A standard push button<br />
+2 - A Checkbox style button<br />
+3 - A Radio style button<br />
+4 - A push button that is automatically clicked by a 'return' keystroke<br />
+5 - A push button that is automatically clicked by an 'escape' keystroke<br />
+<br />
+The default style is a standard push button.<br />
+<br />
+Note the automatic click feature only works when a button or textfield within the same gadget group is currently active.
+<br>
+<br>
+See also: <a class=small href=SetButtonState.htm>SetButtonState</a>, <a class=small href=ButtonState.htm>ButtonState</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/CreateButton.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Example based on one provided by Mag, extended by Mark Tiffany<br />
+<br />
+; first, let's create a window<br />
+WinHandle=CreateWindow("Dessert Menu",0,0,400,250) <br />
+<br />
+; now create some buttons<br />
+OptionButton1=CreateButton("Apple Pie",50,10,300,40,WinHandle,3)<br />
+OptionButton2=CreateButton("Cheesecake",50,40,300,40,WinHandle,3)<br />
+Checkbox=CreateButton("With Cream",50,70,300,40,WinHandle,2)<br />
+ExitButton=CreateButton("Place Order",50,120,300,40,WinHandle)<br />
+<br />
+; now loop and deal with events as they arise<br />
+Repeat <br />
+	If WaitEvent()=$401 Then <br />
+		If EventSource()=ExitButton Then Exit <br />
+	End If <br />
+Forever <br />
+<br />
+; and report the selected options!<br />
+msg$ = "You selected "<br />
+If ButtonState(OptionButton1) Then<br />
+	msg$=msg$+"Apple Pie "<br />
+ElseIf ButtonState(OptionButton2) Then<br />
+	msg$=msg$+"Cheesecake "<br />
+Else<br />
+	msg$=msg$+"Nothing "<br />
+End If<br />
+If ButtonState(Checkbox) Then msg$=msg$+"with cream"<br />
+Notify msg$<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=CreateButton&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

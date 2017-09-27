@@ -1,0 +1,45 @@
+Hiding
+Stealth
+Archery
+Swordsmanship
+Pickpocket
+Stealing
+Spying
+Law magic
+Chaos magic
+Earth magic
+Air magic
+Fire magic
+Water magic
+Mind magic
+Body magic
+Blacksmithing
+Forging
+Leathercraft
+Fletching
+Bowcraft
+Woodwork
+Parrying
+Scribing
+Runecasting
+Musician
+Storytelling
+Tracking
+Forestry
+Foraging
+Hunting
+Mapmaking
+Sailing
+Fishing
+Mining
+Climbing
+Lying
+Cooking
+Brawling
+Drinking
+Healing
+Alchemy
+Cudgel
+Gambling
+Begging
+Runsmithing

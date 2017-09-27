@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>CreateToolBar( image$,x,y,width,height,group )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+image$ - A bitmap image file<br />
+x,y,width,height - Initial shape of the toolbar<br />
+group - A group gadget handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+CreateToolBar creates a toolbar gadget and returns a handle to it.<br />
+<br />
+A toolbar is a horizontal strip of small buttons which the user can click.  The image parameter specifies a bitmap file that contains the images for the toolbar's buttons.  These images should be exactly square, and packed horizontally across the bitmap.  The number of buttons is automatically determined by dividing the image width by its height.  The very top left pixel color of the image determines the transparent color of the toolbar.<br />
+<br />
+Toolbars generate a gadget action event when the user clicks on a toolbar button. When a gadget action<br />
+event is received, the EventData function can be used to determine the actual button clicked, with 0 indicating<br />
+the left most button, 1 the next button and so on.<br />
+<br />
+It is also possible to add special separator items to a toolbar. Separator items are small gaps in the toolbar that visual group toolbar buttons into separate groups.<br />
+<br />
+To do this, simply insert a blank button icon (an icon with the same dimensions as a normal icon, but with all pixels equal to the transparent color) into your toolbar image anywhere you would like a separator to appear.
+<br>
+<br>
+See also: <a class=small href=SetToolBarTips.htm>SetToolBarTips</a>, <a class=small href=EnableToolBarItem.htm>EnableToolBarItem</a>, <a class=small href=DisableToolBarItem.htm>DisableToolBarItem</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/CreateToolBar.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Example provided by Mag, added to documentation by Mark Tiffany<br />
+; get bitmap icon from the Blitz directory <br />
+appdir$=SystemProperty("appdir") <br />
+blitzdir$=Left(appdir,Len(appdir)-5) <br />
+BMP$=blitzdir$+"\cfg\dbg_toolbar.bmp" <br />
+Notify "We will use this bitmap for our ToolBar: "+Chr$(13)+BMP$ <br />
+<br />
+; create a window to put the toolbar in<br />
+WinHandle=CreateWindow("Test CreateToolbar",0,0,400,200) <br />
+; and create the toolbar<br />
+toolHandle=CreateToolBar(BMP$,0,0,0,0,WinHandle) <br />
+<br />
+; and now a loop to demonstrate it in action<br />
+Repeat <br />
+	event=WaitEvent() <br />
+	If event=$803 Then End ; exit when we receive a Window Close event<br />
+	If event=$401 Then ; Button action event.  EventData contains the toolbar button hit.<br />
+		; Note that if we had more than just the toolbar on the form, we would check EventSource too<br />
+		If EventData()=0 Then Notify "Red Light selected" <br />
+		If EventData()=1 Then Notify "Green Light selected" <br />
+		If EventData()=2 Then Notify "Step Next selected" <br />
+		If EventData()=3 Then Notify "Step Into selected" <br />
+		If EventData()=4 Then Notify "Step Over selected" <br />
+		If EventData()=5 Then Notify "Boom selected" <br />
+	End If <br />
+Forever<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=CreateToolBar&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

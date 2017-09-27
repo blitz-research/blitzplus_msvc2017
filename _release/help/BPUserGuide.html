@@ -1,0 +1,1441 @@
+<html>
+
+<head>
+<title>BlitzPlus User Guide</TITLE> 
+<link href="blitzplus.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class=banner>
+<p align="center"><a href="http://"><img border="0" src="blitzplus_big.jpg" width="320" height="155"></a>
+<h1 align="center">BlitzPlus User Guide</h1>
+</div>
+
+<ul>
+
+<li><a HREF="#0">Introduction</a>
+
+<li><a HREF="#1">Chapter 1. Lanuage Basics</a>
+<ul class=subcontents>
+	<li>1.1 <A HREF="#1.1">Console</a>
+	<li>1.2 <A HREF="#1.2">Variables</a>
+	<li>1.3 <A HREF="#1.3">Control</a>
+	<li>1.4 <A HREF="#1.4">Functions</a>
+	<li>1.5 <A HREF="#1.5">Types</a>
+</ul>
+
+<li><a HREF="#2">Chapter 2. GUI</a>
+<ul class=subcontents>
+	<li>2.1 <A HREF="#2.1">Events</a>
+	<li>2.2 <A HREF="#2.2">Windows</a>
+	<li>2.3 <A HREF="#2.3">Menus and ToolBars</a>
+	<li>2.4 <A HREF="#2.4">Gadgets</a>
+	<li>2.5 <A HREF="#2.5">Requesters</a>
+</ul>
+
+<li><a HREF="#3">Chapter 3. Graphics</a>
+
+<li><a HREF="#A">Appendix</a>
+<ul class=subcontents>
+	<li>A.1 <A HREF="#A.1">Migrating to BlitzPlus</a>
+	<li>A.2 <A HREF="#A.2">Five ways to say Hello World</a>
+	<li>A.3 <A HREF="#A.2">Ascii Tables</a>
+</ul>
+
+</ul>
+
+<h2><a name=0>Introduction</a></h2>
+<P>BlitzPlus provides developers with a complete 2D programming solution for
+the PC. Utilising a BASIC/C hybrid language for use with its compiler,
+BlitzPlus is capable of creating any type of 2D program, with minimal
+development-time and with minimal hassle. Just run the included IDE (or use
+one of your own), type your code (minimum no. lines of code for a program =
+1), hit compile, and your Windows executable file will be created, ready to
+be run on any computer running Windows 95/NT 4 or later.
+
+<h2><a name=1>1 Language Basics</a></h2>
+<P>BlitzPlus' language is a BASIC/C hybrid. As well as featuring the classic BASIC constructs
+such as Goto and Gosub, it also features C influences such as functions and types. On top of
+this, BlitzPlus' command set features over 500 commands. This command set is highly streamlined
+meaning complete programs require very few lines of code indeed.
+
+<h3><a name=1.1>1.1 Console</a></h3>
+<P>The simplest BlitzPlus programs that don't require the use of Windows and Gadgets
+or any of the high speed graphics display modes available may wish to use a simple text
+console to communicate with the user.
+<P>The following program demonstrates the use of the two BlitzPlus console commands Print
+and Input.
+<div class=code><pre>
+<pre>
+<span class=rem>; console.bb</span>
+
+<span class=cmd>Print</span> <span class=str>&quot;My program version 0.1&quot;</span>
+name$=<span class=cmd>Input</span>(<span class=str>&quot;What is your name?&quot;</span>)
+<span class=cmd>Print</span> <span class=str>&quot;Hello &quot;</span>+name$
+</pre></div>
+<P>BlitzPlus automatically opens a new console window the first time a Print or Input 
+command is called.
+
+<h3><a name=1.2>1.2 Variables</a></h3>
+<P>BlitzPlus supports 3 primitive types of variables; integers, floats and strings.
+<P>A suffix at the end of a variable name in BlitzPlus denotes it's type. The characters
+%, # and $ at the end of a variable name denotes they are type integer, float or string 
+respectively.
+<P>After a variable has been declared a certain type it's type suffix is optional in
+any future references. 
+<P>By default BlitzPlus variables are integers making the initial % suffix of any integer
+variable optional.
+<table border=1>
+<tr>
+<td><b>Variable</b><td><b>Suffix</b><td><b>Range</b>
+<tr>
+<td>Integer<td>%<td>2147483647-2147483647
+<tr>
+<td>Float<td>#<td>(2- 2<sup>-23</sup>)<sup> </sup>2<sup>127</sup> or 3.403 x 10<sup>38</sup>&nbsp;
+<tr>
+<td>String<td>$<td>NA
+</table>
+<P>BlitzPlus automatically handles type conversion of variables turning integers to strings,
+floats to integers etc. when source and target variable types differ.
+<P>Arrays in BlitzPlus are declared with the traditional Dim command. BlitzPlus arrays are
+always global in scope and can be redimensioned with further use of the Dim command.
+<div class=code><pre>
+<pre>
+<span class=rem>; arrays.bb</span>
+
+<span class=cmd>Dim</span> day$(7)
+day(0)=<span class=str>&quot;Monday&quot;</span>
+day(1)=<span class=str>&quot;Tuesday&quot;</span>
+day(2)=<span class=str>&quot;Wednesday&quot;</span>
+day(3)=<span class=str>&quot;Thursday&quot;</span>
+day(4)=<span class=str>&quot;Friday&quot;</span>
+day(5)=<span class=str>&quot;Saturday&quot;</span>
+day(6)=<span class=str>&quot;Sunday&quot;</span>
+
+<span class=cmd>For</span> i=0 <span class=cmd>To</span> 6
+	<span class=cmd>Print</span> day$(i)
+<span class=cmd>Next</span>
+</pre></div>
+<P>Note that the BlitzPlus Dim command actually reserves one more element than specified. This
+allows the programmer to use either zero based indexing (0..6) as above or one based indexing
+(1..7). 
+
+<h3><a name=1.3>1.3 Control</a></h3>
+<P>In order for a program to perform complex tasks it must be able to do more than read a
+sequential list of commands and execute them. Often programs will only want to execute code
+in certain conditions, at other times the BlitzPlus programmer will require sections of
+their code to be executed multiple times.
+<P>The If..Then commands offers the BlitzPlus programmer the ability to execute code under
+certain conditions. The following guessing game illustrates the use of If Then to play a
+simple game with the user.
+<div class=code><pre>
+<pre>
+<span class=rem>; guessing game</span>
+
+<span class=cmd>SeedRnd</span> <span class=cmd>MilliSecs</span>()	<span class=rem>;needed for random random numbers</span>
+turnsleft=5
+sheep=<span class=cmd>Rnd</span>(20)
+<span class=cmd>While</span> (turnsleft&gt;0)
+	turnsleft=turnsleft-1
+	guess=<span class=cmd>Input</span>(<span class=str>&quot;Guess how many sweets I have in my hand: &quot;</span>)
+	<span class=cmd>If</span> guess&lt;sheep <span class=cmd>Then</span> <span class=cmd>Print</span> <span class=str>&quot;more than that!&quot;</span>
+	<span class=cmd>If</span> guess&gt;sheep <span class=cmd>Then</span> <span class=cmd>Print</span> <span class=str>&quot;oh, not that many!&quot;</span>
+	<span class=cmd>If</span> guess=sheep <span class=cmd>Then</span> <span class=cmd>Exit</span>
+<span class=cmd>Wend</span>
+
+<span class=cmd>If</span> turnsleft=0 <span class=cmd>Then</span> <span class=cmd>Print</span> <span class=str>&quot;game over dude&quot;</span> <span class=cmd>Else</span> <span class=cmd>Print</span> <span class=str>&quot;good guess!&quot;</span>
+</pre></div>
+<P>The other method of conditional execution in BlitzPlus is the Select..Case commands. The
+following code illustrates using Select with a BlitzPlus variable and then listing in Case
+statements different values the code is programmed to recoginze. Note the use of the Default
+statement to manage any values not handled by preceeding Case statements.
+<div class=code><pre>
+<pre>
+<span class=rem>; selectcase.bb</span>
+
+favourite$=<span class=cmd>Input</span>(<span class=str>&quot;what's your favourite color? &quot;</span>)
+favourite=<span class=cmd>Lower</span>(favourite) <span class=rem>; convert to lower case for testing</span>
+
+<span class=cmd>Select</span> favourite
+	<span class=cmd>Case</span> <span class=str>&quot;blue&quot;</span> 
+		<span class=cmd>Print</span> <span class=str>&quot;mine too!&quot;</span>
+	<span class=cmd>Case</span> <span class=str>&quot;purple&quot;</span>,<span class=str>&quot;red&quot;</span>
+		<span class=cmd>Print</span> <span class=str>&quot;nice!&quot;</span>
+	<span class=cmd>Default</span>
+		<span class=cmd>Print</span> <span class=str>&quot;sorry I don't know that color&quot;</span>
+<span class=cmd>End</span> <span class=cmd>Select</span>
+  
+</pre></div>
+<P>Note above how the Case command can list several values to match with the variable
+passed in the preceeding Select. 
+<P>The following code fragment illustrates a more powerful use of the BlitzPlus's Select..Case
+statements using the Select True method. Using this syntax, each Case statement contains a
+certain condition. This technique is a very powerful way of managing complex input.
+<div class=code><pre>
+<pre>
+<span class=rem>; selecttrue code snippet</span>
+
+age=<span class=cmd>Input</span>(<span class=str>&quot;What is your age? &quot;</span>)
+
+<span class=cmd>Select</span> <span class=cmd>True</span>
+	<span class=cmd>Case</span> 0
+		<span class=cmd>Print</span> <span class=str>&quot;Error, input is not acceptable!&quot;</span>	
+	<span class=cmd>Case</span> age&lt;5
+		<span class=cmd>Print</span> <span class=str>&quot;<span class=cmd>And</span> you can read? Excellent!&quot;</span>
+	<span class=cmd>Case</span> age&lt;15
+		<span class=cmd>Print</span> <span class=str>&quot;Greetings Padawan&quot;</span>
+	<span class=cmd>Default</span>
+		<span class=cmd>Print</span> <span class=str>&quot;You must be getting on...&quot;</span>
+<span class=cmd>End</span> <span class=cmd>Select</span>
+</pre></div>
+<P>The For..Next commands allow an easy way for BlitzPlus programs to execute the same code
+multiple times.
+<P>The While..Wend and Repeat..Until (or Forever) are alternative methods of controlling
+program flow in BlitzPlus.
+<P>Finally BlitzPlus supports the traditional BASIC Goto and Gosub commands. Instead of using
+line numbers to calculate the position in your code for the program to jump to BlitzPlus requires
+the use of labels. A BlitzPlus label can be any word preceeded by a dot. 
+<div class=code><pre>
+<pre>
+<span class=rem>; endless loop</span>
+.top
+<span class=cmd>Print</span> <span class=str>&quot;Hello World!&quot;</span>
+<span class=cmd>Goto</span> top
+</pre></div>
+<div class=code><pre>
+<pre>
+<span class=rem>; gosub example</span>
+
+<span class=cmd>Goto</span> main	<span class=rem>;jump over subroutine definitions</span>
+
+.myroutine
+<span class=cmd>Print</span> <span class=str>&quot;executing my routine!&quot;</span>
+<span class=cmd>Return</span>
+
+.main
+<span class=cmd>Gosub</span> myroutine
+<span class=cmd>Gosub</span> myroutine
+</pre></div>
+<h3><a name=1.4>1.4 Functions</a></h3>
+<P>BlitzPlus user functions provide both a superior alternative to program flow control than that
+provided by Goto and Gosub and a powerful way to manage complex programs.
+<P>Inside a BlitzPlus function only variables declared as Global (including all arrays) and those 
+declared inside the function (local variables) are accessible.
+<P>The benefit of local variables is that the same variable name used elsewhere in another function 
+will not be inadvertently affected as local variables are unique to the Function being executed at
+the time.
+<P>
+<h3><a name=1.5>1.5 Types</a></h3>
+<P>This section coming soon!
+
+<h2><a name=2>2 GUI</a></h2>
+<P>GUI stands for Graphics User Interface. In terms of BlitzPlus this includes a standardized collection
+of Windows and Gadget commands and an Event system in order to receive the various input data the user
+will generate while using your BlitzPlus application.
+
+<h3><a name=2.1>2.1 Events</a></h3>
+<P>At the heart of any BlitzPlus application is an event handler.
+<P>Using the WaitEvent command the event handler's job is to analyze the various data being
+generated by the user and call the relevant routine in your BlitzPlus program.
+
+<table border="1" width="92%">
+<tr>
+<td><b>Event Name</b><td><b>EventID</b><td><b>User Action</b><td><b>EventData</b><td><b>EventSource</b>
+<tr>
+<td>KeyDown<td>$101<td>pressed a key down on the keyboard<td>The key's raw scancode<td>&nbsp;
+<tr>
+<td>KeyUp<td>$102<td>released a key on the keyboard<td>The key's raw scancode<td>&nbsp;
+<tr>
+<td>KeyStroke<td>$103<td>typed a key<td>The key's ascii value<td>&nbsp;
+<tr>
+<td>MouseDown<td>$201<td>pressed a mouse button<td>Which Button (1=left 2=right 3=middle)<td>&nbsp;
+<tr>
+<td>MouseUp<td>$202<td>released a mouse button<td>Which Button (1=left 2=right 3=middle)<td>&nbsp;
+<tr>
+<td>MouseMove<td>$203<td>moved the mouse over a Canvas gadget<td>use EventX() and EventY() commands<td>Canvas handle
+<tr>
+<td>GadgetAction<td>$401<td>interacted with a BlitzPlus gadget<td>specific to type of gadget<td>gadget handle
+<tr>
+<td>WindowMove<td>$801<td>moved a window<td>EventX() and EventY() provide new position<td>window handle
+<tr>
+<td>WindowSize<td>$802<td>changed the size of a window<td>EventX() and EventY() provide new size<td>window handle
+<tr>
+<td>WindowClose<td>$803<td>closed a window<td>&nbsp;<td>window handle
+<tr>
+<td>WindowActivate<td>$804<td>selected a window<td>&nbsp;<td>window handle
+<tr>
+<td>MenuEvent<td>$1001<td>selected from a BlitzPlus menu<td>menu identifier<td>&nbsp;
+<tr>
+<td>AppSuspend<td>$2001<td>switched to another program<td>&nbsp;<td>&nbsp;
+<tr>
+<td>AppResume<td>$2002<td>switched back to BlitzPlus program<td>&nbsp;<td>&nbsp;
+<tr>
+<td>TimerTick<td>$4001<td>a timer message&nbsp;<td>tick count<td>timer handle
+</table>
+
+<P>The following code demonstrates a basic event handler in BlitzPlus:
+<div class=code><pre>
+<pre>
+<span class=rem>; eventhandler.bb</span>
+
+window=<span class=cmd>CreateWindow</span>(<span class=str>&quot;Event <span class=cmd>Handle</span>r Example&quot;</span>,20,20,200,200)
+
+<span class=cmd>Repeat</span>
+	id=<span class=cmd>WaitEvent</span>()
+	<span class=cmd>Select</span> id
+		<span class=cmd>Case</span> $801:<span class=cmd>SetStatusText</span> window,<span class=str>&quot;Window Moved&quot;</span>		
+		<span class=cmd>Case</span> $802:<span class=cmd>SetStatusText</span> window,<span class=str>&quot;Window Sized&quot;</span>
+		<span class=cmd>Case</span> $803:<span class=cmd><span class=cmd>Not</span>ify</span> <span class=str>&quot;Received WindowClose Event&quot;</span>:<span class=cmd>End</span>
+		<span class=cmd>Case</span> $804:<span class=cmd>SetStatusText</span> window,<span class=str>&quot;WindowActivate&quot;</span>
+		<span class=cmd>Case</span> $805:<span class=cmd>SetStatusText</span> window,<span class=str>&quot;WindowDeActivate&quot;</span>
+	<span class=cmd>End</span> <span class=cmd>Select</span>
+<span class=cmd><span class=cmd>For</span>ever</span>
+</pre></div>
+<P>Inside the Repeat Forever commands we find a call to WaitEvent(). This command waits for an Event
+to be generated, either by the user or alternately a Timer. The WaitEvent command itself can accept a
+timeout parameter which can be used to detect when a user has ignored the program for a certain time
+or as a quick and dirty alternative to using BlitzPlus timers.
+<P>The above code uses the Select Case commands to list various actions when the user moves, sizes or
+closes a Window. 
+<P>
+<P>The WaitEvent command is usually used with no parameters meaning it will wait patiently / indefinately 
+for user or timer input. If a timeout period is specified and no event occurs within the specified timeout,
+WaitEvent returns 0.
+
+<div class=cmd id=WaitEvent>
+<h3>WaitEvent</h3>
+<p>WaitEvent waits for an event and returns its id.
+<p>WaitEvent( [timeout] )
+<p>timeout - How long waitevent should wait, in milliseconds.
+<p>If no event occurs within the specified timeout, WaitEvent returns 0.<p>If the timeout parameter is omitted, WaitEvent waits indefinitely.
+</div><p>
+<div class=cmd id=EventData>
+<h3>EventData</h3>
+<p>Returns event specific data that depends upon the last event received.
+<p>For example, if the last event received was a keystroke event, EventData will return the ascii code of the keystroke.
+</div><p>
+<div class=cmd id=EventX>
+<h3>EventX</h3>
+<p>Returns extra event specific information.
+<p>For example, in the case of a mouse movement event, EventX returns the new mouse X coordinate.
+</div><p>
+<div class=cmd id=EventY>
+<h3>EventY</h3>
+<p>Returns extra event specific information.
+<p>For example, in the case of a mouse movement event, EventY returns the new mouse Y coordinate.
+</div><p>
+<div class=cmd id=EventSource>
+<h3>EventSource</h3>
+<p>Returns a value indicating the source of the event.
+<p>For example, in the case of gadget action events, EventSource returns the handle of the gadget that caused the event.
+</div><p>
+<div class=cmd id=EventID>
+<h3>EventID</h3>
+<p>Returns the id of the last event received by WaitEvent.
+</div><p>
+<div class=cmd id=PeekEvent>
+<h3>PeekEvent</h3>
+<p>PeekEvent checks if an event is available and, if so, returns its id.
+<p>If no event is available, PeekEvent returns 0.<p>Note that PeekEvent event does not update the other event functions such as EventID or EventData.
+</div><p>
+<div class=cmd id=FlushEvents>
+<h3>FlushEvents</h3>
+<p>Flushes (discards) all incoming events with the specified id.
+<p>FlushEvents id
+<p>id - An integer event identifier
+<p>This can be useful for applications that use timers and don't want to be 'flooded' by timer events<br>on slower machines.
+</div><p>
+
+<P>An alternative way of obtaining the type of event last received by WaitEvent 
+command. The EventID command is provided for more generic situations.
+<P>The PeekEvent command is for situations outside the main event handler allowing the program to
+detect any pending message without disturbing the message queue.
+<P>Note that PeekEvent does not update the other event functions such as EventID or EventData it simply
+returns the id of the next message in the queue if any.
+
+<h3><a name=2.2>2.2 Windows</a></h3>
+<P>Anyone familiar with using a computer will be familiar with the terminology of windows, menus
+and gadgets.
+<div class=cmd id=CreateWindow>
+<h3>CreateWindow</h3>
+<p>CreateWindow creates a window gadget and returns a handle to it.
+<p>CreateWindow( title$,x,y,width,height[,group[,style]] )
+<p>title$ - Initial title text of the window<br>x,y,width,height - Initial shape of the window<br>group - An optional group gadget handle<br>style - Optional style flags
+<p>If the group parameter is omitted, the window is created on the desktop.<p>Flags can be any combination of:<p>1 - The window has a title bar<br>2 - The window is resizable<br>4 - The window has a menu<br>8 - The window has a status bar<br>16 - The window is a 'tool' window<br>32 - The window shape is in 'client coordinates'<p>The default style is '15' - a resizable window with title bar, menu and status bar.<p>Tool windows are special windows with a smaller title bar that do not appear in the task bar.
+</div><p>
+<P>As you can see from the CreateWindow command description, BlitzPlus allows a
+variety of window styles to be used when openning windows on the user's desktop.
+<P>Note how the child window Number2 is always in front of it's parent.
+<P>Usually a window's shape and size is recorded by an application in variables
+which then persist in a .ini file somewhere (File Handling chapter is coming).
+<P>For situations where a nice centered window is the choice of the day try this
+user function on for size:
+<div class=code><pre>
+<pre>
+<span class=rem>; Convenience function to open a centered window on the desktop...</span>
+
+<span class=cmd>Function</span> CenterWindow(title$,width,height,group=0,style=15)
+	x=(<span class=cmd>ClientWidth</span>(<span class=cmd>Desktop</span>())-width)/2
+	y=(<span class=cmd>ClientHeight</span>(<span class=cmd>Desktop</span>())-height)/2
+	<span class=cmd>Return</span> <span class=cmd>CreateWindow</span> (title$,x,y,width,height,group,style)
+<span class=cmd>End</span> <span class=cmd>Function</span>
+
+CenterWindow(<span class=str>&quot;Center Of Attention&quot;</span>,320,240)
+</pre></div>
+<P>The following commands afford the BlitzPlus extra control of the windows in their application:
+<div class=cmd id=MaximizeWindow>
+<h3>MaximizeWindow</h3>
+<p>Maximizes the specified window.
+<p>MaximizeWindow window
+<p>window - A window gadget handle
+<p>This causes the window to be reshaped to fill the entire desktop.
+</div><p>
+<div class=cmd id=MinimizeWindow>
+<h3>MinimizeWindow</h3>
+<p>Minimizes the specified window.
+<p>MinimizeWindow window
+<p>window - A window gadget handle
+<p>This causes the window to be iconified on the taskbar.
+</div><p>
+<div class=cmd id=WindowMaximized>
+<h3>WindowMaximized</h3>
+<p>Returns true if the specified window is currently maximized.
+<p>WindowMaximized( window )
+<p>window - A window gadget handle
+</div><p>
+<div class=cmd id=WindowMinimized>
+<h3>WindowMinimized</h3>
+<p>Returns true if the specified window is currently minimized.
+<p>WindowMinimized( window )
+<p>window - A window gadget handle
+</div><p>
+<div class=cmd id=SetStatusText>
+<h3>SetStatusText</h3>
+<p>SetStatusText sets the text to appear in the status bar area of a window.
+<p>SetStatusText window,text$
+<p>window - A window gadget handle<br>text$ - A string to appear in the window's status bar
+<p>The window must have been created with the appropriate status bar style.
+</div><p>
+<div class=cmd id=ActivateWindow>
+<h3>ActivateWindow</h3>
+<p>Activates the specified window.
+<p>ActivateWindow window
+<p>window - A window gadget handle
+</div><p>
+<div class=cmd id=ActiveWindow>
+<h3>ActiveWindow</h3>
+<p>Returns the currently active window.
+</div><p>
+<div class=cmd id=SetMinWindowSize>
+<h3>SetMinWindowSize</h3>
+<p>Sets the minimum size of a window.
+<p>SetMinWindowSize window[,width,height]
+<p>window - A window gadget handle<br>width,height - optional size specifier
+<p>If width and height are omitted, the minimum size is set the window's current size.
+</div><p>
+
+<h3><a name=2.3>2.3 Menus and ToolBars</a></h3>
+<P>The first place a user looks to get an idea of the featureset of your application is
+it's menu.
+<P>The CreateMenu command is responsible for creating both the top level menus like
+File and Edit and the items in those menus.
+<P>Top level menus must be parented themselves to the identity that is returned by 
+WindowMenu().
+<div class=cmd id=CreateMenu>
+<h3>CreateMenu</h3>
+<p>CreateMenu creates a new menu and attaches it to the specified parent menu.
+<p>CreateMenu( text$,menu_id,parent )
+<p>text$ - Initial text for the menu<br>menu_id - User defined integer identifier<br>parent - A menu handle
+<p>'Top level' window menus (for example, the 'File' and 'Edit' menus found in many applications) should be attached to the menu returned by the WindowMenu command.
+</div><p>
+<div class=cmd id=WindowMenu>
+<h3>WindowMenu</h3>
+<p>Returns the menu associated with the specified window.
+<p>This is the menu to which all 'top level' window menus (for example, the 'File' and 'Edit' menus found in many applications) should be attached.
+</div><p>
+<div class=cmd id=UpdateWindowMenu>
+<h3>UpdateWindowMenu</h3>
+<p>UpdateWindowMenu must be used after any of the following commands have been executed in order for their effect to be realised: SetMenuText, EnableMenu, DisableMenu, CheckMenu, UncheckMenu.
+<p>UpdateWindowMenu window
+<p>window - A window handle
+<p>If you are executing a series of these commands, it is only necessary to execute UpdateWindowMenu once at the end.
+</div><p>
+<P>BlitzPlus menu events have an ID of $1001. The following code illustrates how to
+process menu events by comparing the EventData() when a menu event is received by the
+WaitEvent command with the constants assigned various menu items.
+<div class=code><pre>
+<pre>
+<span class=rem>; menus.bb</span>
+
+<span class=cmd>AppTitle</span> <span class=str>&quot;BlitzPlus Menu Demo&quot;</span>
+
+<span class=rem>; menu constants for event processing</span>
+
+<span class=cmd>Const</span> FILELOAD=1
+<span class=cmd>Const</span> FILESAVE=2
+<span class=cmd>Const</span> FILEQUIT=3
+<span class=cmd>Const</span> HELPABOUT=4
+
+<span class=rem>; open a window so we can show off our menu</span>
+
+window=<span class=cmd>CreateWindow</span>(<span class=str>&quot;BlitzPlus&quot;</span>,40,40,400,400)
+
+<span class=rem>; create the menu</span>
+
+menu=<span class=cmd>WindowMenu</span>(window)
+file=<span class=cmd>CreateMenu</span>(<span class=str>&quot;File&quot;</span>,0,menu)
+<span class=cmd>CreateMenu</span> <span class=str>&quot;Load&quot;</span>,FILELOAD,file
+<span class=cmd>CreateMenu</span> <span class=str>&quot;Save&quot;</span>,FILESAVE,file
+<span class=cmd>CreateMenu</span> <span class=str>&quot;Quit&quot;</span>,FILEQUIT,file
+help=<span class=cmd>CreateMenu</span>(<span class=str>&quot;Help&quot;</span>,0,menu)
+<span class=cmd>CreateMenu</span> <span class=str>&quot;About&quot;</span>,HELPABOUT,help
+
+<span class=cmd>UpdateWindowMenu</span> window
+
+<span class=cmd>Repeat</span>
+	<span class=cmd>Select</span> <span class=cmd>WaitEvent</span>()
+	
+		<span class=cmd>Case</span> $1001	<span class=rem>;menu event</span>
+			<span class=cmd>Select</span> <span class=cmd>EventData</span>()
+				<span class=cmd>Case</span> FILELOAD:
+					filename=<span class=cmd>RequestFile</span>(<span class=str>&quot;Load File&quot;</span>,<span class=str>&quot;*.*&quot;</span>)
+				<span class=cmd>Case</span> FILESAVE:
+					filename=<span class=cmd>RequestFile</span>(<span class=str>&quot;Save File&quot;</span>,filename,<span class=cmd>True</span>)
+				<span class=cmd>Case</span> FILEQUIT:
+					<span class=cmd>End</span>
+				<span class=cmd>Case</span> HELPABOUT
+					<span class=cmd><span class=cmd>Not</span>ify</span> <span class=str>&quot;selecting About = user interest&quot;</span>
+			<span class=cmd>End</span> <span class=cmd>Select</span>		
+	
+		<span class=cmd>Case</span> $803	<span class=rem>;close window event</span>
+			<span class=cmd>End</span>
+	<span class=cmd>End</span> <span class=cmd>Select</span>
+<span class=cmd><span class=cmd>For</span>ever</span>
+
+</pre></div>
+<P>The following commands give the BlitzPlus programmer extra control of their menu
+properties.
+<div class=cmd id=SetMenuText>
+<h3>SetMenuText</h3>
+<p>SetMenuText allows you to change the text of an existing menu.
+<p>SetMenuText menu,text$
+<p>menu - A menu handle<br>text$ - New text for the window
+<p>After calling SetMenuText, make sure you call UpdateWindowMenu to cause the change to take effect.
+</div><p>
+<div class=cmd id=EnableMenu>
+<h3>EnableMenu</h3>
+<p>EnableMenu enables a menu.
+<p>EnableMenu menu
+<p>menu - A menu handle
+<p>A disabled menu will not generate any menu events, and its appearance will be altered to indicate that it is unselectable.<p>After calling EnableMenu, make sure you call UpdateWindowMenu to cause the change to take effect.
+</div><p>
+<div class=cmd id=DisableMenu>
+<h3>DisableMenu</h3>
+<p>DisableMenu disables a menu.
+<p>DisableMenu menu
+<p>menu - A menu handle
+<p>A disabled menu will not generate any menu events, and its appearance will be altered to indicate that it is unselectable.<p>After calling DisableMenu, make sure you call UpdateWindowMenu to cause the change to take effect.
+</div><p>
+<div class=cmd id=MenuEnabled>
+<h3>MenuEnabled</h3>
+<p>MenuEnabled returns True if the specified menu is currently enabled, or False if it is not.
+<p>MenuEnabled( menu )
+<p>menu - A menu handle
+</div><p>
+<div class=cmd id=CheckMenu>
+<h3>CheckMenu</h3>
+<p>CheckMenu causes a menu to become 'checked'.
+<p>CheckMenu menu
+<p>menu - A menu handle
+<p>A checked menu appears with a little 'tick' mark next to it, and is often used to indicate whether a particular program feature is enabled or not.<p>After calling CheckMenu, make sure you call UpdateWindowMenu to cause the change to take effect.
+</div><p>
+<div class=cmd id=UncheckMenu>
+<h3>UncheckMenu</h3>
+<p>UncheckMenu causes a menu to become 'unchecked'.
+<p>UncheckMenu menu
+<p>menu - A menu handle
+<p>A checked menu appears with a little 'tick' mark next to it, and is often used to indicate whether a particular program feature is enabled or not.<p>After calling UncheckMenu, make sure you call UpdateWindowMenu to cause the change to take effect.
+</div><p>
+<div class=cmd id=MenuChecked>
+<h3>MenuChecked</h3>
+<p>MenuChecked returns True if the specified menu is currently checked, or False if it is not.
+<p>MenuChecked( menu )
+<p>menu - A menu handle
+</div><p>
+<h4>ToolBars</h4>
+<P>ToolBars are a simple and effective way of providing menu shortcuts with a collection
+of images layed out in a single image file.
+<div class=code><pre>
+<pre>
+<span class=rem>; toolbars.bb</span>
+
+window=<span class=cmd>CreateWindow</span>(<span class=str>&quot;My Window&quot;</span>,40,40,400,400)
+toolbar=<span class=cmd>CreateToolBar</span>(<span class=str>&quot;toolbar.bmp&quot;</span>,0,0,300,32,window)
+
+
+</pre></div>
+<P>There are BlitzPlus commands to enable and disable items in the toolbar as well as
+adding helpful tips - messages that are shown when the user moves the mouse over a
+toolbar.
+<div class=cmd id=CreateToolBar>
+<h3>CreateToolBar</h3>
+<p>CreateToolBar creates a toolbar gadget and returns a handle to it.
+<p>CreateToolBar( image$,x,y,width,height,group )
+<p>image$ - A bitmap image file<br>x,y,width,height - Initial shape of the toolbar<br>group - A group gadget handle
+<p>A toolbar is a horizontal strip of small buttons which the user can click.<p>The image parameter specifies a bitmap file that describes the appearance of the toolbar's buttons.<p>Button images in an image file should be exactly square, and packed horizontally across the bitmap.<p>The number of buttons is automatically determined by dividing the image width by its height.<p>The very top left pixel color of the image determines the transparent color of the toolbar.<p>Toolbars generate a gadget action event when the user clicks on a toolbar button. When a gadget action<br>event is received, the EventData function can be used to determine the actual button clicked, with 0 indicating<br>the left most button, 1 the next button and so on.
+</div><p>
+<div class=cmd id=EnableToolBarItem>
+<h3>EnableToolBarItem</h3>
+<p>EnableToolBarItem and DisableToolBarItem allow you to enable and disable individual toolbar buttons.
+<p>EnableToolBarItem toolbar,index
+<p>toolbar - A toolbar handle<br>index - index of the item to enable
+<p>Disabled toolbar buttons appear as 'ghosted', and do not generate any gadget action events.
+</div><p>
+<div class=cmd id=DisableToolBarItem>
+<h3>DisableToolBarItem</h3>
+<p>EnableToolBarItem and DisableToolBarItem allow you to enable and disable individual toolbar buttons.
+<p>DisableToolBarItem toolbar,index
+<p>toolbar - A toolbar handle<br>index - index of the item to enable
+<p>Disabled toolbar buttons appear as 'ghosted', and do not generate any gadget action events.
+</div><p>
+<div class=cmd id=SetToolBarTips>
+<h3>SetToolBarTips</h3>
+<p>SetToolBarTips allows you attach textual 'tips' to toolbar buttons.
+<p>SetToolBarTips toolbar,tips$
+<p>toolbar - A toolbar handle<br>tips$ - The 'tips' to set for the toolbar
+<p>Toolbar tips appear as small rectangular popups when the mouse pointer is held over a toolbar button for about a second. Their purpose is to let the user know what those buttons really mean!
+</div><p>
+
+<h3><a name=2.4>2.4 Gadgets</a></h3>
+<P>BlitzPlus provides a selection of gadget types to construct GUI styled 
+applications. 
+<dl>
+<dt>Window<dd>A container type gadget with a title bar and optional user resizing, menus and toolbars. 
+<dt>Panel<dd>A container type, clips it's children and programmable background color or image.
+<dt>ListBox<dd>A list type gadget
+<dt>ComboBox<dd>A pull down list view.
+<dt>Tabber<dd>A container and list type, with each tab an item. 
+<dt>Canvas<dd>A gadget for drawing on using the feature rich BlitzPlus 2D graphics commands.
+<dt>Slider<dd>A scroll gadget.
+<dt>Label<dd>A non interactive (read only) text gadget.
+<dt>TextField<dd>A single line text entry gadget.
+<dt>TextArea<dd>A multiline text entry gadget.
+<dt>TreeView<dd>A hierachial gadget or as the name says, a tree view.
+<dt>ProgBar<dd>A progress bar.
+<dt>HTMLView<dd>A hypertext gadget. 
+<dt>DeskTop<dd>A gadget representing the user's desktop.
+</dl>
+
+<h4>Common Gadget Commands</h4>
+<P>The following BlitzPlus commands can be used with most BlitzPlus gadget types. 
+<div class=cmd id=FreeGadget>
+<h3>FreeGadget</h3>
+<p>FreeGadget removes a gadget and releases the resources it uses.
+<p>FreeGadget gadget
+<p>gadget - A gadget handle
+</div><p>
+<div class=cmd id=SetGadgetText>
+<h3>SetGadgetText</h3>
+<p>SetGadgetText changes the current text of a gadget.
+<p>SetGadgetText gadget,text$
+<p>gadget - A gadget handle<br>text$ - New text for the gadget
+<p>Note that this command only affects gadgets that actually contain text!
+</div><p>
+<div class=cmd id=ActivateGadget>
+<h3>ActivateGadget</h3>
+<p>Activates the specified gadget.
+<p>ActivateGadget gadget
+<p>gadget - A gadget handle
+<p>Activating a gadget means the users keyboard input will be sent to the specified gadget for processing. This is mostly useful for gadgets like textfields and textareas.
+</div><p>
+<div class=cmd id=ShowGadget>
+<h3>ShowGadget</h3>
+<p>Shows the specified gadget.
+<p>ShowGadget gadget
+<p>gadget - a gadget handle
+<p>If the gadget is a group gadget, its children are shown.
+</div><p>
+<div class=cmd id=HideGadget>
+<h3>HideGadget</h3>
+<p>Hides the specified gadget.
+<p>HideGadget gadget
+<p>gadget - a gadget handle
+<p>If the gadget is a group gadget, its children are hidden.
+</div><p>
+<div class=cmd id=EnableGadget>
+<h3>EnableGadget</h3>
+<p>Enables the spcified gadget.
+<p>EnableGadget gadget
+<p>gadget - a gadget handle
+</div><p>
+<div class=cmd id=DisableGadget>
+<h3>DisableGadget</h3>
+<p>Disables the specified gadget. This means the user will not be able to manipulate the gadget, and the gadget will not generate any action events.
+<p>DisableGadget gadget
+<p>gadget - a gadget handle
+</div><p>
+
+<h4>Gadget Alignment</h4>
+<P>All BlitzPlus gadgets can be resized after their creation using the 
+SetGadgetShape command.
+<div class=cmd id=SetGadgetShape>
+<h3>SetGadgetShape</h3>
+<p>SetGadgetShape allows you to change the position and size of a gadget.
+<p>SetGadgetShape gadget,x,y,width,height
+<p>gadget - A gadget handle<br>x,y,width,height - New gadget shape
+</div><p>
+<P>The previous scrollcanvas code also illustrates the use of some
+slightly more advanced positioning techniques using the SetGadgetLayout
+command to acommadate the freedom the user has to change the size of the
+window.
+<div class=cmd id=SetGadgetLayout>
+<h3>SetGadgetLayout</h3>
+<p>SetGadgetLayout lets you control the automatic layout of a gadget when a window is resized
+<p>SetGadgetLayout gadget,left,right,top,bottom
+<p>gadget - A gadget handle<br>left,right,top,bottom - Integer alignment flags
+<p>by the user.<p>Each alignment flag corresponds to an edge of the gadget, and indicates how that edge is to be<br>aligned with respect to the corresponding edge of its group.<p>0 - The edge of the gadget is free to move.<br>1 - The edge of the gadget is 'locked' in place.<br>2 - The edge of the gadget 'floats' proportionally.
+</div><p>
+<P>A gadgets current shape can be determined with the following BlitzPlus
+commands:
+<div class=cmd id=GadgetX>
+<h3>GadgetX</h3>
+<p>GadgetX returns the current X (horizontal) position of a gadget relative to its group's client area.
+<p>GadgetX( gadget )
+<p>gadget - A gadget handle
+</div><p>
+<div class=cmd id=GadgetY>
+<h3>GadgetY</h3>
+<p>GadgetX returns the current Y (vertical) position of a gadget relative to its group's client area.
+<p>GadgetY( gadget )
+<p>gadget - A gadget handle
+</div><p>
+<div class=cmd id=GadgetWidth>
+<h3>GadgetWidth</h3>
+<p>GadgetWidth returns the current width of a gadget.
+<p>GadgetWidth( gadget )
+<p>gadget - A gadget handle
+</div><p>
+<div class=cmd id=GadgetHeight>
+<h3>GadgetHeight</h3>
+<p>GadgetHeight returns the current height of a gadget.
+<p>GadgetHeight( gadget )
+<p>gadget - A gadget handle
+</div><p>
+<div class=cmd id=ClientWidth>
+<h3>ClientWidth</h3>
+<p>ClientWidth returns the width of the client area of the specified group gadget.
+<p>ClientWidth( gadget )
+<p>gadget - A group gadget handle
+<p>The client area means the area inside a group gadget – not including the border – where you can place child gadgets.
+</div><p>
+<div class=cmd id=ClientHeight>
+<h3>ClientHeight</h3>
+<p>ClientHeight returns the height of the client area of the specified group gadget.
+<p>ClientHeight( gadget )
+<p>gadget - A group gadget handle
+<p>The client area means the area 'inside' the group gadget – not including the border – where you can place child gadgets.
+</div><p>
+
+<h4>Panels</h4>
+<P>Panels are a container type useful as they clip their children gadgets
+and feature background color and image settings.
+<div class=cmd id=CreatePanel>
+<h3>CreatePanel</h3>
+<p>CreatePanel creates a panel gadget and returns a handle to it.
+<p>CreatePanel( x,y,width,height,group )
+<p>x,y,width,height - Initial shape of the panel<br>group - Group the panel belongs to
+<p>A panel gadget is a simple grouping gadget that is usually used to contain or 'clip' child gadgets.
+</div><p>
+<div class=cmd id=SetPanelImage>
+<h3>SetPanelImage</h3>
+<p>SetPanelImage allows you to select a background bitmap image for a panel gadget.
+<p>SetPanelImage panel,file$
+<p>panel - A panel gadget handle<br>file$ - An image filename
+<p>The image is tiled if necessary to fill the entire client area of the panel.
+</div><p>
+<div class=cmd id=SetPanelColor>
+<h3>SetPanelColor</h3>
+<p>SetPanelColor allows you to select a background color for a panel gadget.
+<p>SetPanelColor panel,red,green,blue
+<p>panel - A panel gadget handle<br>red,green,blue - A color value with components in the range 0 to 255.
+</div><p>
+
+<h4>Gadget Groups</h4>
+<p>The primary BlitzPlus gadget is the Window. The Window is also one
+of four BlitzPlus gadgets that can be used to group or parent other
+BlitzPlus gadgets.
+<P>The other three are the Panel, Canvas and Tabber gadgets.
+<P>The following code illustrates the use of a Window that contains a
+Panel object that contains a Canvas object, allowing BlitzPlus to scroll 
+and clip a Canvas.
+<div class=code><pre>
+<pre>
+<span class=rem>;scrollcanvas.bb</span>
+
+<span class=rem>;create main window</span>
+window=<span class=cmd>CreateWindow</span>( <span class=str>&quot;Scrolly canvas - use mouse to paint&quot;</span>,0,0,400,300 )
+
+<span class=rem>;create horizontal slider</span>
+hslider=<span class=cmd>CreateSlider</span>( 0,<span class=cmd>ClientHeight</span>(window)-16,<span class=cmd>ClientWidth</span>(window)-16,16,window,1 )
+<span class=cmd>SetGadgetLayout</span> hslider,1,1,0,1
+
+<span class=rem>;create vertical slider</span>
+vslider=<span class=cmd>CreateSlider</span>( <span class=cmd>ClientWidth</span>(window)-16,0,16,<span class=cmd>ClientHeight</span>(window)-16,window,2 )
+<span class=cmd>SetGadgetLayout</span> vslider,0,1,1,1
+
+<span class=rem>;create panel to clip canvas</span>
+panel=<span class=cmd>CreatePanel</span>( 0,0,<span class=cmd>ClientWidth</span>(window)-16,<span class=cmd>ClientHeight</span>(window)-16,window )
+<span class=cmd>SetGadgetLayout</span> panel,1,1,1,1
+
+<span class=rem>;create canvas</span>
+canvas=<span class=cmd>CreateCanvas</span>( 0,0,640,480,panel )
+<span class=cmd>SetGadgetLayout</span> canvas,1,0,1,0
+<span class=cmd>SetBuffer</span> <span class=cmd>CanvasBuffer</span>(canvas)
+
+<span class=rem>;draw a simple border</span>
+<span class=cmd>Color</span> 255,0,0
+<span class=cmd>Rect</span> 0,0,<span class=cmd>GadgetWidth</span>(canvas),8
+<span class=cmd>Rect</span> 0,0,8,<span class=cmd>GadgetHeight</span>(canvas)
+<span class=cmd>Rect</span> <span class=cmd>GadgetWidth</span>(canvas)-8,0,8,<span class=cmd>GadgetHeight</span>(canvas)
+<span class=cmd>Rect</span> 0,<span class=cmd>GadgetHeight</span>(canvas)-8,<span class=cmd>GadgetWidth</span>(canvas),8
+
+<span class=cmd>Color</span> 255,255,255
+
+<span class=rem>;setup sliders</span>
+<span class=cmd>SetSliderRange</span> hslider,<span class=cmd>ClientWidth</span>(panel),<span class=cmd>GadgetWidth</span>(canvas)
+<span class=cmd>SetSliderRange</span> vslider,<span class=cmd>ClientHeight</span>(panel),<span class=cmd>GadgetHeight</span>(canvas)
+
+<span class=cmd>While</span> <span class=cmd>WaitEvent</span>()&lt;&gt;$803
+
+	<span class=cmd>Select</span> <span class=cmd>EventID</span>()
+	<span class=cmd>Case</span> $401	<span class=rem>;gadget action</span>
+		<span class=rem>;slider moved! reposition canvas</span>
+		<span class=cmd>SetGadgetShape</span> canvas,-<span class=cmd>SliderValue</span>(hslider),-<span class=cmd>SliderValue</span>(vslider),<span class=cmd>GadgetWidth</span>(canvas),<span class=cmd>GadgetHeight</span>(canvas)
+	<span class=cmd>Case</span> $201	<span class=rem>;mouse down</span>
+		mouse_down=<span class=cmd>True</span>
+	<span class=cmd>Case</span> $202	<span class=rem>;mouse up</span>
+		mouse_down=<span class=cmd>False</span>
+	<span class=cmd>Case</span> $802	<span class=rem>;mouse move</span>
+		<span class=rem>;adjust slider ranges and reposition canvas</span>
+		<span class=cmd>SetSliderRange</span> hslider,<span class=cmd>ClientWidth</span>(panel),<span class=cmd>GadgetWidth</span>(canvas)
+		<span class=cmd>SetSliderRange</span> vslider,<span class=cmd>ClientHeight</span>(panel),<span class=cmd>GadgetHeight</span>(canvas)
+		<span class=cmd>SetGadgetShape</span> canvas,-<span class=cmd>SliderValue</span>(hslider),-<span class=cmd>SliderValue</span>(vslider),<span class=cmd>GadgetWidth</span>(canvas),<span class=cmd>GadgetHeight</span>(canvas)
+	<span class=cmd>End</span> <span class=cmd>Select</span>
+	
+	mx=<span class=cmd>MouseX</span>(canvas)
+	my=<span class=cmd>MouseY</span>(canvas)
+	
+	<span class=cmd>SetStatusText</span> window,mx+<span class=str>&quot;,&quot;</span>+my
+	<span class=cmd>If</span> mouse_down
+		<span class=cmd>Line</span> px,py,mx,my
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	px=mx:py=my
+	
+	<span class=cmd><span class=cmd>Flip</span>Canvas</span> canvas
+	
+<span class=cmd>Wend</span>
+
+<span class=cmd>End</span>
+</pre></div>
+
+<h4>List Gadgets</h4>
+<P>BlitzPlus support various gadgets that contain lists of items.
+<div class=cmd id=CreateListBox>
+<h3>CreateListBox</h3>
+<p>CreateListBox creates a listbox gadget and returns its handle.
+<p>CreateListBox( x,y,width,height,group )
+<p>x,y,width,height - Initial shape of the listbox gadget<br>group - A valid group gadget handle
+<p>Listbox gadgets allow you to present a list of items to the user, and allow the user to select<br>items within the list.<p>Listbox gadgets generate a gadget action event when the user changes the currently selected item.
+</div><p>
+<div class=cmd id=CreateComboBox>
+<h3>CreateComboBox</h3>
+<p>CreateComboBox creates a combobox gadget and returns its handle.
+<p>CreateComboBox( x,y,width,height,group )
+<p>x,y,width,height - Initial shape of the combobox<br>group - A group gadget handle
+</div><p>
+<div class=cmd id=CreateTabber>
+<h3>CreateTabber</h3>
+<p>CreateTabber creates a tabber gadget and returns its handle.
+<p>CreateTabber( x,y,width,height,group )
+<p>x,y,width,height - Initial shape of the tabber gadget<br>group - A group gadget handle
+</div><p>
+<P>The following commands are for performing item management:
+<div class=cmd id=AddGadgetItem>
+<h3>AddGadgetItem</h3>
+<p>Appends an item to the end of a list gadget.
+<p>AddGadgetItem gadget,item$
+<p>gadget - A list gadget handle<br>item$ - Item to add
+</div><p>
+<div class=cmd id=InsertGadgetItem>
+<h3>InsertGadgetItem</h3>
+<p>Inserts an item at any point in a list gadget.
+<p>InsertGadgetItem gadget,index,item$
+<p>gadget - A list gadget handle<br>index - Integer index at which the item is to be inserted<br>item$ - Item to insert
+</div><p>
+<div class=cmd id=RemoveGadgetItem>
+<h3>RemoveGadgetItem</h3>
+<p>Removes a single item from a list gadget.
+<p>RemoveGadgetItem gadget,index
+<p>gadget - A list gadget handle
+</div><p>
+<div class=cmd id=ClearGadgetItems>
+<h3>ClearGadgetItems</h3>
+<p>Removes all items from a list gadget.
+<p>ClearGadgetItems gadget
+<p>gadget - A list gadget handle
+</div><p>
+<div class=cmd id=CountGadgetItems>
+<h3>CountGadgetItems</h3>
+<p>Returns the number of items in a list gadget.
+<p>CountGadgetItems( gadget )
+<p>gadget - A list gadget handle
+</div><p>
+<P>The following commands allow modifications to items in a list type gadget.
+<div class=cmd id=ModifyGadgetItem>
+<h3>ModifyGadgetItem</h3>
+<p>Modifies an existing item in a list gadget.
+<p>ModifyGadgetItem gadget,index,item$
+<p>gadget - A list gadget handle
+</div><p>
+<P>The last two commands allow the BlitzPlus to select or query the current
+item selected:
+<div class=cmd id=SelectGadgetItem>
+<h3>SelectGadgetItem</h3>
+<p>Sets the specified item to be the 'current' item.
+<p>SelectGadgetItem gadget,index
+<p>gadget - A list gadget handle<br>index - Integer index of the item to select
+<p>The exact behaviour depends on the actual kind of gadget, but this typically involves the gadget moving the specified into view.
+</div><p>
+<div class=cmd id=SelectedGadgetItem>
+<h3>SelectedGadgetItem</h3>
+<p>Returns the currently selected item in a list gadget.
+<p>SelectedGadgetItem( gadget )
+<p>gadget - A list gadget handle
+<p>This is usually done in response to a gadget action event, to determine what item the user has selected.
+</div><p>
+
+<h4>Canvas Gadget</h4>
+<P>The Canvas gadget provides a standard Blitz Buffer for rendering graphics. As 
+with the BlitzPlus fullscreen graphics modes all rendering is double buffered with
+FlipCanvas being required before previous drawing commands are made vizible on the
+screen.
+<P>The following code illustrates the use of a BlitzPlus Canvas gadget:
+<div class=code><pre>
+<pre>
+
+window=<span class=cmd>CreateWindow</span>( <span class=str>&quot;<span class=cmd>Graphics</span> window&quot;</span>,0,0,640,480 )
+
+canvas=<span class=cmd>CreateCanvas</span>( 0,0,<span class=cmd>ClientWidth</span>(window),<span class=cmd>ClientHeight</span>(window),window )
+
+<span class=cmd>SetBuffer</span> <span class=cmd>CanvasBuffer</span>(canvas)
+
+<span class=cmd>Repeat</span>
+
+	<span class=rem>;flush events..</span>
+	<span class=cmd>While</span> <span class=cmd>WaitEvent</span>(0)
+		<span class=cmd>If</span> <span class=cmd>EventID</span>()=$803 <span class=cmd>End</span>
+	<span class=cmd>Wend</span>
+	
+	<span class=cmd>Cls</span>
+	
+	<span class=cmd>For</span> x=0 <span class=cmd>To</span> <span class=cmd>GadgetWidth</span>(canvas)-1 <span class=cmd>Step</span> 32
+		<span class=cmd>For</span> y=0 <span class=cmd>To</span> <span class=cmd>GadgetHeight</span>(canvas)-1 <span class=cmd>Step</span> 32
+			<span class=cmd>Color</span> <span class=cmd>Rand</span>(255),<span class=cmd>Rand</span>(255),<span class=cmd>Rand</span>(255)
+			<span class=cmd>Rect</span> x,y,32,32
+		<span class=cmd>Next</span>
+	<span class=cmd>Next</span>
+	
+	<span class=cmd><span class=cmd>Flip</span>Canvas</span> canvas
+	
+<span class=cmd><span class=cmd>For</span>ever</span>
+</pre></div>
+<P>The Canvas related BlitzPlus commands follow:
+<div class=cmd id=CreateCanvas>
+<h3>CreateCanvas</h3>
+<p>Creates a canvas gadget and returns its handle.
+<p>CreateCanvas( x,y,width,height,group )
+<p>x,y,width,height - Initial canvas shape<br>group - Group gadget handle
+</div><p>
+<div class=cmd id=CanvasBuffer>
+<h3>CanvasBuffer</h3>
+<p>Returns the graphics buffer associated with a canvas.
+<p>CanvasBuffer( canvas )
+<p>canvas - A canvas gadget handle
+</div><p>
+<div class=cmd id=FlipCanvas>
+<h3>FlipCanvas</h3>
+<p>Flips the specified canvas so that the results of any drawing operations become visible.
+<p>FlipCanvas canvas[,vwait]
+<p>canvas - A canvas gadget handle<br>vwait - A flag indicating whether the flip should first wait for vertical blank
+<p>The optional vwait flag defaults to 'true'.
+</div><p>
+<P>Canvas gadgets also feature the ability to track and control the mouse pointer.
+<div class=cmd id=MouseX>
+<h3>MouseX</h3>
+<p>Returns the mouse x coordinate relative to the specified canvas.
+<p>MouseX( canvas )
+<p>canvas - A canvas gadget handle
+</div><p>
+<div class=cmd id=MouseY>
+<h3>MouseY</h3>
+<p>Returns the mouse y coordinate relative to the specified canvas.
+<p>MouseY( canvas )
+<p>canvas - A canvas gadget handle
+</div><p>
+<div class=cmd id=MoveMouse>
+<h3>MoveMouse</h3>
+<p>Moves the mouse to specified x,y coordinates within the specified canvas.
+<p>MoveMouse x,y,canvas
+<p>x,y - Coordinates to move the mouse to.<br>canvas - A canvas gadget handle
+</div><p>
+<div class=cmd id=MouseXSpeed>
+<h3>MouseXSpeed</h3>
+<p>Returns the x speed of the mouse relative to the specified canvas.
+<p>MouseXSpeed( canvas )
+<p>canvas - A canvas gadget handle
+</div><p>
+<div class=cmd id=MouseYSpeed>
+<h3>MouseYSpeed</h3>
+<p>Returns the y speed of the mouse relative to the specified canvas.
+<p>MouseYSpeed( canvas )
+<p>canvas - A canvas gadget handle
+</div><p>
+<div class=cmd id=HidePointer>
+<h3>HidePointer</h3>
+<p>Causes the mouse pointer to disappear when the mouse is moved into the client area of the specified canvas.
+<p>HidePointer canvas
+<p>canvas - A canvas gadget handle
+</div><p>
+<div class=cmd id=ShowPointer>
+<h3>ShowPointer</h3>
+<p>Causes the mouse pointer to become visible when the mouse is moved into the client area of the specified canvas.
+<p>ShowPointer canvas
+<p>canvas - A canvas gadget handle
+</div><p>
+
+<h4>Button Gadgets</h4>
+<div class=cmd id=CreateButton>
+<h3>CreateButton</h3>
+<p>CreateButton creates a button gadget, and returns its handle.
+<p>CreateButton( text$,x,y,width,height,group[,style] )
+<p>text$ - Initial text for the button<br>x,y,width,height - Initial shape for the button<br>group - A group gadget handle<br>style - Optional style flags
+<p>style should be one of the following:<p>Style can be one of:<p>1 - A standard push button<br>2 - A Checkbox style button<br>3 - A Radio style button<p>The default style is a standard push button.
+</div><p>
+<div class=cmd id=SetButtonState>
+<h3>SetButtonState</h3>
+<p>SetButtonState allows you to set the state of checkbox and radio style buttons.
+<p>SetButtonState button,state
+<p>button - A button gadget handle<br>state - True/False value indicating whether the button is currently turned on.
+<p>A True value will cause the button to 'turn on', while false will turn it off.
+</div><p>
+<div class=cmd id=ButtonState>
+<h3>ButtonState</h3>
+<p>ButtonState returns the current on/off state of a checkbox or radio style button.
+<p>ButtonState( button )
+<p>button - A button gadget handle
+<p>A return value of 1 indicates the button is currently 'on', while a return value of 0 indicates the button is currently 'off'.<p>The function is often used in response to a gadget action event to determine the new state of a button.
+</div><p>
+
+<h4>Slider Gadgets</h4>
+<P>Slider gadgets are often used to allow the user to pan the view of a window 
+or adjust the value of a parameter in your BlitzPlus application.
+<div class=cmd id=CreateSlider>
+<h3>CreateSlider</h3>
+<p>CreateSlider creates a slider gadget and returns a handle to it.
+<p>CreateSlider( x,y,width,height,group[,style] )
+<p>x,y,width,height - Initial shape of the slider<br>group - Group the slider belongs to<br>style - optional style flags
+<p>The optional style flag controls whether the slider is a horizontal or vertical slider.<p>1 - Horizontal slider<br>2 - Vetical slider<p>By default, a horizontal slider is created.
+</div><p>
+<div class=cmd id=SetSliderValue>
+<h3>SetSliderValue</h3>
+<p>SetSliderValue sets the current value, or position, of a slider.
+<p>SetSliderValue( slider,value )
+<p>slider - A slider gadget handle<br>value - The current slider 'value'
+</div><p>
+<div class=cmd id=SliderValue>
+<h3>SliderValue</h3>
+<p>SliderValue returns the current value, or position, of a slider gadget.
+<p>SliderValue( slider )
+<p>slider - A slider gadget handle
+<p>When a slider is dragged by the user, it generates gadget action events.<p>The application can use SliderValue in response to these events to determine where the slider has been dragged to.
+</div><p>
+<div class=cmd id=SetSliderRange>
+<h3>SetSliderRange</h3>
+<p>SetSliderRange controls the range of values that a slider can return.
+<p>SetSliderRange( slider,visible,total )
+<p>slider - A slider gadget handle<br>visible - The size of the slider window<br>total - The total range the slider window traverses
+<p>The visible and total parameters specify a 'sliding window', where visible refers to how many items can be seen through the window, and total refers to the total number of items.<p>The value returned by SliderValue will always be in the range 0...total-visible.
+</div><p>
+
+<h4>Text Gadgets</h4>
+<P>The label gadget provides a simple method of positioning some readonly
+text in a window or other container gadget.
+<div class=cmd id=CreateLabel>
+<h3>CreateLabel</h3>
+<p>CreateLabel creates a label gadget and returns a handle to it.
+<p>CreateLabel( text$,x,y,width,height,group )
+<p>text$ - Initial label text<br>x,y,width,height - Initial shape of the label<br>group - a group gadget handle
+<p>Label gadgets are simple, text only gadgets and do not generate any events.
+</div><p>
+<P>A single line text entry gagdet is provided by the CreateTextField command:
+<div class=cmd id=CreateTextField>
+<h3>CreateTextField</h3>
+<p>CreateTextField creates a textfield gadget and returns a handle to it.
+<p>CreateTextField( x,y,width,height,group )
+<p>x,y,width,height - Initial shape of the textfield gadget.<br>group - Group the text textfield belongs to.
+<p>Textfield gadgets allow the user to enter a single line of text.<p>To 'preload' the textfield with some initial text, use SetGadgetText.<p>Textfields generate gadget action events whenever the user types enters a character into the gadget.<br>When a gadget action event from a textfield occurs, the EventData function can be used to determine <br>the ascii code of the character typed.
+</div><p>
+<P>A multi line text entry gagdet is provided by the TextArea gadget.
+<div class=cmd id=CreateTextArea>
+<h3>CreateTextArea</h3>
+<p>Creates a textarea gadget and returns its handle.
+<p>CreateTextArea( x,y,width,height,group )
+<p>x,y,width,height - Initial shape of the textarea gadget<br>group - A group gadget handle
+</div><p>
+<div class=cmd id=AddTextAreaText>
+<h3>AddTextAreaText</h3>
+<p>Appends the specified text to the contents of a textarea gadget.
+<p>AddTextAreaText textarea,text$
+<p>textarea - A textarea gadget handle<br>text$ - A string to be added to the textarea
+</div><p>
+<div class=cmd id=SetTextAreaFont>
+<h3>SetTextAreaFont</h3>
+<p>Sets the font to be used by a textarea gadget.
+<p>SetTextAreaFont textarea,font
+<p>textarea - A textarea gadget handle<br>font - A font handle
+</div><p>
+<div class=cmd id=SetTextAreaTabs>
+<h3>SetTextAreaTabs</h3>
+<p>Sets the tabstop value to be used by a textarea gadget.
+<p>SetTextAreaTabs textarea,tabs
+<p>textarea - A textarea gadget handle<br>tabs - An integer tabstop value
+</div><p>
+<div class=cmd id=SetTextAreaColor>
+<h3>SetTextAreaColor</h3>
+<p>Sets either the text or background color of a textarea gadget.
+<p>SetTextAreaColor textarea,red,green,blue[,background]
+<p>textarea - A textarea gadget handle<br>red,green,blue - Color to apply, with color components in the range 0 to 255<br>background - An optional flag specifying whether the background or foreground color of the textarea should be set.
+<p>By default, the background flag is false, indicating the text color is to be set.
+</div><p>
+<P>A TreeView is a gadget that contains a hierachy of nodes such as files
+in a directory tree.
+<div class=cmd id=CreateTreeView>
+<h3>CreateTreeView</h3>
+<p>CreateTreeView creates a treeview gadget and returns its handle.
+<p>CreateTreeView( x,y,width,height,group )
+<p>x,y,width,height - Initial treeview gadget shape<br>group - A group gadget handle
+<p>A treeview gadget is used to display a hierarchy of items.<p>Treeviews generate a gadget action event when the user changes the currently selected item.
+</div><p>
+<div class=cmd id=TreeViewRoot>
+<h3>TreeViewRoot</h3>
+<p>Returns the root treeview node node of a treeview gadget.
+<p>TreeViewRoot( treeview )
+<p>treeview - A treeview gadget handle
+</div><p>
+<div class=cmd id=AddTreeViewNode>
+<h3>AddTreeViewNode</h3>
+<p>AddTreeViewNode appends a new treeview node to the specified parents children, and returns its handle.
+<p>AddTreeViewNode( text$,parent )
+<p>text$ - Initial text for the treeview node<br>parent - A treeview node handle
+</div><p>
+<div class=cmd id=InsertTreeViewNode>
+<h3>InsertTreeViewNode</h3>
+<p>InsertTreeViewNode creates a treeview node at the specified index within the parent's children, and returns its handle.
+<p>InsertTreeViewNode( text$,index,parent )
+<p>text$ - Initial text for the treeview node<br>index - Integer index at which to insert a treeview node<br>parent - A treeview node handle
+</div><p>
+<div class=cmd id=FreeTreeViewNode>
+<h3>FreeTreeViewNode</h3>
+<p>Frees the specified treeview node.
+<p>FreeTreeViewNode node
+<p>node - A treeview node handle
+</div><p>
+<div class=cmd id=SelectTreeViewNode>
+<h3>SelectTreeViewNode</h3>
+<p>Sets the specified treeview node as the 'current' treeview node.
+<p>SelectTreeViewNode node
+<p>node - A treeview node handle
+</div><p>
+<div class=cmd id=SelectedTreeViewNode>
+<h3>SelectedTreeViewNode</h3>
+<p>Returns the currently selected treeview node within the specified treeview gadget.
+<p>SelectedTreeViewNode( treeview )
+<p>treeview - A treeview gadget handle
+</div><p>
+<div class=cmd id=ExpandTreeViewNode>
+<h3>ExpandTreeViewNode</h3>
+<p>Expands the specified treeview node.
+<p>ExpandTreeViewNode node
+<p>node - A treeview node handle
+</div><p>
+<div class=cmd id=CollapseTreeViewNode>
+<h3>CollapseTreeViewNode</h3>
+<p>Collapses the specified treeview node.
+<p>CollapseTreeViewNode node
+<p>node - A treeview node handle
+</div><p>
+<div class=cmd id=CountTreeViewNodes>
+<h3>CountTreeViewNodes</h3>
+<p>Returns the number of child treeview nodes of the specified parent treeview node.
+<p>CountTreeViewNodes( parent )
+<p>parent - A treeview node handle
+</div><p>
+
+<h4>Miscellaneous BlitzPlus Gadgets</h4>
+<P>The BlitzPlus ProgBar provides a progress bar display during your applications
+extended periods of computation or data transfer.
+<div class=cmd id=CreateProgBar>
+<h3>CreateProgBar</h3>
+<p>Creates a progbar gadget and returns its handle.
+<p>CreateProgBar( x,y,width,height,group )
+<p>x,y,width,height - Initial shape of the progbar.<br>group - A group gadget handle
+</div><p>
+<div class=cmd id=UpdateProgBar>
+<h3>UpdateProgBar</h3>
+<p>Changes the amount of 'progress' indicated by a progbar gadget.
+<p>UpdateProgBar progbar,value#
+<p>progbar - A progbar gadget handle<br>value# - Value from 0 to 1.
+<p>0 indicates no progress, 1 indicates finished.
+</div><p>
+<P>Web pages can be viewed in a BlitzPlus application using the HTMLView gadget.
+<div class=cmd id=CreateHTMLView>
+<h3>CreateHTMLView</h3>
+<p>Creates an htmlview gadget and returns its handle.
+<p>CreateHTMLView( x,y,width,height,group )
+<p>x,y,width,height - Initial shape of the htmlview gadget<br>group - A group gadget handle
+<p>Htmlview gadgets allow you to display html documents - useful for help files and so on.
+</div><p>
+<div class=cmd id=HTMLViewGo>
+<h3>HTMLViewGo</h3>
+<p>Changes the page currently displayed to that of the specified URL.
+<p>HTMLViewGo htmlview,url$
+<p>htmlview - A htmlview gadget handle<br>url$ - A URL identifier
+</div><p>
+<div class=cmd id=HTMLViewBack>
+<h3>HTMLViewBack</h3>
+<p>Returns to the page previously displayed.
+<p>HTMLViewBack htmlview
+<p>htmlview - A htmlview gadget handle
+</div><p>
+<div class=cmd id=HTMLViewForward>
+<h3>HTMLViewForward</h3>
+<p>Advances to the next page displayed.
+<p>HTMLViewForward htmlview
+<p>htmlview - A htmlview gadget handle
+</div><p>
+<P>The user's desktop can also be used as a BlitzPlus gadget. 
+<div class=cmd id=Desktop>
+<h3>Desktop</h3>
+<p>Returns a gadget representing the users desktop.
+</div><p>
+
+<h3><a name=2.5>2.5 Requesters</a></h3>
+<P>BlitzPlus features a collection of commands for utilizing standard application
+requesters be they warnings, prompts, color, font or file selections.
+<P>The Notfiy command is the most direct way of communicating a message to the user
+as the user is forced to acknowledge the message before continuing use of the application. 
+<div class=cmd id=Notify>
+<h3>Notify</h3>
+<p>Notify allows you to inform the user of simple events.
+<p>Notify message$[,serious]
+<p>message$ - A message to display<br>serious - A true/false flag indicating whether something serious happened
+<p>Notify displays a window containing the provided message and an OK button.
+</div><p>
+<P>In the wizard style interface where the user is given a sequence of forms to complete
+the Confirm and Proceed Requesters allow extra confirmation requirements to be easily
+added to the BlitzPlus application.
+<div class=cmd id=Confirm>
+<h3>Confirm</h3>
+<p>Confirm allows you to check with the user before performing an operation.
+<p>Confirm( message$[,serious] )
+<p>message$ - A message to display<br>serious - A true/false flag indicating whether something serious is about to happen
+<p>Confirm displays a window containing the provided message, along with YES and NO buttons.<p>If the user selects YES, a value of 1 is returned. Otherwise, the returned value is 0.
+</div><p>
+<div class=cmd id=Proceed>
+<h3>Proceed</h3>
+<p>Proceed displays a window containg the provided message, along with 3 buttons - YES, NO and CANCEL.
+<p>Proceed( message$[,serious] )
+<p>message$ - A message to display<br>serious - A true/false flag indicating whether some serious could happen
+<p>If the user selects YES, a value of 1 is returned. If the user selects NO, 0 is returned - otherwise,<br>-1 is returned if CANCEL is selected.
+</div><p>
+<P>The following commands allow the user to select a file, directory, font or color respectively. 
+<div class=cmd id=RequestFont>
+<h3>RequestFont</h3>
+<p>Prompts the user for a font and returns a font handle, or 0 if no font was selected.
+</div><p>
+<div class=cmd id=RequestColor>
+<h3>RequestColor</h3>
+<p>Prompts the user for a color.
+<p>RequestColor( red,green,blue )
+<p>red,green,blue - Initial color to display in the requester, which components in the range 0 to 255
+<p>If the user selected a color, the RequestColor returns true. If the operation was cancelled, 0 is returned.<p>After a color is selected, use the RequestedRed, RequestedGreen and RequestedBlue functions to determine<br>the actual color.
+</div><p>
+<div class=cmd id=RequestedRed>
+<h3>RequestedRed</h3>
+<p>Returns the red component of the color selected by RequestColor.
+</div><p>
+<div class=cmd id=RequestedGreen>
+<h3>RequestedGreen</h3>
+<p>Returns the green component of the color selected by RequestColor.
+</div><p>
+<div class=cmd id=RequestedBlue>
+<h3>RequestedBlue</h3>
+<p>Returns the blue component of the color selected by RequestColor.
+</div><p>
+
+<h2><a name=3>3 GRAPHICS</a></h2>
+
+<P>This chapter coming soon!
+
+<h2><a name=A>Appendix</a></h2>
+
+<h3><a name=A.1>A.1 Migrating to BlitzPlus</a></h3>
+
+<P>Print and Input now work using a console.
+<P>There is no 'default' graphics mode at program startup.
+<P>All graphics are now double buffered, so you must use Flip or FlipCanvas to show any rendering.
+<P>All images are 'managed'. This means a 24 bit version is maintained in system memory and converted
+to video format when necessary. This allows images to 'survive' a graphics mode change, but has the
+unfortunate side effect of slowing down GrabImage and CopyRect.
+<P>Unsupported Blitz2D commands
+<ul>
+<li>GetJoy
+<li>WaitJoy
+<li>JoyWait			: Removed due to non-synchronous behaviour.
+<li>Locate			: Print/Input now use a console, use the Text command instead.
+<li>FontWidth 		: Removed, use StringWidth instead.
+<li>StringHeight	: Use FontHeight instead.
+<li>WaitTimer		: Use WaitEvent instead.
+</ul>
+<p>New Graphics Commands</p>
+<div class=cmd id=LockedPitch>
+<h3>LockedPitch</h3>
+<p>Returns the pitch of a locked graphics buffer.
+<p>LockedPitch( [buffer] )
+<p>buffer - A locked graphics buffer handle
+<p>The pitch is the difference, in bytes, between one row of pixels and the next.<p>This value should be used to calculate pixel postions when directly peeking or poking to the buffer.
+</div><p>
+<div class=cmd id=LockedFormat>
+<h3>LockedFormat</h3>
+<p>Returns the pixel format of a locked graphics buffer.
+<p>LockedFormat( [buffer] )
+<p>buffer - A locked graphics buffer handle
+<p>The return value can be one of the following:<p>1 - 16 bit RGB format with 5 bits red, 6 bits green and 5 bits blue.<br>2 - 16 bit RGB format with 5 bits red, 5 bits green and 5 bits blue. The high bit is unused.<br>3 - 24 bit RGB format.<br>4 - 32 bit RGB format. The high byte is unused.
+</div><p>
+<div class=cmd id=LockedPixels>
+<h3>LockedPixels</h3>
+<p>Returns a bank representing the pixels of a locked graphics buffer.
+<p>LockedPixels( [buffer] )
+<p>buffer - A graphics buffer handle
+</div><p>
+<div class=cmd id=DesktopBuffer>
+<h3>DesktopBuffer</h3>
+<p>Returns a graphics buffer representing the desktop.
+<p>This allows you to draw directly to the desktop - fun, but use with caution!
+</div><p>
+
+<h3><a name=A.2>A.2 Five ways to say Hello World</a></h3>
+<div class=code><pre>
+<pre>
+<span class=rem>; hello world console version</span>
+
+<span class=cmd>Print</span> <span class=str>&quot;Hello world&quot;</span>
+<span class=cmd>Input</span> <span class=str>&quot;Press any key to end&quot;</span>
+<span class=cmd>End</span>
+
+<span class=rem>; hello world notify version</span>
+
+<span class=cmd>AppTitle</span> <span class=str>&quot;My App&quot;</span>
+<span class=cmd><span class=cmd>Not</span>ify</span> <span class=str>&quot;Hello World&quot;</span>
+<span class=cmd>End</span>
+
+<span class=rem>; hello world with full screen 2d</span>
+
+<span class=cmd>Graphics</span> 640,480,16
+<span class=cmd>Text</span> 0,0,<span class=str>&quot;Hello World!&quot;</span>
+<span class=cmd>Flip</span>
+<span class=cmd>WaitKey</span>
+<span class=cmd>End</span>
+
+<span class=rem>; hello world window version</span>
+
+window=<span class=cmd>CreateWindow</span>(<span class=str>&quot;I Love BlitzPlus&quot;</span>,0,0,320,240)
+<span class=cmd>SetStatusText</span> window,<span class=str>&quot;Hello World&quot;</span>
+<span class=cmd>WaitEvent</span>
+<span class=cmd>End</span>
+
+<span class=rem>; hello world with canvas</span>
+
+window=<span class=cmd>CreateWindow</span>(<span class=str>&quot;Canvas Magic!&quot;</span>,0,0,320,240)
+canvas=<span class=cmd>CreateCanvas</span>(0,0,320,240,window)
+<span class=cmd>SetBuffer</span> <span class=cmd>CanvasBuffer</span>(canvas)
+<span class=cmd>Text</span> 0,0,<span class=str>&quot;Hello world&quot;</span>
+<span class=cmd><span class=cmd>Flip</span>Canvas</span> canvas
+<span class=cmd>WaitEvent</span>
+<span class=cmd>End</span>
+</pre></div>
+
+<h3><a name=A.3>A.3 Ascii Tables</a></h3>
+<P>
+<table border=1>
+<tr>
+<td><b>Function Key</b><td><b>BlitzPlus Code</b>
+
+<tr><td>UpArrow<td>$F700
+<tr><td>DownArrow<td>$F701
+<tr><td>LeftArrow<td>$F702
+<tr><td>RightArrow<td>$F703
+
+<tr><td>F1<td>$F704
+<tr><td>F2<td>$F705
+<tr><td>F3<td>$F706
+<tr><td>F4<td>$F707
+<tr><td>F5<td>$F708
+<tr><td>F6<td>$F709
+<tr><td>F7<td>$F70A
+<tr><td>F8<td>$F70B
+<tr><td>F9<td>$F70C
+<tr><td>F10<td>$F70D
+<tr><td>F11<td>$F70E
+<tr><td>F12<td>$F70F
+
+<tr><td>Insert<td>$F727
+<tr><td>Delete<td>$F728
+<tr><td>Home<td>$F729
+<tr><td>Begin<td>$F72A
+<tr><td>End<td>$F72B
+<tr><td>PageUp<td>$F72C
+<tr><td>PageDown<td>$F72D
+<tr><td>PrintScreen<td>$F72E
+<tr><td>ScrollLock<td>$F72F
+<tr><td>Pause<td>$F730
+<tr><td>SysReq<td>$F731
+<tr><td>Break<td>$F732
+<tr><td>Reset<td>$F733
+<tr><td>Stop<td>$F734
+<tr><td>Menu<td>$F735
+<tr><td>User<td>$F736
+<tr><td>System<td>$F737
+<tr><td>Print<td>$F738
+<tr><td>ClearLine<td>$F739
+<tr><td>ClearDisplay<td>$F73A
+<tr><td>InsertLine<td>$F73B
+<tr><td>DeleteLine<td>$F73C
+<tr><td>InsertChar<td>$F73D
+<tr><td>DeleteChar<td>$F73E
+<tr><td>Prev<td>$F73F
+<tr><td>Next<td>$F740
+<tr><td>Select<td>$F741
+<tr><td>Execute<td>$F742
+<tr><td>Undo<td>$F743
+<tr><td>Redo<td>$F744
+<tr><td>Find<td>$F745
+<tr><td>Help<td>$F746
+<tr><td>ModeSwitch<td>$F747
+</table>
+
+<br>
+</p>
+
+</body></html>

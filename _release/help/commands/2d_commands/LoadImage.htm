@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>LoadImage( filename$[,flags] )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+filename - string designating full path and filename to image.<br />
+flags - optional image flags.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Loads an image and returns its handle.  Supported file formats include: BMP, PNG and JPG. (You can also access GIFs through <a class=small href=../2d_commands/OpenMovie.htm>OpenMovie</a> )<br />
+<br />
+The optional flags parameter can be one of:<br />
+<br />
+1 : managed (image is frequently drawn but seldom modified - this is the default)<br />
+2 : dynamic (image is frequently drawn and modified)<br />
+4 : scratch (image is seldom drawn or modified)<br />
+<br />
+Managed images are the default.<br />
+<br />
+Dynamic images are the fastest, but can be 'lost' when the display mode changes. This means the contents of the image will be scrambled, and you will need to restore the image content. If you are frequently redrawing the image contents, this isn't really a problem. If not, you should use managed images!<br />
+<br />
+Scratch images are slow all round but consume no videomemory. These are good for things like title pages and 'temporary work' images.<br />
+<br />
+Note that canvas buffers and back buffers should be considered 'dynamic'.
+<br>
+<br>
+See also: <a class=small href=CreateImage.htm>CreateImage</a>, <a class=small href=SaveImage.htm>SaveImage</a>, <a class=small href=DrawImage.htm>DrawImage</a>, <a class=small href=Graphics.htm>Graphics</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../2d_examples/LoadImage.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; LoadImage and DrawImage example<br />
+<br />
+; Declare a variable to hold the graphic file handle<br />
+Global gfxPlayer<br />
+<br />
+; Set a graphics mode<br />
+Graphics 640,480,16<br />
+<br />
+; Set drawing operations for double buffering<br />
+SetBuffer BackBuffer()<br />
+<br />
+; Load the image and assign its file handle to the variable<br />
+; - This assumes you have a graphic called player.bmp in the<br />
+; same folder as this source code<br />
+gfxPlayer=LoadImage("player.bmp")<br />
+<br />
+; Let's do a loop where the graphic is drawn wherever the<br />
+; mouse is pointing. ESC will exit.<br />
+While Not KeyHit(1)<br />
+Cls ; clear the screen<br />
+DrawImage gfxPlayer,MouseX(),MouseY() ; Draw the image!<br />
+Flip ; flip the image into view and clear the back buffer<br />
+Wend
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=LoadImage&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

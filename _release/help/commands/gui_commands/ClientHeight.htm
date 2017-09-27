@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>ClientHeight( gadget )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+gadget - A group gadget handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+ClientHeight returns the height of the client area of the specified group gadget.<br />
+<br />
+The client area means the area 'inside' the group gadget – not including the border – where you can place child gadgets.
+<br>
+<br>
+See also: <a class=small href=ClientWidth.htm>ClientWidth</a>, <a class=small href=GadgetHeight.htm>GadgetHeight</a>, <a class=small href=GadgetWidth.htm>GadgetWidth</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/ClientHeight.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Example provided by Mark Tiffany<br />
+<br />
+; create a resizable window<br />
+win=CreateWindow("test",0,0,100,100,0,11)<br />
+<br />
+; and set the status text<br />
+SetStatusText win,"Resize the window!"<br />
+<br />
+; a small event loop<br />
+Repeat<br />
+   id = WaitEvent()<br />
+   Select id<br />
+      Case $803 ; exit on window close event<br />
+         Exit<br />
+			<br />
+      Case $802 ; update the status on window resize<br />
+         SetStatusText win,ClientWidth(win) + " x " + ClientHeight(win)<br />
+			<br />
+   End Select<br />
+Forever<br />
+<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=ClientHeight&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

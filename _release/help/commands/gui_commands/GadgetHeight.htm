@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>GadgetHeight( gadget )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+gadget - A gadget handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+GadgetHeight returns the current height of a gadget.  Remember that a gadget can be any user interface object, for example a Button, Label, Slider, Window, or even the Desktop itself!
+<br>
+<br>
+See also: <a class=small href=GadgetX.htm>GadgetX</a>, <a class=small href=GadgetY.htm>GadgetY</a>, <a class=small href=GadgetWidth.htm>GadgetWidth</a>, <a class=small href=SetGadgetShape.htm>SetGadgetShape</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/GadgetHeight.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; This example saves a copy of the desktop to c:\MyDesktop,bmp<br />
+;<br />
+; First of all, create an empty buffer of the same size as the desktop<br />
+; The easyiest way to determine the Desktop size is to use the Desktop()<br />
+; object, which, being a Windows element can be treated as a Gadget.<br />
+; Therefore, we get the size of the desktop using GadgetWidth and GadgetHeight.<br />
+<br />
+w = GadgetWidth(Desktop())<br />
+h = GadgetHeight(Desktop())<br />
+img = CreateImage(w, h)<br />
+<br />
+; Now we need to copy the desktop contents to our image<br />
+<br />
+CopyRect 0,0,w,h,0,0,DesktopBuffer(),ImageBuffer(img)<br />
+<br />
+; Finally we save the image<br />
+<br />
+SaveImage img,"c:\MyDesktop.bmp"<br />
+<br />
+; And whilst we're here, let's report a friendly confirmation message!<br />
+<br />
+Notify "Desktop saved to c:\MyDesktop.bmp"<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=GadgetHeight&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

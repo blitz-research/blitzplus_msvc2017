@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>GraphicsFormat ( )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+None.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Returns the pixel format of the current graphics mode. <br />
+<br />
+The return value can be one of the following: <br />
+<br />
+1 - 16 bit RGB format with 5 bits red, 6 bits green and 5 bits blue. <br />
+2 - 16 bit RGB format with 5 bits red, 5 bits green and 5 bits blue. The high bit is unused. <br />
+3 - 24 bit RGB format. <br />
+4 - 32 bit RGB format. The high byte is unused.
+<br>
+<br>
+See also: <a class=small href=GfxModeFormat.htm>GfxModeFormat</a>, <a class=small href=LockedFormat.htm>LockedFormat</a>, <a class=small href=Graphics.htm>Graphics</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../2d_examples/GraphicsFormat.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+Graphics 640,480,0,0<br />
+SetBuffer BackBuffer()<br />
+<br />
+Text 0,0,"Current graphics format: "+GraphicsFormat() <br />
+<br />
+Flip<br />
+<br />
+WaitKey()
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=GraphicsFormat&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

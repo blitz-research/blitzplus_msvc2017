@@ -1,0 +1,9 @@
+﻿  b2dbuffer.cpp
+  b2dcanvas.cpp
+  b2devent.cpp
+  b2dgraphics.cpp
+  blitz2d.cpp
+  Generating Code...
+  b2dimage.cpp
+blitz2d.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+  blitz2d.vcxproj -> D:\dev\blitzplus_msvc2017\blitz2d\.\Debug\blitz2d.lib

@@ -1,0 +1,6 @@
+﻿  color.cpp
+  graphics.cpp
+  graphicsutil.cpp
+  pixmap.cpp
+  Generating Code...
+  graphics.vcxproj -> D:\dev\blitzplus_msvc2017\graphics\.\Debug\graphics.lib

@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>CreateProcess( command$ )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+command$
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+CreateProcess launches a 'console based' app and returns a handle to a stream representing its input/output. <br />
+<br />
+If the app is expecting input, you can write to the stream to automatically enter lines of input using WriteLine. <br />
+<br />
+If the app is generating output, you can read back from the stream to receive the lines using ReadLine. <br />
+<br />
+*Note* This only works with console based apps that using stdin/stdout. Windows apps typically generate no output. <br />
+<br />
+Blitz Print/Input are supposed to use stdin/stdout, but that feature is not quite working properly yet.
+<br>
+<br>
+See also: <a class=small href=ExecFile.htm>ExecFile</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../2d_examples/CreateProcess.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Thanks to Semar for this example.<br />
+; Not a great example because "calc.exe" doesn't produce any output, but...<br />
+<br />
+process$ = "calc.exe"<br />
+s = CreateProcess (process)<br />
+<br />
+While Not Eof(s)<br />
+	If MilliSecs() - t >= 1000 Then<br />
+		DebugLog "process " + process + " running"<br />
+		t = MilliSecs()<br />
+	EndIf<br />
+Wend<br />
+<br />
+DebugLog "process " + process + " terminated"<br />
+Stop<br />
+<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=CreateProcess&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>CreateTextField( x,y,width,height,group[,style])</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+x,y,width,height - Initial shape of the textfield gadget.<br />
+group - Group the text textfield belongs to.<br />
+style - 0 for normal, 1 for password masking
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+CreateTextField creates a textfield gadget and returns a handle to it.<br />
+<br />
+Textfield gadgets allow the user to enter a single line of text.<br />
+<br />
+To 'preload' the textfield with some initial text, use SetGadgetText.<br />
+<br />
+Textfields generate gadget action events whenever the user types enters a character into the gadget.<br />
+When a gadget action event from a textfield occurs, the EventData function can be used to determine <br />
+the ascii code of the character typed.
+<br>
+<br>
+See also: <a class=small href=TextFieldText.htm>TextFieldText</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/CreateTextField.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; TextFieldText Example by Mag<br />
+<br />
+win=CreateWindow ("",0,0,300,100) ;create window<br />
+txtbox=CreateTextField(0,0,200,20,win) ;create textfield in that window<br />
+SetGadgetText txtbox,"Type anything and press OK" ;set text in that textfield for info<br />
+ok=CreateButton("OK",200,0,80,20,win) ;create button<br />
+<br />
+Repeat<br />
+	id=WaitEvent() ;wait for user action (in a form of event)<br />
+	If id=$803 Then End ;to quit program when we receive Window close event <br />
+	If id=$401 And EventSource()=ok Then ; when ok is pressed<br />
+		Notify "This is your text in TextField:"+Chr$(13)+TextFieldText$(txtbox); <---TO GET TEXT FROM TEXTFIELD<br />
+	End If<br />
+Forever<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=CreateTextField&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

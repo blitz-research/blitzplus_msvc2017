@@ -1,0 +1,82 @@
+/* BlitzPlus style sheet */
+
+body
+{
+	background:white;
+	color:black;
+	font-size:12pt;
+	font-family:Tahoma,Verdana,Lucida Sans,Arial Rounded MT Bold,Helvetica,sans-serif;
+}
+
+h1{font-size:24pt;}
+h2{page-break-before:always;font-size:18pt;font-weight:normal;}
+h3{font-size:14pt;font-weight:normal;}
+h4{font-size:12pt;font-weight:bold;}
+
+ul{list-style-type:none;}
+ul.subcontents{list-style-type:none}
+
+p{padding-left:32px;}
+
+dt{padding-left:32px;font-weight:bold;}
+dd{padding-left:40px;}
+
+a{color:#0000c0;text-decoration:none}
+
+div.banner
+{
+	background:#2a79bc;
+	color:white;
+}
+
+div.note
+{
+	background:#f0e0f0;
+	border:#e0c0e0 solid;
+	margin-left:10%;
+	width:90%;
+	color:#008080;
+}
+
+table
+{
+	font-size:9pt;
+	padding-left:16px;
+	page-break-inside:avoid;
+	margin-top:8px;
+}
+
+div.cmd
+{
+	background:#e0f0f0;
+	color:#008080;
+	font-size:9pt;
+	border:#c0e0e0 solid;
+	width:92%;
+	margin-left:4%;
+	margin-top:8px;
+	margin-bottom:2px;
+	page-break-inside:avoid;
+}
+div.cmd h3{font-size:10pt;font-weight:bold;margin-bottom:8px;}
+div.cmd p {margin-top:0px;margin-bottom:8px;}
+
+div.code
+{
+	background:#d0f0d0;
+	color:#000000;
+	font-size:9pt;
+	border:#c0e0c0 double;
+	width:92%;
+	margin-left:4%;
+	margin-top:8px;
+	margin-bottom:2px;
+	padding-top=8px;
+	padding-bottom=8px;
+	padding-left=8px;
+	page-break-inside:avoid;
+}
+
+span.rem{font-style:italic;}
+span.cmd{font-weight:bold;}
+span.str{font-style:oblique;}

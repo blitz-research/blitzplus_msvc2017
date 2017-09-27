@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>AutoSuspend enable</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+enable
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+When enabled, Blitz will internally catch App Suspend events (such as those received when minimising a program), and will halt the program until an App Resume message is received (such as when a program is maximised after being minimised).<br />
+<br />
+Autosuspend is set to false by default, but is activated automatically in fullscreen mode. So if you want to catch fullscreen suspend events, you'll need to do 'AutoSuspend False' somewhere after your 'Graphics' call. Otherwise, your app will be autosuspended in fullscreen mode.<br />
+<br />
+Similarly, 'AutoSuspend True' will enable the autosuspend feature in non-fullscreen mode.
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=AutoSuspend&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

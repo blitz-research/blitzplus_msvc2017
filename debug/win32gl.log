@@ -1,0 +1,5 @@
+﻿  win32gl.cpp
+  win32glgraphics.cpp
+  win32gltex.cpp
+  Generating Code...
+  win32gl.vcxproj -> D:\dev\blitzplus_msvc2017\win32gl\.\Debug\win32gl.lib

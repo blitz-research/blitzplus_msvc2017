@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>CheckMenu menu</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+menu - A menu handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+CheckMenu causes a menu to become 'checked'.<br />
+<br />
+A checked menu appears with a little 'tick' mark next to it, and is often used to indicate whether a particular program feature is enabled or not.<br />
+<br />
+After calling CheckMenu, make sure you call UpdateWindowMenu to cause the change to take effect.
+<br>
+<br>
+See also: <a class=small href=UncheckMenu.htm>UncheckMenu</a>, <a class=small href=MenuChecked.htm>MenuChecked</a>, <a class=small href=UpdateWindowMenu.htm>UpdateWindowMenu</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/CheckMenu.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Menus example based on one provided by Mag, added to documentation by Mark Tiffany<br />
+; <br />
+; This example is intended to demonstrate the following commands:<br />
+;    CreateMenu, WindowMenu, UpdateWindowMenu, DisableMenu, EnableMenu, CheckMenu and UncheckMenu<br />
+<br />
+; Firstly, create the window to which our menus will be attached<br />
+WinHandle=CreateWindow("",0,0,400,200)<br />
+<br />
+; Identify the 'root' menu for the window that we just created.  All our menus must be attached to this<br />
+menu=WindowMenu(WinHandle)<br />
+<br />
+; Now create a whole bunch of menus and sub-items - first of all the FILE menu<br />
+file=CreateMenu("File",0,menu) ; main menu<br />
+CreateMenu "Open",1,file ; child menu <br />
+CreateMenu "",0,file ; Use an empty string to generate separator bars<br />
+CreateMenu "Quit",3,file ; another child menu<br />
+<br />
+; Now the Edit menu<br />
+edit=CreateMenu("&Edit",0,menu) ; Main menu with Alt Shortcut - Use & to specify the shortcut key<br />
+CreateMenu "&Copy",4,edit ; Child menu with Alt Shortcut<br />
+CreateMenu "&Paste",5,edit ; Another Child menu with Alt Shortcut<br />
+CreateMenu "Cu&t",6,edit ; Another Child menu with Alt Shortcut<br />
+<br />
+; Now a menu to demo disabled items<br />
+future1=CreateMenu("Disabled Items",0,menu) ; Main menu<br />
+Item7=CreateMenu("ITEM",7,future1) ; This menu we create with handle in order to control it.<br />
+CreateMenu "Disable ITEM",8,future1 ; Will be used to disable ITEM<br />
+CreateMenu "Enable ITEM",9,future1 ; Will be used to enable ITEM<br />
+DisableMenu Item7 ; we wish to start with the ITEM menu item disabled.<br />
+<br />
+; And a menu to demo checked items<br />
+future2=CreateMenu("Check Items",0,menu) ; Main menu<br />
+Item10=CreateMenu("ITEM",10,future2) ; This menu we create with handle in order to control it.<br />
+CreateMenu "Check ITEM",11,future2;Check demo<br />
+CreateMenu "Uncheck ITEM",12,future2;Check demo<br />
+CheckMenu Item10 ; we wish to start with the ITEM menu item checked<br />
+<br />
+; Finally, once all menus are set up / updated, we call UpdateWindowMenu to tell the OS about the menu<br />
+UpdateWindowMenu WinHandle<br />
+<br />
+; At last!  We can now start up a simple application loop to control the demo application.<br />
+Repeat<br />
+	; Wait for an event to occur...<br />
+	id=WaitEvent()<br />
+	<br />
+	; exit on a window close event<br />
+	If ID=$803 Then End <br />
+<br />
+	; handle a menu event<br />
+	If ID=$1001 Then<br />
+		EID=EventData() ; Event data contains the menu ID specified when creating the menu items<br />
+		Select EID<br />
+			Case 1<br />
+				Notify "Open selected"<br />
+			Case 3<br />
+				End<br />
+			Case 4<br />
+				Notify "Copy selected"<br />
+			Case 5<br />
+				Notify "Paste selected"<br />
+			Case 6<br />
+				Notify "Cut selected"<br />
+			Case 7<br />
+				Notify "ITEM selected"<br />
+			Case 8<br />
+				; disable the menu item and notify the OS of the update to the window menu<br />
+				DisableMenu Item7<br />
+				UpdateWindowMenu WinHandle <br />
+			Case 9<br />
+				; enable the menu item and notify the OS of the update to the window menu<br />
+				EnableMenu Item7<br />
+				UpdateWindowMenu WinHandle<br />
+			Case 10<br />
+				Notify "ITEM selected"<br />
+				; note that the item is NOT automatically checked / unchecked by selecting it<br />
+			Case 11<br />
+				; Check the menu item<br />
+				CheckMenu Item10<br />
+				UpdateWindowMenu WinHandle<br />
+			Case 12<br />
+				; Uncheck the menu item<br />
+				UncheckMenu Item10<br />
+				UpdateWindowMenu WinHandle<br />
+		End Select<br />
+	End If<br />
+Forever<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=CheckMenu&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

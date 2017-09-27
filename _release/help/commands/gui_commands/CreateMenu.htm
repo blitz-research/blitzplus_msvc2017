@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>CreateMenu( text$,menu_id,parent )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+text$ - Initial text for the menu<br />
+menu_id - User defined integer identifier<br />
+parent - A menu handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+CreateMenu creates a new menu and attaches it to the specified parent menu.<br />
+<br />
+'Top level' window menus (for example, the 'File' and 'Edit' menus found in many applications, and the example below) should be attached to the menu returned by the <a class=small href=../gui_commands/WindowMenu.htm>WindowMenu</a> command.  Sub menu items are then attached to the menu handle returned by this command.<br />
+<br />
+The menu_id should uniquely identify what the menu item will do, as this id will be returned to you in <a class=small href=../gui_commands/EventData.htm>EventData</a> when the event occurs.<br />
+<br />
+Separator lines can be implemented by leaving the text$ blank.<br />
+<br />
+Shortcut keys can be implemented using the <a class=small href=../gui_commands/HotKeyEvent.htm>HotKeyEvent</a> function.  If you wish to show the keyboard shortcut in the menu, you should separate it from the main text using Chr$(8) or Chr$(9).  This will ensure that it is correctly positioned in the menu.  Chr$(8) results in right aligned shortcuts, whereas Chr$(9) results in left aligned shortcuts. See the example for details.<br />
+<br />
+ALT shortcut keys can be implemented by preceding the desired character in text$ with an ampersand (&).  For example, if text$ is set to "&Copy", then the keyboard shortcut ALT-C will trigger the menu event.
+<br>
+<br>
+See also: <a class=small href=WindowMenu.htm>WindowMenu</a>, <a class=small href=UpdateWindowMenu.htm>UpdateWindowMenu</a>, <a class=small href=SetMenuText.htm>SetMenuText</a>, <a class=small href=EnableMenu.htm>EnableMenu</a>, <a class=small href=DisableMenu.htm>DisableMenu</a>, <a class=small href=MenuDisabled.htm>MenuDisabled</a>, <a class=small href=CheckMenu.htm>CheckMenu</a>, <a class=small href=UncheckMenu.htm>UncheckMenu</a>, <a class=small href=MenuChecked.htm>MenuChecked</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/CreateMenu.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; This example is intended to demonstrate the following commands:<br />
+;    CreateMenu, WindowMenu, UpdateWindowMenu, DisableMenu, EnableMenu, CheckMenu and UncheckMenu<br />
+<br />
+; Firstly, create the window to which our menus will be attached<br />
+WinHandle=CreateWindow("Menu Example",0,0,400,200)<br />
+<br />
+; Identify the 'root' menu for the window that we just created.  All our menus must be attached to this<br />
+menu=WindowMenu(WinHandle)<br />
+<br />
+; Now create a whole bunch of menus and sub-items - first of all the FILE menu<br />
+file=CreateMenu("File",0,menu) ; main menu<br />
+CreateMenu "Open",1,file ; child menu <br />
+CreateMenu "",0,file ; Use an empty string to generate separator bars<br />
+CreateMenu "Quit",3,file ; another child menu<br />
+<br />
+; Now the Edit menu<br />
+edit=CreateMenu("&Edit",0,menu) ; Main menu with Alt Shortcut - Use & to specify the shortcut key<br />
+CreateMenu "Cu&t"+Chr$(8)+"Ctrl-X",6,edit ; Another Child menu with Alt Shortcut<br />
+CreateMenu "&Copy"+Chr$(8)+"Ctrl-C",4,edit ; Child menu with Alt Shortcut<br />
+CreateMenu "&Paste"+Chr$(8)+"Ctrl-V",5,edit ; Another Child menu with Alt Shortcut<br />
+HotKeyEvent 46,2,$1001,4<br />
+HotKeyEvent 47,2,$1001,5<br />
+HotKeyEvent 45,2,$1001,6<br />
+<br />
+; Now a menu to demo disabled items<br />
+future1=CreateMenu("Disabled Items",0,menu) ; Main menu<br />
+Item7=CreateMenu("ITEM",7,future1) ; This menu we create with handle in order to control it.<br />
+CreateMenu "Disable ITEM",8,future1 ; Will be used to disable ITEM<br />
+CreateMenu "Enable ITEM",9,future1 ; Will be used to enable ITEM<br />
+DisableMenu Item7 ; we wish to start with the ITEM menu item disabled.<br />
+<br />
+; And a menu to demo checked items<br />
+future2=CreateMenu("Check Items",0,menu) ; Main menu<br />
+Item10=CreateMenu("ITEM",10,future2) ; This menu we create with handle in order to control it.<br />
+CreateMenu "Check ITEM",11,future2;Check demo<br />
+CreateMenu "Uncheck ITEM",12,future2;Check demo<br />
+CheckMenu Item10 ; we wish to start with the ITEM menu item checked<br />
+<br />
+; Finally, once all menus are set up / updated, we call UpdateWindowMenu to tell the OS about the menu<br />
+UpdateWindowMenu WinHandle<br />
+<br />
+; At last!  We can now start up a simple application loop to control the demo application.<br />
+Repeat<br />
+	; Wait for an event to occur...<br />
+	id=WaitEvent()<br />
+	<br />
+	; exit on a window close event<br />
+	If ID=$803 Then End <br />
+<br />
+	; handle a menu event<br />
+	If ID=$1001 Then<br />
+		EID=EventData() ; Event data contains the menu ID specified when creating the menu items<br />
+		Select EID<br />
+			Case 1<br />
+				Notify "Open selected"<br />
+			Case 3<br />
+				End<br />
+			Case 4<br />
+				Notify "Copy selected"<br />
+			Case 5<br />
+				Notify "Paste selected"<br />
+			Case 6<br />
+				Notify "Cut selected"<br />
+			Case 7<br />
+				Notify "ITEM selected"<br />
+			Case 8<br />
+				; disable the menu item and notify the OS of the update to the window menu<br />
+				DisableMenu Item7<br />
+				UpdateWindowMenu WinHandle <br />
+			Case 9<br />
+				; enable the menu item and notify the OS of the update to the window menu<br />
+				EnableMenu Item7<br />
+				UpdateWindowMenu WinHandle<br />
+			Case 10<br />
+				Notify "ITEM selected"<br />
+				; note that the item is NOT automatically checked / unchecked by selecting it<br />
+			Case 11<br />
+				; Check the menu item<br />
+				CheckMenu Item10<br />
+				UpdateWindowMenu WinHandle<br />
+			Case 12<br />
+				; Uncheck the menu item<br />
+				UncheckMenu Item10<br />
+				UpdateWindowMenu WinHandle<br />
+		End Select<br />
+	End If<br />
+Forever<br />
+End  ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=CreateMenu&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

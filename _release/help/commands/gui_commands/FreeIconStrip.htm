@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>FreeIconStrip icon_strip</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+icon_strip - An icon strip handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Frees and icon strip.
+<br>
+<br>
+See also: <a class=small href=LoadIconStrip.htm>LoadIconStrip</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/FreeIconStrip.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Create a window and some labels<br />
+win=CreateWindow("Test Labels",100,100,200,100,0,49)<br />
+tab=CreateTabber(0,0,200,100,win)<br />
+; get bitmap icon from the Blitz directory <br />
+appdir$=SystemProperty("appdir") <br />
+blitzdir$=Left(appdir,Len(appdir)-5) <br />
+icons=LoadIconStrip(blitzdir$+"\cfg\dbg_toolbar.bmp") <br />
+SetGadgetIconStrip tab,icons<br />
+InsertGadgetItem(tab,0,"Tab 1",0)<br />
+InsertGadgetItem(tab,1,"Tab 2",1)<br />
+<br />
+; The simplest event loop possible!<br />
+Repeat<br />
+Until WaitEvent()=$803<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=FreeIconStrip&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

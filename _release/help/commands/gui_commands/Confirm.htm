@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>Confirm( message$[,serious] )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+message$ - A message to display<br />
+serious - A true/false flag indicating whether something serious is about to happen
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Confirm allows you to check with the user before performing an operation.<br />
+<br />
+Confirm displays a window containing the provided message, along with YES and NO buttons.<br />
+<br />
+If the user selects YES, a value of 1 is returned. Otherwise, the returned value is 0.
+<br>
+<br>
+See also: <a class=small href=Notify.htm>Notify</a>, <a class=small href=Proceed.htm>Proceed</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/Confirm.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Example provided by Mag<br />
+result=Confirm("Are you sure",True)<br />
+If result=1 Then <br />
+Notify "I know that you're sure, I just asked to annoy you!"<br />
+Else<br />
+Notify "You cancelled the process!"<br />
+EndIf<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=Confirm&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

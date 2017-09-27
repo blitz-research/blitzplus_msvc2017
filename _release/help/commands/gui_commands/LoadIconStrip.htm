@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>LoadIconStrip( file$ )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+file$ - File name of an image containing the icons
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Creates an iconstrip and returns its handle.<br />
+<br />
+An icon strip is a series of small images that can be attached to items within container gadgets.<br />
+<br />
+Icons must be square, and arranged in a single horizontal strip across the source image.<br />
+<br />
+The number of icons in an iconstrip is determined by dividing the image width by its height. For example,<br />
+an iconstrip 64 wide by 8 high is assumed to contain 64/8=8 icons.<br />
+<br />
+Icon strips can be attached to container gadgets using <a class=small href=../gui_commands/SetGadgetIconStrip.htm>SetGadgetIconStrip</a>
+<br>
+<br>
+See also: <a class=small href=SetGadgetIconStrip.htm>SetGadgetIconStrip</a>, <a class=small href=FreeIconStrip.htm>FreeIconStrip</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/LoadIconStrip.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Create a window and some labels<br />
+win=CreateWindow("Test Labels",100,100,200,100,0,49)<br />
+tab=CreateTabber(0,0,200,100,win)<br />
+; get bitmap icon from the Blitz directory <br />
+appdir$=SystemProperty("appdir") <br />
+blitzdir$=Left(appdir,Len(appdir)-5) <br />
+icons=LoadIconStrip(blitzdir$+"\cfg\dbg_toolbar.bmp") <br />
+SetGadgetIconStrip tab,icons<br />
+InsertGadgetItem(tab,0,"Tab 1",0)<br />
+InsertGadgetItem(tab,1,"Tab 2",1)<br />
+<br />
+; The simplest event loop possible!<br />
+Repeat<br />
+Until WaitEvent()=$803<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=LoadIconStrip&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

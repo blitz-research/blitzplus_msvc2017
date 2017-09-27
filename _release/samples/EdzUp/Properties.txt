@@ -1,0 +1,42 @@
+Armour Class Bonus (AC)
+Attack bonus
+Law magic bonus
+Chaos magic bonus
+Air magic bonus
+Earth magic bonus
+Fire magic bonus
+Water magic bonus
+Mind magic bonus
+Body magic bonus
+Runes awarded
+Strength bonus
+Dexterity bonus
+Intelligence bonus
+Constitution bonus
+Concentration bonus
+Charisma bonus
+Experience multiplier
+Gold multiplier
+Law magic damage multiplier
+Chaos magic damage multiplier
+Air magic damage multiplier
+Earth magic damage multiplier
+Fire magic damage multiplier
+Water magic damage multiplier
+Mind magic damage multiplier
+Body magic damage multiplier
+Player minimum experience level required
+Player maximum experience level required
+Light range bonus
+Regenration
+Vampiric regeneration
+Mana rengeneration
+Vamparic mana regeneration
+Ammunition renegeration
+Item can speak (insane)
+Item can speak (demonic)
+Item can speak (frenzied)
+Item can speak (calm)
+Item can speak (sage)
+Effect on selected skill
+Maximum Ammunition

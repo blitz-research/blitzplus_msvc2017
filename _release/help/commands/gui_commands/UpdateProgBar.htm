@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>UpdateProgBar progbar,value#</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+progbar - A progbar gadget handle<br />
+value# - Value from 0 to 1.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Changes the amount of 'progress' indicated by a progress bar gadget.<br />
+<br />
+0 indicates no progress, 1 indicates finished.
+<br>
+<br>
+See also: <a class=small href=CreateProgBar.htm>CreateProgBar</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/UpdateProgBar.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Create a window, and progress bar<br />
+AppTitle "Format brain"<br />
+win = CreateWindow("Formatting brain...",100,100,200,40,0,57)<br />
+pb = CreateProgBar(10,10,180,20,win)<br />
+<br />
+; Start a timer to drive our progress bar<br />
+timer = CreateTimer(5)<br />
+progress# = 0<br />
+<br />
+; A small event loop<br />
+Repeat<br />
+<br />
+	; Wait for events<br />
+	id = WaitEvent()<br />
+	Select id<br />
+	<br />
+		; Exit on window close<br />
+		Case $803 : Exit <br />
+		<br />
+		; Timer tick<br />
+		Case $4001<br />
+			; Update the progress bar<br />
+			progress# = progress# + 0.01<br />
+			If progress#>0.97 Then Notify "Formatting error encountered on block 'Frontal Lobe' of brain."+Chr$(13)+"Please insert a new brain.",True : Exit<br />
+			UpdateProgBar pb,progress#<br />
+			SetStatusText win,Int(progress#*100)+"% Complete"<br />
+			<br />
+	End Select<br />
+	<br />
+Forever<br />
+<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=UpdateProgBar&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

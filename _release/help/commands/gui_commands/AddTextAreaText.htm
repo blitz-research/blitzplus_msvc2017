@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>AddTextAreaText textarea,text$</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+textarea - A textarea gadget handle<br />
+text$ - A string to be added to the textarea
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Appends the specified text to the contents of a textarea gadget.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/AddTextAreaText.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; AddTextAreaText Example by Mag<br />
+<br />
+win=CreateWindow ("",0,0,300,300);create window first<br />
+txtbox=CreateTextArea(0,0,200,200,win) ;create textarea in that window<br />
+add=CreateButton("Add Text",200,0,80,20,win);create button<br />
+Repeat<br />
+id=WaitEvent() ;wait for user action (in a form of event)<br />
+If id=$803 Then End ;to quit program when receive Window close event <br />
+If id=$401 And EventSource()=add Then ;when ok is press<br />
+AddTextAreaText txtbox,Chr$(13)+"Some text added";<<---ADD SOME TEXT IN TEXT AREA<br />
+End If<br />
+Forever
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=AddTextAreaText&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

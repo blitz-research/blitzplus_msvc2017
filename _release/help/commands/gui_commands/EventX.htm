@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>EventX()</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+None.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Returns extra event specific information.<br />
+<br />
+For example, in the case of a mouse movement event, EventX returns the new mouse X coordinate.
+<br>
+<br>
+See also: <a class=small href=EventY.htm>EventY</a>, <a class=small href=WaitEvent.htm>WaitEvent</a>, <a class=small href=EventID.htm>EventID</a>, <a class=small href=EventSource.htm>EventSource</a>, <a class=small href=EventData.htm>EventData</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/EventX.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; create a window<br />
+win=CreateWindow("Move the mouse over the window",100,100,300,200,0,9)<br />
+cnv=CreateCanvas(50,30,200,100,win)<br />
+<br />
+; and set the status text<br />
+SetStatusText win,"Move the mouse over the window"<br />
+<br />
+; a small event loop<br />
+Repeat<br />
+<br />
+   id = WaitEvent()<br />
+<br />
+   Select id<br />
+      Case $803 ; exit on window close event<br />
+         Exit		<br />
+<br />
+      Case $203 ; update the status on gadget action<br />
+         SetStatusText win,EventX() + " x " + EventY()	<br />
+<br />
+   End Select<br />
+<br />
+Forever<br />
+<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=EventX&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

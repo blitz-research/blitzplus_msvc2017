@@ -1,0 +1,1208 @@
+<html>
+
+<head>
+<title>Blitz For Beginners</TITLE> 
+<link href="blitzplus.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class=banner>
+<p align="center"><a href="http://"><img border="0" src="blitzplus_big.jpg" width="320" height="155"></a>
+<h1 align="center">Blitz For Beginners</h1>
+<h1>by <a href="mailto:ccnkrylar@aol.com">Krylar</a></h1>
+</div>
+
+<ul>
+<li><a HREF="#0">Introduction</a>
+<li><a HREF="#1">Simple, eh? Enough talk, show me!</a>
+<li><a HREF="#2">Building the Foundations</a>
+<li><a HREF="#3">What do variables look like in BlitzPlus?</a>
+<li><a HREF="#4">Arrays and Types</a>
+<li><a HREF="#5">Images Basics &amp; Basic Parallaxing</a>
+<li><a HREF="#6">Page Flipping &amp; Handling Input</a>
+</ul>
+
+<h2><a name=0>Introduction</a></h2>
+<p>BlitzBasic is a tool that was originally created for the Amiga a long long
+time ago in a galaxy...well, it was this galaxy, but anyway. The idea was to
+create a really powerful game engine that had a simple programming interface.
+This concept is now being moved from the Amiga to the PC, and it's sweet!
+<p>Currently, BlitzBasic supports 2D graphics only, but a 3D version is being
+built and is due out in the next few months. The engine works with DirectX 7.0
+or higher and sports the following features:
+<ul>
+  <li>Full featured BASIC programming language
+  <li>Built in IDE and compiler, with a pretty nice debugger to boot
+  <li>REALLY high-speed 2D Graphics with Buffering
+  <li>Tons of image functions (including PIXEL-Perfect collision detection!)
+  <li>Font functions for putting up your text as you want
+  <li>Input device functions (keyboard, mouse, and joystick)
+  <li>Sound and Music functions
+  <li>File I/O functions
+  <li>String manipulation functions
+  <li>Time functions (no more worrying about &quot;how do I work the timers in
+    Windows?&quot;)
+  <li>All the necessary math functions for 2D (to be expanded with 3D, no doubt)
+  <li>And, get this, Multiplayer functions!</li>
+</ul>
+<p>I've been messing with this language for roughly 2 days now and I gotta say
+that this is one of the coolest toys I've played with. It's simple to use, but
+it still requires that YOU program your game. Basically, you still have to
+handle the AI, physics, game-play mechanics, balancing issues, level controls,
+hit points, modifiers, etc...the only thing you no longer have to worry about is
+working with DirectX.
+<p>In order to follow along, you'll need to download the latest version of
+BlitzBasic and you'll need to have DirectX 7.0 or higher. You can get BlitzBasic
+by going to the <a href="http://www.blitzbasic.com" target="bb">BlitzBasic
+Website</a>.
+<p>Quick note, I'll likely use &quot;BB&quot; in place of writing
+&quot;BlitzBasic&quot; everywhere...so now you'll know what that means ;)
+
+
+<h2><a name=1>Simple, eh? Enough talk, show me!</a></h2>
+<p>Okay, I'm going to show you how simple this really is. This little piece of
+source will setup the graphics mode, display a .bmp image and allow you to move 
+that image all over the screen with your mouse.
+<P>Save the following image to the folder you have created for saving your 
+BlitzPlus projects before trying the following code.
+<P><img src="player.bmp">
+<div class=code><pre>
+<pre>
+<span class=rem>; Setup our constants</span>
+<span class=cmd>Const</span> g_ScreenWidth=800, g_ScreenHeight=600
+
+<span class=rem>; Call the BB <span class=str>&quot;Graphics&quot;</span> routine to initialize DirectX</span>
+<span class=cmd>Graphics</span> g_ScreenWidth, g_ScreenHeight
+
+<span class=rem>; Set up BB to support page-flipping</span>
+<span class=cmd>SetBuffer</span> <span class=cmd>BackBuffer</span>()
+
+<span class=rem>; Create a global var for the Player's Image</span>
+<span class=cmd>Global</span> g_PlayerImage
+
+<span class=rem>; Create globals to keep track of the mouse positions</span>
+<span class=cmd>Global</span> g_OldMouseX=1, g_OldMouseY=1
+
+<span class=rem>; Create a Type (which is just like a C/C++ Struct)</span>
+<span class=cmd>Type</span> MainShip
+	<span class=cmd>Field</span> x#,y#
+<span class=cmd>End</span> <span class=cmd>Type</span>
+
+<span class=rem>; Create an object of MainShip, called Ship</span>
+Ship.MainShip=<span class=cmd>New</span> MainShip 
+
+<span class=rem>; Set the x,y for the Ship</span>
+Ship\x#=1
+Ship\y#=1
+
+<span class=rem>; Call BB's LoadImage function to load the .BMP</span>
+<span class=rem>; Make sure you put the proper path to the .BMP!</span>
+g_PlayerImage=<span class=cmd>LoadImage</span>( <span class=str>&quot;player.bmp&quot;</span> )
+
+<span class=rem>; Our main game loop is here. </span>
+<span class=rem>; While the ESC key is not pressed</span>
+
+<span class=cmd>While</span> <span class=cmd>Not</span> <span class=cmd>KeyHit</span>(1)
+	<span class=rem>; If mouse position isn't the same as last loop </span>
+	<span class=rem>; update the x,y coords for the ship</span>
+	<span class=cmd>If</span> g_OldMouseX&lt;&gt;MouseX() <span class=cmd>Or</span> g_OldMouseY&lt;&gt;MouseY()
+	
+		<span class=rem>; update the x coord for the ship placement</span>
+		Ship\x#=<span class=cmd>MouseX</span>()
+		<span class=rem>; update the y coord for the ship placement</span>
+		Ship\y#=<span class=cmd>MouseY</span>()
+	
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	
+	<span class=rem>; Save the current mouse x,y</span>
+	g_OldMouseY=<span class=cmd>MouseX</span>()
+	g_OldMouseY=MouseY()
+	
+	<span class=rem>; Call BB's DrawImage function to put the ship</span>
+	<span class=rem>; up in the proper spot</span>
+	<span class=cmd>DrawImage</span> g_PlayerImage, Ship\x#, Ship\y#
+	
+	<span class=rem>; Call BB's Flip function to flip the pages</span>
+	<span class=cmd>Flip</span>
+	
+	<span class=rem>; Clear the back buffer</span>
+	<span class=cmd>Cls</span>
+	
+	<span class=rem>; end of our main loop</span>
+<span class=cmd>Wend</span>
+
+<span class=rem>; free the Ship Oject</span>
+<span class=cmd>Delete</span> Ship
+
+<span class=rem>; End of the program</span>
+<span class=cmd>End</span>
+</pre></div>
+<P>Now I'm sure there are a few things that may look a bit odd, so let me explain.
+<p>First off, you use a &quot;;&quot; as a comment indicator. It will consider
+anything after that character a comment for the rest of that line.
+<p>Secondly, you'll notice that in the Type section there is a <b>Field</b>
+command. This command basically instructs the Type that this is a piece of it's
+element. You can put different vars and such in here.
+<p>Third, what's with that # next to x and y? Well, that little jobbie basically
+tells BB to use floating point. Thus, we can put <b>x#=1.99834</b>, which we
+couldn't do without the #. You won't get an error if you try, but everything
+after the decimal is dropped.
+<p>Finally, where C uses <b>-&gt;</b> for struct references, BB uses a <b>\</b>.
+So when you see <b>Ship\x=1</b>, think <b>Ship-&gt;x=1</b>. For those of you who
+don't know C, think of the <b>\</b> as pointing at the <b>x</b>. So, <b>Ship\x=1</b>
+is basically saying, &quot;make the value x, that sits inside the Type Ship,
+equal 1&quot;. I guess another way to look at is as <b>Type Ship</b> is a
+directory and <b>x</b> is a sub-directory within it. In order access that
+directory in DOS, you would have to type in the old <b>CD ship\x</b>...that
+might help you DOS-types (and Unix types, just flip the <b>/</b> in your world
+to <b>\</b> ;)).
+
+
+<h2><a name=2>Building the Foundations</a></h2>
+<p>The first time you sit down and look at someone else's code it looks like
+Greek. Now, if you happen to read Greek, well, then pick a language you don't
+know and replace Greek with that. :)
+<p>The intent of this article is to help you understand the fundamentals of the
+BB language and it's syntax.
+
+<h3>Comments</h3>
+<p>One of the things that a lot of people do (assuming they're conscious that
+others will be looking at their code) is comment that code. This is an
+extrememly important thing to work into your daily programming life because you
+or someone else will eventually have to study your code.
+<p>I can't stress the importance of commenting enough, but most people only
+learn to do it after they've had to go back and fix something 6 months after
+they thought it was complete. When you're looking at the code on a daily basis,
+it makes perfect sense to you. But take a week away and you'll be kicking
+yourself for not commenting appropriately.
+<p>&quot;Okay, Captain Spanky, so how do I comment?&quot; Simple! All you need
+to do is use a semi-colon. Anything after a semi-colon (to the end of the line)
+will be considered a comment by BB and will NOT be compiled into your code. So,
+it's for your reference only. Comments will not increase the size of your
+finished application and they will not slow your application down in the least.
+<p>Here's a few examples of comments:
+<div class=code><pre>
+<pre>
+<span class=rem>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class=rem>;; Commenting code demo!</span>
+<span class=rem>;; Developed by: Krylar</span>
+<span class=rem>;; Last Revision: 10/09/2000</span>
+<span class=rem>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+
+<span class=rem>; Let's create our constants here</span>
+<span class=cmd>Const</span> kSpacebar = 57      <span class=rem>; Holds the scan-code of the keyboard's spacebar</span>
+    
+<span class=rem>; Let's create out global variables here</span>
+<span class=cmd>Global</span> iShields = 200     <span class=rem>; Holds the current shield power</span>
+<span class=cmd>Global</span> iArmor = 100       <span class=rem>; Holds the current armor power</span>
+</pre></div>
+<P>Note that at the top I put a little information on the program. This isn't 100%
+necessary, but it's sometimes nice to keep track of things like this. Usually
+that section is useful for explaining what the program is made to do. Also, you
+may notice that I got a little creative with the semi-colons...making a little
+box-like thing around that program info. That's just a habit of mine ;)
+<p>Second thing is that I seperate each major section with a space and a
+comment. I do this just to keep things organized. That's why the
+&quot;global&quot; variables section sits apart from the &quot;constant&quot;
+values section.
+<p>Finally, I put a comment to the right of each constant/variable created so I
+can define exactly what each one is for.
+<p>Now this example shows some pretty detailed commenting, but that's only so I
+could demonstrate the various comment options. If your variable names are done
+smartly, a lot of this commenting will be unnecessary. For example, it's pretty
+obvious what the iShields and iArmor are all about, no?
+
+<h3>BlitzBasic Commands</h3>
+<p>Whenever you program, you'll need to use a set of &quot;commands&quot; that
+the language supports. Each command has it's own &quot;syntax&quot;, or rules
+for use, that you must follow in order to make the command do it's job properly.
+Generally, but not always, this syntax includes the use of
+&quot;arguments&quot;.
+<p>An argument is simply a value that you send along with the command. For
+example, let's say that we are using the <b>Graphics</b> command in BB. For this
+command to work properly, we'll need to tell that command what resolution we
+want our graphics mode to be. Games can support many resolutions, everything
+from 320x200 up to 1280x1024. Most games nowadays support 640x480, 800x600, and
+1024x768.
+<p>So, since we need to tell the <b>Graphics</b> command which one we want to
+use, we'll need to &quot;pass it arguments&quot;. Here is how it would look for
+us to set up an 800x600 resolution.
+<div class=code><pre>
+<pre>
+<span class=cmd>Graphics</span> 800,600
+</pre></div>
+<P>That's it! Super simple ;) Now, you *can* also request that command to set up
+the &quot;color depth&quot;, which how many colors to make that resolution
+support. I personally wouldn't recommend this though since BlitzBasic will grab
+what it feels is the best color depth for you.
+<p>There are tons of BB commands and I'm not going to cover them all here, but I
+am going to cover a few that are key to developing a simple application. The
+commands I'll cover are:
+<ul>
+  <li>Graphics
+  <li>While...Wend
+  <li>IF...Then...Else...Endif
+  <li>Text
+  <li>Cls
+  <li>End</li>
+</ul>
+<p><b><u>Graphics</u></b>: This command is the heart and soul of BB. Without
+this command, it's almost pointless to press &quot;Run&quot;. You can do some
+stuff without it, like writing to files and such, but it'll be necessary if you
+want to create anything that outputs to the screen.
+<p>Use <b>Graphics</b> to set up the video mode (resolution) that you want to
+use with the game. Examples would be 640x480, 800x600, 1024x768.
+<p><b><u>While...Wend</u></b>: This is a combination command. This combination
+allows you repeatedly run all the commands sitting between the <b>While</b> and
+the <b>Wend</b> until the condition set in the <b>While</b> section is met. This
+is also known as a &quot;Loop&quot;. Here's an example...this will not work if
+you enter it AS IS in BlitzBasic. Later though I'll be using this combination
+command in a program to show you how it's used. For now, just study this piece:
+<div class=code><pre>
+<pre>
+iCounter = 1                  <span class=rem>; create a local variable called iCounter</span>
+  
+<span class=rem>; If iCounter is less than 10</span>
+
+<span class=cmd>While</span> iCounter&lt;10 
+	<span class=cmd>Print</span> <span class=str>&quot;Hello!&quot;</span>              <span class=rem>; print out Hello</span>
+	iCounter = iCounter + 1     <span class=rem>; Add one to the current value of iCounter</span>
+<span class=cmd>Wend</span>
+</pre></div>
+<P>So, what this will do is continue running through that While...Wend Loop until
+iCounter, which is being added to each time, is greater than or equal to 10. So,
+it will print &quot;Hello!&quot; ten times on the screen...unfortunately it will
+print it over top of itself, so it's quite anti-climatic.
+<p><b><u>If...Then...Else...Endif</u></b>:
+<p>This is probably one of the most utilized command sets when coding. It
+basically allows you to check a condition and do something if that condition is
+valid. So, let's say you only wanted to print a score if it's greater than 0
+points. You would go:
+<div class=code><pre>
+<pre>
+<span class=cmd>If</span> iScore&gt;0 <span class=cmd>Then</span>
+	<span class=cmd>Text</span> 200,200, <span class=str>&quot;Score = &quot;</span>+iScore
+<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+</pre></div>
+<P>As you can see, if iScore is less than or equal to zero nothing will be printed!
+<p>Now, let's say that you wanted to print the score if it's greater than zero,
+but you still want to print something if it's not. You would do this:
+<div class=code><pre>
+<pre>
+<span class=cmd>If</span> iScore&gt;0 <span class=cmd>Then</span>
+	<span class=cmd>Text</span> 200,200, <span class=str>&quot;Score = &quot;</span>+iScore
+<span class=cmd>Else</span>
+	<span class=cmd>Text</span> 200,200, <span class=str>&quot;No Score Yet!&quot;</span>
+<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+</pre></div>
+<P>This basically says that if our score is greater than 0, print out the score.
+Else (or, otherwise) print out &quot;No Score Yet!&quot;.
+<p>There is one other thing I want to touch on with this command set, and that's
+<b>nesting</b>. Nesting basically means &quot;having Ifs within Ifs&quot;.
+Here's an example:
+<div class=code><pre>
+<pre>
+<span class=cmd>If</span> iScore&gt;0 <span class=cmd>Then</span>
+	<span class=cmd>Text</span> 200,200, <span class=str>&quot;Score = &quot;</span>+iScore
+<span class=cmd>Else</span>
+	<span class=cmd>If</span> iScore&lt;0 <span class=cmd>Then</span>
+		<span class=cmd>Text</span> 200,200, <span class=str>&quot;You're in the Negatives!&quot;</span>
+	<span class=cmd>Else</span>
+		<span class=cmd>Text</span> 200,200, <span class=str>&quot;No Score Yet!&quot;</span>    
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+</pre></div>
+<P>This one does *almost* the same thing as the last one. The primary difference is
+that when the score is NOT greater than 0, we check to see if it's LESS than 0.
+If so, we print &quot;You're in the Negatives!&quot;...Else we print &quot;No
+Score Yet!&quot;. So, here's the table for that:
+<p>iScore &gt; 0, so print &quot;Score = &quot; and then the score<br>
+iScore &lt; 0, so print &quot;You're in the Negatives!&quot;<br>
+iScore = 0 (since it's neither greater than, nor less than, 0), so print
+&quot;No Score Yet!&quot;
+<p><b><u>Text</u></b>:
+<p>This command has been used throught my little code snippets above. What this
+does is tells BB that you want to print out text at a certain location on the
+screen. The arguments passed are:
+<p>&nbsp;
+<ul>
+  <li>the X coordinate, or where you want the text to start horizontally
+  <li>the Y coordinate, or where you want the text to start vertically
+  <li>the text you want to display</li>
+</ul>
+<p>You can also set this command up to control whether or not to center the line
+on the X, Y axis or not. To do so, you would use the optional arguments
+&quot;centerX&quot; and &quot;centerY&quot;. Here's what a centered version
+would look like:
+<div class=code><pre>
+<pre>
+<span class=cmd>Text</span> 200,200,<span class=str>&quot;Hello, World!&quot;</span>,1,1
+</pre></div>
+<p>One other thing to note is that you can add a variables value to the text by
+using a &quot;+&quot; sign and the variable. Here's an example:
+<div class=code><pre>
+<pre>
+iAge = 32
+<span class=cmd>Text</span> 200,200,<span class=str>&quot;Hello, World! I'm &quot;</span>+iAge+<span class=str>&quot; years old!&quot;</span>, 1, 1
+
+</pre></div>
+<P>This will print out, &quot;Hello, World! I'm 32 years old!&quot;.
+<p><b><u>Cls</u></b>:
+<p>This command requires no arguments. It simply clears the screen. Yep, that's
+it!
+<p>Now, you can use it's sister function, ClsColor to clear the screen with a
+specific color. In order to do that, you would have to provide the Red, Green
+and Blue color arguments (all numbers between 0 and 255). The default is 0, 0,
+0. Here is some code:
+<div class=code><pre>
+<pre>
+<span class=cmd>Cls</span>                     <span class=rem>; standard clear screen...clears it to black</span>
+<span class=cmd><span class=cmd>Cls</span>Color</span> 255, 255, 255  <span class=rem>; since red=255, green=255 and blue=255...it will clear to white</span>
+
+</pre></div>
+<P>You can use almost any paint program to find out the various RGB (Red, Green,
+Blue) values.
+<p><b><u>End</u></b>:
+<p>This is not a completely necessary command to use, but if you don't use it
+you'll end up getting a windows dialog box that explains the program has ended.
+Plus, I don't know what it will do if you have a compiled version of your code.
+So, just to be safe I include it at the end of the main <b>While...Wend</b>
+loop.
+<p>All this command does is instructs BB to shut everything down and return
+control to Windows.
+
+<h3>Sample Program:</h3>
+<p>Okay, now to tie all this together, here is a simple program that moves
+&quot;Hello, World!&quot; across the screen over and over until you hit the ESC
+key. Something to note is that this WILL flicker as it flies across the screen.
+This is because we're not using a good animation technique (which I'll get into
+in a future article)...this is to demonstrate our commands only.
+<p>Pay CLOSE attention to the comments here!
+<div class=code><pre>
+<pre>
+<span class=rem>; Call the BB <span class=str>&quot;Graphics&quot;</span> routine to initialize our graphics mode</span>
+<span class=cmd>Graphics</span> 800, 600
+
+<span class=rem>; declare a global variable to keep track of the x</span>
+<span class=rem>; position of our text</span>
+<span class=cmd>Global</span> iX=-120
+
+<span class=rem>; declare a global variable for our y position</span>
+<span class=cmd>Global</span> iY=0
+
+<span class=rem>; keep doing this piece until the </span>
+<span class=rem>; user hits the ESC key</span>
+<span class=cmd>While</span> <span class=cmd>Not</span> <span class=cmd>KeyHit</span>(1)
+
+	<span class=rem>; clear the screen</span>
+	<span class=cmd>Cls</span>
+
+	<span class=rem>; print the text at our current iX, iY location</span>
+	<span class=cmd>Text</span> iX,iY,<span class=str>&quot;Hello, World!&quot;</span>
+
+	iX = iX + 1      <span class=rem>; add 1 to the current value of iX</span>
+
+	<span class=rem>; check to see if the value in iX is greater than 800</span>
+	<span class=rem>; (which is our screen resolution)</span>
+	<span class=cmd>If</span> iX &gt; 800
+		iX = -120       <span class=rem>; it is greater, so reset the value</span>
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+
+	<span class=cmd>Flip</span>
+
+	<span class=cmd>Delay</span> 3            <span class=rem>; tell BB to delay for 3 milliseconds</span>
+<span class=cmd>Wend</span>
+
+<span class=cmd>End</span>                    <span class=rem>; Give control back to Windows</span>
+
+</pre></div>
+<h3>Conclusion:</h3>
+<p>Enter the above program into BlitzBasic and run it...it ain't fancy but it's
+a start! Also, play around with the iX values and the value after the Delay
+command to see what kind of wackyness you can create! ;)
+
+<h2><a name=3>What do variables look like in BlitzPlus?</a></h2>
+<p>This article deals with the little containers known as &quot;variables&quot;.
+If you've taken basic algebra, you already know what this is. If not, try this
+definition out:
+<p>A variable can be thought of as a container, much like Tupperware. Inside the
+container sits almost anything you want; counting numbers, characters, decimal
+(or floating-point) numbers, image data, etc. You give the container a name,
+preferably something that's understandable and clearly identifies the variables
+purpose, and then you put values in it.
+<p><font class="articleheadings">
+</font>
+<p>When you first see a variable, it can look a little confusing. It's actually
+very simple though. All you do is create a name that makes sense, tell BB what
+kind of variable it is, and assign a value to it.
+<p>For example, here's what a numeric variable looks like in code:
+<div class=code><pre>
+<pre>
+iNumber = 200
+</pre></div>
+<P>Now the variable <b>iNumber</b> holds the value <b>200</b>. So instead of
+entering <b>200</b> throughout your program, you can simply use <b>iNumber</b>.
+This is important because you may need to change the value held in iNumber
+dynamically...something you'll have a really tough time doing without using a
+variable. We'll get into examples in a bit...for now, let me explain the
+different variable types used by BlitzBasic.
+<p>To best describe each, I'll show the source for them and then pick them
+apart.
+<div class=code><pre>
+<pre>
+iNumber
+iNumber% = 200
+fNumber# = 200.125
+sText$ = <span class=str>&quot;Hello!&quot;</span>
+
+</pre></div>
+<P>The first two, <b>iNumber</b> and <b>iNumber%</b>, do effectively the same
+thing. It's just that the default variable is considered an <b>integer</b> (or
+real number) so the <b>%</b> isn't necessary. Also, notice that there is no
+value assigned to the first <b>iNumber</b>. You don't have to assign a value
+when you declare the variable...it's usually best if you do, but it's not
+necessary.
+<p>The third line, <b>fNumber# = 200.125</b>, uses the <b>#</b> to tell BB that
+we want this variable to be of type <b>floating point</b>.
+<p>Finally, <b>sText$</b> uses the <b>$</b> to tell BB to treat this variable as
+a <b>string</b>. A string, sometimes called a &quot;scalar&quot;, is simply a
+collection of characters.
+<p>Now you may be wondering at my choice of variable names. Since I like to be
+able to look at a variable and immediately know what it's for and what type of
+variable it is, I use a little naming convention. I put a lower-case
+&quot;i&quot; for integers, &quot;f&quot; for floating point(I'll also use a
+&quot;d&quot; for this sometimes because in C I use doubles, which is similar to
+floating point), and &quot;s&quot; for string (or character) variables. From
+there I add a descriptive name to the variable. Also, if the variable is more
+than one word, I capitalize each word. Here are some examples:
+<div class=code><pre>
+<pre>
+iNumberOfHitPoints = 125
+iShieldValue = 100
+iArmorValue = 50
+fShipVelocity# = .500
+fShipBrakingSpeed# = .250
+sShipName$ = <span class=str>&quot;Kliaziaan Warhawk&quot;</span>
+sPlayerName$ = <span class=str>&quot;Krylar&quot;</span>
+
+</pre></div>
+
+<h3>Global and Local Variables</h3>
+<p>There are two types of variables in BB, global and local. A global variable
+is one that is available to the entire program. This means that any function
+within the program can not only read the contents of that variable, but can also
+change that value.
+<p>As you may have guessed, a local variable is one that is only available to
+the function in which it is defined. You don't have to put the word
+&quot;local&quot; in front of a variable inside of a function. If nothing is put
+in front of the variable, it's defaulted to being local.
+<p>Here's an example of a global variable called <b>iSpacebarHits</b>. This
+program simply increases a value each time the spacebar is pressed, and displays
+the new value to the user. Note that until you hit the spacebar, the screen will
+remain blank. Here's the code:
+<div class=code><pre>
+<pre>
+<span class=rem>; Call the BB <span class=str>&quot;Graphics&quot;</span> routine to initialize the graphics mode</span>
+<span class=cmd>Graphics</span> 800, 600
+
+<span class=rem>; Set up our GLOBAL value</span>
+<span class=cmd>Global</span> iSpacebarHits = 0
+
+<span class=rem>; keep doing this piece until the user hits the ESC key</span>
+<span class=cmd>While</span> <span class=cmd>Not</span> <span class=cmd>KeyHit</span>(1)
+
+	<span class=rem>; if the user hits the Spacebar</span>
+	<span class=cmd>If</span> <span class=cmd>KeyHit</span>(57) <span class=cmd>Then</span>
+	
+		<span class=rem>; clear the screen</span>
+		<span class=cmd>Cls</span>
+		
+		<span class=rem>; call the function that adds to the iSpacebarHits variable</span>
+		AddToSpacebarHits()
+		
+		<span class=rem>; print out the value of iSpacebarHits</span>
+		<span class=cmd>Text</span> 400,300,<span class=str>&quot;iSpacebarHits = &quot;</span>+iSpacebarHits,1,1
+	
+		<span class=cmd>Flip</span>
+		
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+<span class=cmd>Wend</span>
+
+<span class=cmd>End</span>
+
+<span class=rem>; this is a function for increasing the iSpacebarHits variable by one</span>
+<span class=cmd>Function</span> AddToSpacebarHits()
+	iSpacebarHits = iSpacebarHits + 1
+<span class=cmd>End</span> <span class=cmd>Function</span>
+
+</pre></div>
+<P>This program only works because we declared the <b>iSpacebarHits</b> variable as
+global, if you change that declaration to local you won't see your output go
+past 0.
+<p>You may be wondering why you'd want to use local variables at all. The reason
+is that you will often want to do calculations within a function but don't want
+to have all that function's data known to the rest of the program.
+<p>For example, let's say that each time the spacebar is pressed we wanted to
+find a random number between 1 and 5 to add to the iSpacebarHits value. It
+wouldn't hurt to have this value as a global, but it wouldn't help either
+(unless you're using it for more than one function). So, if you are just going
+to use a variable in the function and it doesn't need to be available to the
+rest of the program, just make it local.
+<p>Another reason is that having too many global variables can make your code
+quite confusing to others who are working with it. Also, it can be very
+confusing to you in the future if you have to revisit it for some reason.
+<p>So, here's that source code again, but using that Random number idea with a
+local variable (again, you'll get a blank screen until you hit the spacebar):
+<div class=code><pre>
+<pre>
+<span class=rem>; Call the BB <span class=str>&quot;Graphics&quot;</span> routine to initialize the graphics mode</span>
+<span class=cmd>Graphics</span> 800, 600
+
+<span class=rem>; Set up our GLOBAL value</span>
+<span class=cmd>Global</span> iSpacebarHits = 0
+
+<span class=rem>; keep doing this piece until the user hits the ESC key</span>
+<span class=cmd>While</span> <span class=cmd>Not</span> <span class=cmd>KeyHit</span>(1)
+
+	<span class=rem>; if the user hits the Spacebar</span>
+	<span class=cmd>If</span> <span class=cmd>KeyHit</span>(57) <span class=cmd>Then</span>
+
+		<span class=rem>; clear the screen</span>
+		<span class=cmd>Cls</span>
+
+		<span class=rem>; call the function that adds to the iSpacebarHits variable</span>
+		AddToSpacebarHits()
+
+		<span class=rem>; print out the value of iSpacebarHits</span>
+		<span class=cmd>Text</span> 400,300,<span class=str>&quot;iSpacebarHits = &quot;</span>+iSpacebarHits,1,1
+		
+		<span class=cmd>Flip</span>
+		
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+
+<span class=cmd>Wend</span>
+
+<span class=cmd>End</span>
+
+<span class=rem>; this is a function for increasing the iSpacebarHits variable by a random number</span>
+
+<span class=cmd>Function</span> AddToSpacebarHits()
+	<span class=rem>; define our local variable</span>
+	<span class=cmd>Local</span> iRandomNumber=0
+
+	<span class=rem>; call BB's Random number function, asking for a number between 1 and 5, </span>
+	<span class=rem>; and put that value into iRandomNumber</span>
+	iRandomNumber = Rand(1,5)
+
+	<span class=rem>; Add iRandomNumber to the current value contained in iSpacebarHits</span>
+	iSpacebarHits = iSpacebarHits + iRandomNumber
+<span class=cmd>End</span> <span class=cmd>Function</span>
+
+</pre></div>
+
+<h2><a name=4>Arrays and Types</a></h2>
+<p>Two things that most every game will have are Arrays and Types. You can use
+them for lots of stuff...keeping track of the player's screen coordinates, hit
+points, shield reserves, bullets fired (and keeping track of those bullets),
+sprite images, etc.
+<p>There's a lot of conflict over which method is the better to use for things,
+but most folks are coming around to using Types more often than Arrays. This is
+not to say that Arrays don't have their place, they do! But for speed, ease of
+use, and freedom from limitations (aside from memory, of course), Types will
+likely be the choice of most folks.
+<p>This article will show the fundamentals of both Arrays and Types in order to
+get you started with them.
+<p>It's recommended that you download the <a href="http://www.blitzcoder.com/gamedev/source/bblesson5.zip">source
+code</a> so you can see all this in action.
+<h3>Arrays</h3>
+<p>Using Arrays is quite easy in BB (as most things are). You simply determine a
+type of value that you wish to store, dimension (set limits) an array type and
+load up the values. Here is some source to demonstrate the basics of setting up
+an array:
+<div class=code><pre>
+<pre>
+<span class=rem>; Tell BB that we want an array called <span class=str>&quot;DataX&quot;</span> to hold 3 integers</span>
+<span class=cmd>Dim</span> <span class=cmd>Data</span>X(3)
+
+<span class=rem>; go through a loop and fill the array <span class=str>&quot;DataX&quot;</span> with the values</span>
+<span class=rem>; of the loop.</span>
+<span class=cmd>For</span> x = 0 <span class=cmd>To</span> 3
+	<span class=cmd>Data</span>X(x) = x
+<span class=cmd>Next</span>
+
+</pre></div>
+<P>To access the elements of an array is just as simple as loading it. You can
+either run through a loop and gather all the elements (or ones based on a
+certain criteria), or you can target a specific element. Here is an example of
+both that uses the information from the above example:
+<div class=code><pre>
+<pre>
+<span class=rem>; set up a variable that keeps track of where the <span class=str>&quot;Text&quot;</span> command will draw</span>
+<span class=rem>; on the Y axis</span>
+txty = 0
+
+<span class=rem>; go through a loop and print out the values in the <span class=str>&quot;DataX&quot;</span> array</span>
+<span class=cmd>For</span> x = 0 <span class=cmd>To</span> 3
+	<span class=cmd>Print</span> <span class=cmd>Data</span>X(x) 
+<span class=cmd>Next</span>
+
+<span class=rem>; add up the 1 and 3 element of the array <span class=str>&quot;DataX&quot;</span></span>
+iValue = <span class=cmd>Data</span>X(1) + <span class=cmd>Data</span>X(3)
+
+<span class=rem>; print out iValue using the Y axis variable (txty) for placement</span>
+<span class=cmd>Print</span> <span class=str>&quot;iValue = &quot;</span>+iValue 
+</pre></div>
+<P>Before going any further, there is a little tricky piece that gets most people
+starting out in programming. Computers don't exactly count like we do. If
+someone was to ask you to count to 10, you'd go 1.2.3.4.5.6.7.8.9.10, right?
+Well, computers would sorta do that to, but they'd start with 0 instead of 1.
+Kooky, eh? What this means is that when you reference your arrays, you'd better
+make sure that you're starting with the computer's idea of the first element and
+not your idea. Otherwise, you'll get some strange results.
+<p>So, in the above program when I put the comment &quot;add up the 1 and 3
+element...&quot;, I was being literal. If I had said &quot;add up the first and
+3rd element of the array...&quot;, the line of code following would have looked
+like this:
+<div class=code><pre>
+<pre>
+<span class=rem>; add up the first and 3rd element of the array <span class=str>&quot;DataX&quot;</span></span>
+  iValue = <span class=cmd>Data</span>X(0) + <span class=cmd>Data</span>X(2)
+
+</pre></div>
+<P>This is also why you'll see nearly all <b>for</b> loops start from 0. Just
+something you'll want to grasp now before it bites ya ;)
+<p>Arrays aren't limited to integers. You can use strings and floats and
+such...heck, you can even have an array of Types if you want. So, flex your
+Array muscles and try loading up different things!
+
+<h3>Basics of Types</h3>
+<p>Types, like Arrays, allow you to hold elements. Unlike Arrays, Types allow
+you to hold various kinds of elements within a single Type and there is no
+pre-set limit.
+<p>For example, let's say that you wanted to hold information on a ship. You
+want to know the name of the ship, what the current X and Y coordinates are, the
+shield points left, the armor points left, and the type of weapon the ship
+currently has. Using a Type this is simple! Here's what you'd do.
+<div class=code><pre>
+<pre>
+<span class=cmd>Type</span> Ship
+	<span class=cmd>Field</span> ShipName$
+	<span class=cmd>Field</span> iX,iY
+	<span class=cmd>Field</span> iShieldPoints
+	<span class=cmd>Field</span> iArmorPoints
+	<span class=cmd>Field</span> iWeaponType
+	<span class=cmd>Field</span> iAlive
+<span class=cmd>End</span> <span class=cmd>Type</span>
+</pre></div>
+<P>Now that Type, called &quot;Ship&quot;, will allow all that stuff to be stored
+for each ship! From here you would need to create a <b>New</b> element of Type
+&quot;Ship&quot;. You can add as many of these elements as your computer's
+memory will allow. As an example, here is how we could add one...let's use the
+Player's ship:
+<div class=code><pre>
+<pre>
+PlayerShip.Ship = <span class=cmd>New</span> Ship
+PlayerShip\ShipName$ = <span class=str>&quot;Kliazian Warbird&quot;</span>
+PlayerShip\iX = ScreenWidth / 2
+PlayerShip\iY = ScreenHeight / 2
+PlayerShip\iShieldPoints = 100
+PlayerShip\iArmorPoints = 50
+PlayerShip\iWeaponType = 1
+PlayerShip\iAlive = 1
+
+</pre></div>
+<P>What we just did was populate the elements in the &quot;PlayerShip&quot; element
+of Type &quot;Ship&quot;. The beauty of this is that we can now add enemy ships,
+or ship information from multiplayer connections, etc. They can all use this
+same Type!
+<p>For enemy ships, though, I'd recomment naming the element differently. I
+would call it &quot;EnemyShips&quot; or something to that effect. This helps
+ensure that you won't be confused when going through your code at a future date.
+<p>The next cool thing is that we can update each element in the Type by going
+through a special kind of <b>For</b> loop that BB has for Types. It allows the <b>Each</b>
+command. To demonstrate how it looks, here is an example that updates all the
+enemy ship locations:
+<div class=code><pre>
+<pre>
+<span class=cmd>For</span> EnemyShips.Ship = <span class=cmd>Each</span> Ship
+	EnemyShips\iX = EnemyShips\iX + iDirectionX
+	EnemyShips\iY = EnemyShips\iY + iDirectionY
+<span class=cmd>Next</span>
+
+</pre></div>
+<P>That's it. It goes through each &quot;EnemyShips&quot; element and makes changes
+to the current X,Y for that element. I'm using the variable iDirectionX just as
+an example. This would likely be something that included speed and such so the
+ships could all move at different rates...don't want it to look like everything
+is in perfect order!
+<p>If you blow up an enemy ship, you're going to want to remove it from the
+EnemyShips element. To do that all you have to do is use the BB <b>Delete</b>
+command. The following code looks for any EnemyShips element that has the
+&quot;iAlive&quot; flag set to 0, and delete's it accordingly:
+<div class=code><pre>
+<pre>
+<span class=cmd>For</span> EnemyShips.Ship = <span class=cmd>Each</span> Ship
+	<span class=cmd>If</span> EnemyShips\iAlive = 0
+		<span class=cmd>Delete</span> EnemyShips
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+<span class=cmd>Next</span>
+</pre></div>
+<p>Study the files in the zip file for this tutorial and you'll see that I have
+put up some rocks on the screen. There are Array and Type versions of these
+programs so you can compare the code, speed, etc.
+<p>Currently the rocks move in only one direction (SE) and they don't spin or
+anything. I would recommend that you use the image rotation information in
+previous tutorials to rotate the rocks and then add a field to the
+&quot;Rocks&quot; Type called &quot;iFrame&quot;. Each time you update the X,Y
+coordinates, update the frame too. You'll probably also want to mess with the
+timer functions on this so you can avoid the rocks spinning too quickly...I'll
+touch on the timer a bit in the next tutorial, but see if you can figure it out
+ahead of time ;)
+<p>You'll note that I'm starting to leave more exploring up to you rather than
+spelling out each detail. This is intentional. I'm doing this so you'll study
+the code and get used to seeing things in action. Also, I'm hopeful that you'll
+take that code and do some more stuff with it. Anything that is really
+difficult, I'll try to get into detail on...but most of these items are building
+blocks from other things we've touched on already so they shouldn't give a brain
+freeze :)
+<p>Anyways, play around and experiment...most importantly, have fun!
+
+<h2><a name=5>Images Basics &amp; Basic Parallaxing</a></h2>
+<p>One of the obvious things you'll need to do when making a game is load up
+images for display. Doing this with DirectX and C can be a real pain to figure
+out on your own, but fortunately BB saves us a lot of headache!
+<p>This article will touch on simple loading of images to more complex tiling
+and parallaxing effects. It's recommended that you download the 
+<a href="http://www.blitzcoder.com/gamedev/source/bblesson3.zip">source
+code</a> so you can see all this in action.
+
+<h3>A Really Simple Image Load</h3>
+<p>Loading an image, like say a splash screen, is quite simple. All you need to
+do is define a variable to point to the image, call the <b>LoadImage</b>
+function, check to make sure the image was loaded successfully (optional, but
+recommended), and then use <b>DrawImage</b> to display it. Here's a piece of
+sample code that does just that (source is in &quot;loadimg.bb&quot;):
+<div class=code><pre>
+<pre>
+<span class=rem>; Initialize BB to run at 800x600</span>
+<span class=cmd>Graphics</span> 800,600
+
+<span class=rem>; Load the KrylarLogo.BMP file and point to it with the variable <span class=str>&quot;imgKrylarLogo&quot;</span></span>
+imgKrylarLogo = <span class=cmd>LoadImage</span>(<span class=str>&quot;graphics\krylarlogo.bmp&quot;</span>)
+
+<span class=rem>; See if the image was loaded successfully (the <span class=str>&quot;imgKrylarLogo&quot;</span> will be 0 if not)</span>
+<span class=cmd>If</span> imgKrylarLogo = 0 <span class=cmd>Then</span>
+	<span class=cmd>Text</span> 100,100,<span class=str>&quot;Invalid Image!&quot;</span>    <span class=rem>; tell the user it was invalid if 0</span>
+<span class=cmd>Else</span>
+	<span class=cmd>DrawImage</span>(imgKrylarLogo,250,100)     <span class=rem>; otherwise, draw the image around the center</span>
+<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+
+<span class=rem>; wait for the user to press a key</span>
+<span class=cmd>WaitKey</span> 
+
+<span class=rem>; end the program, return control to Windows</span>
+<span class=cmd>End</span>
+
+</pre></div>
+
+<h3>Rotating an Image to Make Multiple Frames</h3>
+<p>One of the things that a lot of games do is have a 2D graphic that rotates
+around it's mid-point. For example, let's say that you're making a 2D space game
+(why not, everyone does!). You could make your player's ship by: a) drawing it
+at all the different angles by hand (ouch!), b) drawing it facing straight up
+and then use your graphics program to rotate each frame and then place the
+frames together (not too bad), c) draw it facing straight up, have BB load it
+and do all the rotations for you (ah...that's better).
+<p>Now this method isn't going to work in all situations. If, for example, you
+had the same image that either changed sizes real-time or had different
+light-sourcing depending on the angles (and that light-sourcing was not
+dynamic), you couldn't use this method. But I've used this for a number of demos
+and games without hesitation.
+<p>Just like the previous example, you're going to need to load the image you
+want to rotate and you're going to need a variable to point to it. From there,
+you'll use a combination of the <b>CopyImage</b> command and the <b>RotateImage</b>
+command. You may also need to use the <b>MaskImage</b> command if you have a
+mask color that is not black. Also, you should set BB's <b>AutoMidHandle</b> to <b>True</b>.
+This will ensure that your images are rotated at their center point. If you
+don't do this your images will rotate around the the top-left corner (at least
+that's what it looks like to me). Try yanking out the <b>AutoMidHandle True</b>
+section of the source to see what I mean.
+<p>Side Note: A mask color is used to tell BB NOT to draw any pixels (dots on
+the image) of that color. This is so your image will appear transparent. You
+wouldn't want to have this cool looking ship drawn with a big black rectangle
+all around it, so you'll need to tell BB to not draw certain colors. The default
+for transparency is black (or Red=0,Green=0, Blue=0), but a lot of people use a
+really ugly color (like bright magenta) to ensure they won't accidently use the
+transparent color as part of the actual art.
+<p>Even though the image I'll be loading will use black as the mask, the
+following source code will use the <b>MaskImage</b> function for demonstration
+purposes. Here's the code (source is in &quot;loadimgrt.bb&quot;):
+<div class=code><pre>
+<pre>
+<span class=rem>; Initialize BB to run at 800x600</span>
+<span class=cmd>Graphics</span> 800,600
+
+<span class=cmd>Const</span> iNumRotations=36               <span class=rem>;how many rotations do we want?</span>
+
+<span class=cmd>Dim</span> imgShipFrames(iNumRotations)     <span class=rem>;Holds the rotated images</span>
+
+<span class=cmd>Global</span> iCurrentFrame = 0             <span class=rem>;What is the current frame being displayed?</span>
+
+<span class=rem>; tell BB to handle the centering of our images</span>
+<span class=cmd>AutoMidHandle</span> <span class=cmd>True</span>
+
+<span class=rem>; Load the player image and point to it with <span class=str>&quot;imgTemp&quot;</span></span>
+imgTemp = <span class=cmd>LoadImage</span>(<span class=str>&quot;graphics\player.bmp&quot;</span>)
+
+<span class=rem>; See if the image was loaded successfully (the <span class=str>&quot;imgTemp&quot;</span> will be 0 if not)</span>
+<span class=cmd>If</span> imgTemp = 0 <span class=cmd>Then</span>
+	<span class=cmd>Text</span> 100,100,<span class=str>&quot;Invalid Image!&quot;</span>    <span class=rem>; tell the user it was invalid if 0</span>
+<span class=cmd>Else</span>
+	<span class=rem>; set it's mask (transparent color)</span>
+	<span class=cmd>MaskImage</span> imgTemp,0,0,0
+
+	<span class=rem>; now run through the loop and rotate the image</span>
+	<span class=cmd>For</span> iLoop=0 <span class=cmd>To</span> iNumRotations-1
+
+		<span class=rem>; first let's copy the original image into the current frame</span>
+		imgShipFrames(iLoop)=<span class=cmd>CopyImage</span>( imgTemp )
+
+		<span class=rem>; then rotate that frame the appropriate number of degrees</span>
+		<span class=cmd>RotateImage</span> imgShipFrames(iLoop),iLoop*360/iNumRotations
+	<span class=cmd>Next</span>
+<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+
+<span class=rem>; loop until the player hits the ESC key</span>
+<span class=cmd>While</span> <span class=cmd>Not</span> <span class=cmd>KeyHit</span>(1)
+
+	<span class=rem>; clear the screen</span>
+	<span class=cmd>Cls</span>
+	
+	<span class=rem>; display the current Ship Frame in the center of the screen</span>
+	<span class=cmd>DrawImage</span>(imgShipFrames(iCurrentFrame),400,300)
+	
+	<span class=rem>; change the current frame (spin it to the right)</span>
+	iCurrentFrame = iCurrentFrame + 1
+	
+	<span class=rem>; if the current frame counter goes past our number of</span>
+	<span class=rem>; allowable rotations, reset it to 0</span>
+	<span class=cmd>If</span> iCurrentFrame &gt; iNumRotations - 1
+	iCurrentFrame = 0
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	
+	<span class=cmd>Flip</span>
+
+<span class=cmd>Wend</span>
+
+<span class=rem>; end the program, return control to Windows</span>
+<span class=cmd>End</span>
+
+</pre></div>
+<P>So this basically loads in a ship and spins it around on the center of the
+screen. Mess around a bit with the delay speeds and the <b>iNumRotations</b>
+variables to see the weird things you can do ;)
+
+<h3>Tiling Images and Basic Parallaxing</h3>
+<p>Let's say that you had an image that you wanted to paste all over the screen,
+side by side and top to bottom. You could write a routine that used a couple of <b>for</b>
+loops and that did some positioning calculations, or you could simply use BB's <b>TileBlock</b>
+command.
+<p>For fun, let's use that same little ship image to tile our background with.
+To do this we would simply call <b>TileBlock</b> with the image to use and
+optionally the x,y coordinates to start the drawing at. If you don't supply the
+x,y coordinates, BB will assume you want to start in the top-left corner.
+<p>Here's the code (source is in &quot;tileblock.bb&quot;):
+<div class=code><pre>
+<pre>
+<span class=rem>; Initialize BB to run at 800x600</span>
+<span class=cmd>Graphics</span> 800,600
+
+<span class=rem>; Load the player image and point to it with <span class=str>&quot;imgShip&quot;</span></span>
+imgShip = <span class=cmd>LoadImage</span>(<span class=str>&quot;graphics\player.bmp&quot;</span>)
+
+<span class=rem>; See if the image was loaded successfully (the <span class=str>&quot;imgShip&quot;</span> will be 0 if not)</span>
+<span class=cmd>If</span> imgShip = 0 <span class=cmd>Then</span>
+	<span class=cmd>Text</span> 100,100,<span class=str>&quot;Invalid Image!&quot;</span>    <span class=rem>; tell the user it was invalid if 0</span>
+<span class=cmd>Else</span>
+	<span class=rem>; Tile the ship image all over the screen </span>
+	<span class=cmd>TileBlock</span> imgShip
+<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+
+<span class=rem>; wait for the user to press a key</span>
+<span class=cmd>WaitKey</span>   
+
+<span class=rem>; end the program, return control to Windows</span>
+<span class=cmd>End</span>
+
+</pre></div>
+<P>Now you probably want to see how they do those cool parallaxing starfields in
+most of those 2D space games (like Insectoids). It's actually a snap with BB.
+You simply use a combination of the <b>TileBlock</b> and the <b>TileImage</b>
+commands.
+<p><b>TileImage</b> is basically the same thing as <b>TileBlock</b> with the
+primary difference being that <b>TileImage</b> draws the tile using
+transparency...thus it's a little slower. You'll need this, though, because you
+don't want to overwrite the backgrounds as you parallax over them.
+<p>Side Note: If you don't know what parallaxing is, here's the basic idea.
+Pretend you're in a car that's going down a highway with close hills and faraway
+mountains. The close hills will appear to be going past much faster than the
+faraway mountains. They're not, it just looks that way because of your proximity
+to them. Now look at a 2D starfield, the dim stars (way faraway) should appear
+to move more slowly than the bright stars (close up). It's just an illusion,
+really, but it adds a good amount of life to your game.
+<p>I borrowed the spacing of the starfields from Insectoids (thanks guys!), but
+I decided that having three actual images looked better. They're the exact same
+in layout, but they have different brightness and contrast values. This is so I
+could make the faraway stars look dimmer than the closer ones. The code piece
+for the calculations is straight out of Insectoids though, so the credit goes
+there.
+<p>One last thing, this example uses a couple of things that may seem foreign to
+you...the <b>SetBuffer</b> and the <b>Flip</b> commands. I'm going to touch on
+these in a future article, but for now I'm just using them to make the starfield
+scroll smoothly (without flicker).
+<p>Here's the code (source is in &quot;prlxstars.bb&quot;):
+<div class=code><pre>
+<pre>
+<span class=rem>; Initialize BB to run at 800x600</span>
+<span class=cmd>Graphics</span> 800,600
+
+<span class=rem>; set up the drawing buffer to be the backbuffer</span>
+<span class=cmd>SetBuffer</span> <span class=cmd>BackBuffer</span>()
+
+<span class=rem>; load up the star backgrounds (3 total)</span>
+imgStarsFar=<span class=cmd>LoadImage</span>( <span class=str>&quot;graphics\starsfar.bmp&quot;</span> )
+imgStarsMid=<span class=cmd>LoadImage</span>( <span class=str>&quot;graphics\starsmid.bmp&quot;</span> )
+imgStarsClose=<span class=cmd>LoadImage</span>( <span class=str>&quot;graphics\stars.bmp&quot;</span> )
+
+<span class=rem>; create a variable to keep track of our drawing locations</span>
+<span class=cmd>Global</span> iStarsScroll
+
+<span class=rem>; loop until the player hits the ESC key</span>
+<span class=cmd>While</span> <span class=cmd>Not</span> <span class=cmd>KeyHit</span>(1)
+
+	<span class=rem>; clear the screen/buffer</span>
+	<span class=cmd>Cls</span>
+	
+	<span class=rem>; Fill the whole background with the 3 star layers</span>
+	<span class=rem>; in their current positions</span>
+	<span class=cmd>TileBlock</span> imgStarsFar,0,iStarsScroll
+	<span class=cmd>TileImage</span> imgStarsMid,7,iStarsScroll*2
+	<span class=cmd>TileImage</span> imgStarsClose,23,iStarsScroll*3
+	
+	<span class=rem>; calculate the new position to start the next drawing cycle</span>
+	iStarsScroll=(iStarsScroll+1) <span class=cmd>Mod</span> <span class=cmd>ImageHeight</span>( imgStarsFar )
+	
+	<span class=rem>; flip the back drawing buffer to the display</span>
+	<span class=cmd>Flip</span>
+<span class=cmd>Wend</span>
+
+<span class=rem>; end the program, return control to Windows</span>
+<span class=cmd>End</span>
+
+</pre></div>
+<P>For a more in-depth version of parallaxing starfields with pseudo 2D space
+physics, check out my <a href="http://www.blitzcoder.com/cgi-bin/articles/show_article.pl?f=gamekrylar09302000.html">2D
+Space Physics and More BlitzBasic</a> article...warning, it gets into some
+pretty advanced stuff.<font class="articleheadings">
+
+
+<h2><a name=6>Page Flipping &amp; Handling Input</a></h2>
+<p>One of the topics I've not covered yet is page flipping and page blitting.
+Although if you've followed my previous articles you've certainly seen it in
+action, I haven't really delved into what it's all about. So I'll touch on that
+in here.
+<p>Also, seeing that you'll want a way to get your users to move images and such
+around the screen, I figured a talking about input devices would be in order.
+This will cover the fundamentals on keyboard, mouse, and joystick usage. They
+are super simple to use, so this won't be a massive article.
+<p>It's recommended that you download the <a href="http://www.blitzcoder.com/gamedev/source/bblesson4.zip">source
+code</a> so you can see all this in action.
+
+<h3>Screen Blit Animation</h3>
+<p>This form of animation actually allows you to write to the screen's buffer
+real-time. This used to be the way that games were made, especially at 320x200
+resolutions, but it's not as common today. The idea is that the monitor is
+refreshed n number of times per second. If we catch the monitor half-way through
+it's refresh phase, we'll see flickering in our images. This looks bad.
+<p>Page flipping is utilized most often in today's games because it's a way to
+ensure you're not going to get flicker. The concept is to have a piece of memory
+set aside (preferably video memory, for speed reasons) that is laid out exactly
+like your primary video memory (or screen buffer). So, you'd have a primary
+(front) buffer and a secondary (back) buffer. The back buffer, again, is simply
+a duplicate layout of the primary buffer. The primary buffer is also known as
+the front buffer.
+<p>Now, the idea is that while your front buffer is displayed to the user you
+are busy drawing on the back buffer. This way you are not drawing anything to
+the main screen while the user watches. When you have completed your drawing you
+simply <b>Flip</b> the two pages. So, now your front becomes your back buffer
+and your back buffer becomes your front. Since this simply tells the video card
+to point to a new place in video memory when doing it's refresh, it's instant.
+Plus I'm sure that BB (or more likely, DirectX) makes sure the Verticle Retrace
+is accounted for when doing the <b>Flip</b>.
+<p>There are three functions that you'll need to use in order to do page flip
+animation. They are the <b>SetBuffer</b>, <b>BackBuffer</b>, and the <b>Flip</b>
+commands. The <b>SettBuffer</b> command tells BB where to draw. <b>BackBuffer</b>
+returns a pointer to the back buffer we discussed above. The <b>Flip</b> command
+tells BB that we're ready to swap our front and back buffers.
+<p>You can find the full source for Page Flip animation inside the <b>flipimage.bb</b>
+file, but here's the set up code and the main <b>While</b> loop to show you how
+it's used:
+<div class=code><pre>
+<pre>
+<span class=cmd>Const</span> iScreenWidth=800               <span class=rem>;what's our screen width?</span>
+<span class=cmd>Const</span> iScreenHeight=600              <span class=rem>;what's our screen height?</span>
+
+<span class=rem>; Initialize BB's Graphics using our constants</span>
+<span class=cmd>Graphics</span> iScreenWidth, iScreenHeight
+
+<span class=rem>; Set up our primary drawing surface to be the BackBuffer</span>
+<span class=rem>; this is to allow for page-flip animation</span>
+<span class=cmd>SetBuffer</span> <span class=cmd>BackBuffer</span>()
+
+<span class=rem>; loop until the player hits the ESC key</span>
+<span class=cmd>While</span> <span class=cmd>Not</span> <span class=cmd>KeyHit</span>(1)
+
+	<span class=rem>; check to see if any keys were hit</span>
+	CheckKeys()
+	
+	<span class=rem>; clear the BackBuffer</span>
+	<span class=cmd>Cls</span>
+	
+	<span class=rem>; draw the current Ship Frame on the center of the BackBuffer</span>
+	<span class=cmd>DrawImage</span>(imgShipFrames(iCurrentFrame),iShipX,iShipY)
+	
+	<span class=rem>; Flip the BackBuffer to the Display</span>
+	<span class=cmd>Flip</span>
+	
+<span class=cmd>Wend</span>
+
+<span class=rem>; end the program, return control to Windows</span>
+<span class=cmd>End</span>
+
+</pre></div>
+<p>When moving a ship around, firing, etc. you'll want to use a keyboard routine
+that keeps track of when a key is held down. While you can certainly use the <b>KeyHit</b>
+command for checking on one-time hit keys such as ESC, you'll need something a
+little more robust for real-time stuff.
+<p>This is where the <b>KeyDown</b> function comes in. All this function does is
+return a true or false response when asked if a particular key is being held
+down. In order for you to send it a particular key to check, you'll need to know
+the <b>scancode</b>. This is a code that the computer recognizes the key by.
+Generally what I do is find the code (using BB's help area, under &quot;Keyboard
+Scancodes&quot;) and make a constant with a recognizable name. Like this:
+<div class=code><pre>
+<pre>
+<span class=rem>; Setup Keyboard Constants (Arrows, KeyPad Arrows)</span>
+
+<span class=cmd>Const</span> <span class=cmd>Left</span>Arrow=203, <span class=cmd>Right</span>Arrow=205
+<span class=cmd>Const</span> <span class=cmd>Left</span>KPArrow=75, <span class=cmd>Right</span>KPArrow=77
+</pre></div>
+<P>Now I know that all I have to do is remember &quot;RightArrow&quot;, not 205.
+Makes it easier to read code that way, don't ya think?
+<p>The following code is a snippet from the <b>kbinp.bb</b> file. It's a
+function that I called <b>CheckKeys()</b> and all it does is checks to see if
+the left or right arrow is being held down and then spins the ship accordingly:
+<div class=code><pre>
+<pre>
+<span class=cmd>Function</span> CheckKeys()
+	<span class=cmd>If</span> <span class=cmd>KeyDown</span>(<span class=cmd>Left</span>Arrow) <span class=cmd>Or</span> <span class=cmd>KeyDown</span>(<span class=cmd>Left</span>KPArrow) <span class=cmd>Then</span>
+		<span class=rem>; change the current frame (spin it to the left)</span>
+		iCurrentFrame = iCurrentFrame - 1
+		
+		<span class=rem>; if the current frame counter is less than 0</span>
+		<span class=rem>; reset it to the number of rotations - 1</span>
+		<span class=cmd>If</span> iCurrentFrame &lt; 0 
+			iCurrentFrame = iNumRotations - 1
+		<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+		
+	<span class=cmd>If</span> <span class=cmd>KeyDown</span>(<span class=cmd>Right</span>Arrow) <span class=cmd>Or</span> <span class=cmd>KeyDown</span>(<span class=cmd>Right</span>KPArrow) <span class=cmd>Then</span>
+		<span class=rem>; change the current frame (spin it to the right)</span>
+		iCurrentFrame = iCurrentFrame + 1
+		
+		<span class=rem>; if the current frame counter goes past our number of</span>
+		<span class=rem>; allowable rotations, reset it to 0</span>
+		<span class=cmd>If</span> iCurrentFrame &gt; iNumRotations - 1
+			iCurrentFrame = 0
+		<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+<span class=cmd>End</span> <span class=cmd>Function</span>
+
+</pre></div>
+<h3>Using the Mouse</h3>
+<p>The next device I'll touch on is the mouse. Since the mouse has waaaaaaay
+fewer codes to worry about, it's a little easier to check on. However, you may
+still need a little trickery to get things done.
+<p>Let's say that we wanted to duplicate our keyboard routine using the mouse.
+If the mouse is being run to the left, spin the ship left. If to the right, spin
+it right. This sounds like a simple little thing to do, and it is if you know a
+tiny trick.
+<p>First let's look at the problem. If you check the mouse coordinates using <b>MouseX</b>
+and <b>MouseY</b> you'll find that they will be locked to the screen resolution.
+This is cool if you are going to button clicks and such on a screen. But since
+we want to spin the ship left as the mouse moves left, we'll need to see if the
+current mouse position is different from the previous check. Since you'll
+eventually get a <b>MouseX</b> postiion of 0, you'll find after a while that the
+ship will stop spinning.
+<p>To solve this we use the <b>MouseMove</b> function (thanks to
+&quot;shockman&quot; on the BB messageboards for getting me this function name!)
+to re-center our mouse after each check. This will ensure that we will always
+either be equal to, greater than, or less than our last check.
+<p>The following code is a snippet from the <b>mouseinp.bb</b> file. It's a
+function that I called <b>CheckMouse()</b> and all it does is checks to see if
+the mouse is moving left or right and spins the ship accordingly. Note that the
+section before <b>Function CheckMouse()</b> is really located at the top of the
+program, it's here for reference only:
+<div class=code><pre>
+<pre>
+<span class=rem>; center the mouse on the screen</span>
+<span class=cmd>MoveMouse</span> iScreenWidth/2, iScreenHeight/2
+
+<span class=rem>;Save our mouse position for X</span>
+<span class=cmd>Global</span> iCurrentMouseX=MouseX()       
+
+<span class=cmd>Function</span> CheckMouse()
+	<span class=cmd>If</span> <span class=cmd>MouseX</span>() &lt; iCurrentMouseX <span class=cmd>Then</span>
+	<span class=rem>; change the current frame (spin it to the left)</span>
+	iCurrentFrame = iCurrentFrame - 1
+	
+	<span class=rem>; if the current frame counter is less than 0</span>
+	<span class=rem>; reset it to the number of rotations - 1</span>
+	<span class=cmd>If</span> iCurrentFrame &lt; 0 
+	iCurrentFrame = iNumRotations - 1
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	
+	<span class=cmd>If</span> <span class=cmd>MouseX</span>() &gt; iCurrentMouseX <span class=cmd>Then</span>
+	<span class=rem>; change the current frame (spin it to the right)</span>
+	iCurrentFrame = iCurrentFrame + 1
+	
+	<span class=rem>; if the current frame counter goes past our number of</span>
+	<span class=rem>; allowable rotations, reset it to 0</span>
+	<span class=cmd>If</span> iCurrentFrame &gt; iNumRotations - 1
+	iCurrentFrame = 0
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	<span class=cmd><span class=cmd>End</span><span class=cmd>If</span></span>
+	
+	<span class=rem>; reset the mouse to be at the center of the screen</span>
+	<span class=cmd>MoveMouse</span> iScreenWidth/2, iScreenHeight/2
+	
+	<span class=rem>; reset iCurrentMouseX to be at the center of the screen</span>
+	iCurrentMouseX = MouseX()
+<span class=cmd>End</span> <span class=cmd>Function</span>
+
+</pre></div>
+
+<p>I know that I didn't touch on button-clicks and such with the mouse and
+Joystick, but if you look under &quot;Input Device Commands&quot; in the BB help
+section you should be able to start incorporating those easily. Part of getting
+the game coding and such down is to start tinkering with things on your own, so
+I purposely avoided covering every input command. Get that hacker mentality
+going...try things and see what happens! That's all part of becoming a game
+programmer ;)
+<p>As an exercise you should consider putting all of the input functions into
+one file and check to see if any of them are being used in your main <b>While</b>
+loop. Also, why not check out the various scancodes to connect to your keys?
+
+</body></html>

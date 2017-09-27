@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>PeekEvent()</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+None.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+PeekEvent checks if any events are waiting to be processed and if so, returns its id.<br />
+<br />
+If no event is available, PeekEvent returns 0.  Unlike <a class=small href=../gui_commands/WaitEvent.htm>WaitEvent</a> if no events are available, control is returned immediately to your program.<br />
+<br />
+Note that PeekEvent event does not update the other event functions such as EventID or EventData.  PeekEvent does NOT clear the event queue, so you must call <a class=small href=../gui_commands/FlushEvents.htm>FlushEvents</a> after dealing with the event in order to process any further events.
+<br>
+<br>
+See also: <a class=small href=FlushEvents.htm>FlushEvents</a>, <a class=small href=WaitEvent.htm>WaitEvent</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/PeekEvent.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; create a basic window to play with<br />
+win=CreateWindow("PeekEvent Example",100,100,200,200,0,49)<br />
+button=CreateButton("Hit me! I do nothing!",10,10,180,20,win)<br />
+Repeat<br />
+	id=PeekEvent() ; are there any events waiting to be processed?<br />
+	If id<>0 Then<br />
+		If id=$803 Then Exit 	; exit on window close	<br />
+		FlushEvents()			; clear out any remaining events<br />
+	End If<br />
+	VWait <br />
+Forever<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=PeekEvent&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

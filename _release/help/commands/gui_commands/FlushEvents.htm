@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>FlushEvents id</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+id - An integer event identifier
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Flushes (discards) all incoming events with the specified id.<br />
+<br />
+This can be useful for applications that use timers and don't want to be 'flooded' by timer events<br />
+on slower machines.
+<br>
+<br>
+See also: <a class=small href=PeekEvent.htm>PeekEvent</a>, <a class=small href=WaitEvent.htm>WaitEvent</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/FlushEvents.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; create a basic window to play with<br />
+win=CreateWindow("PeekEvent Example",100,100,200,200,0,49)<br />
+button=CreateButton("Hit me! I do nothing!",10,10,180,20,win)<br />
+Repeat<br />
+	id=PeekEvent() ; are there any events waiting to be processed?<br />
+	If id<>0 Then<br />
+		If id=$803 Then Exit 	; exit on window close	<br />
+		FlushEvents()			; clear out any remaining events<br />
+	End If<br />
+	VWait <br />
+Forever<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=FlushEvents&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

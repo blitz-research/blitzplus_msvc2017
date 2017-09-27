@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>TextFieldText$( textfield )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+textfield - A textfield gadget handle.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+TextFieldText returns the text entered by the user into a textfield gadget.
+<br>
+<br>
+See also: <a class=small href=CreateTextField.htm>CreateTextField</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/TextFieldText.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; TextFieldText Example by Mag<br />
+<br />
+win=CreateWindow ("",0,0,300,100) ;create window<br />
+txtbox=CreateTextField(0,0,200,20,win) ;create textfield in that window<br />
+SetGadgetText txtbox,"Type anything and press OK" ;set text in that textfield for info<br />
+ok=CreateButton("OK",200,0,80,20,win) ;create button<br />
+<br />
+Repeat<br />
+	id=WaitEvent() ;wait for user action (in a form of event)<br />
+	If id=$803 Then End ;to quit program when we receive Window close event <br />
+	If id=$401 And EventSource()=ok Then ; when ok is pressed<br />
+		Notify "This is your text in TextField:"+Chr$(13)+TextFieldText$(txtbox); <---TO GET TEXT FROM TEXTFIELD<br />
+	End If<br />
+Forever<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=TextFieldText&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

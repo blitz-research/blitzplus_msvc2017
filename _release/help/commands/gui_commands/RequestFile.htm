@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>RequestFile$( [title$[,exts$[,save[,defname$]]]] )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+title$ - the title for the file requester<br />
+ext$ - a comma separated list of allowed file extensions<br />
+save - an optional flag to indicate whether the file is for saving or opening.<br />
+defname$ - the default filename (or directory) to use when the requester opens.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Prompts the user for a file and returns the selected filename.<br />
+<br />
+If no file was selected, an empty string is returned.<br />
+<br />
+The optional save flags defaults to false.<br />
+<br />
+Note: you can improve the requester by the use of the ";" separator in the exts$ parameter.  See the example below.
+<br>
+<br>
+See also: <a class=small href=RequestDir.htm>RequestDir</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/RequestFile.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+filename$ = RequestFile("Select a filename to save as","png;*.jpg;*.bmp,*",True,"default.png")<br />
+<br />
+success = SaveImage(myImage, filename$)<br />
+If success Then Print "Image Saved"
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=RequestFile&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

@@ -1,0 +1,21 @@
+prg_debug	1
+prg_lastbuild	D:\dev\blitzplus_msvc2017\_release\games\Insectoids\insectoids.bb
+win_maximized	0
+win_notoolbar	0
+win_rect	900 129 1715 734
+font_editor	courier 10
+font_tabs	verdana 8
+font_debug	verdana 8
+rgb_bkgrnd	225577
+rgb_string	ffff
+rgb_ident	ffffff
+rgb_keyword	ffff00
+rgb_comment	ff00
+rgb_digit	ffff
+rgb_default	ffffff
+edit_tabs	4
+edit_blkcursor	0
+edit_backup	2
+img_toolbar	toolbar.bmp
+cmd_line	
+file_recent	D:\dev\blitzplus_msvc2017\_release\games\Insectoids\insectoids.bb

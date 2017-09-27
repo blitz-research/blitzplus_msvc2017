@@ -1,0 +1,13 @@
+1.1 - 5th of october 2000
+
+* Fixed 'stick in wall bug' (Thanks Mark).
+* Fixed keeping of powerups after death.
+* Redid most of the graphics.
+* Slowed down the speeding up of the ball a little.
+* Made the balls a little smaller.
+
+1.0 - 3rd of october 2000
+
+* Release of the game
+* Sent 1.0 to George for Blitz CD.
+

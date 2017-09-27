@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>FrontBuffer()</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+None
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+This command is provided for backwards compatibility with Blitz Basic and Blitz 3d only.  This command now returns the same as BackBuffer - you cannot render directly to the FrontBuffer.  If converting to Blitz+, you will need to call <a class=small href=../2d_commands/Flip.htm>Flip</a> after you have drawn everything.
+<br>
+<br>
+See also: <a class=small href=BackBuffer.htm>BackBuffer</a>, <a class=small href=Flip.htm>Flip</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../2d_examples/FrontBuffer.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; FrontBuffer()/Rect Example<br />
+<br />
+; Engage graphics mode<br />
+Graphics 640,480,16<br />
+<br />
+; Set the drawing buffer to front - instant drawing ops!<br />
+SetBuffer FrontBuffer()<br />
+<br />
+; Repeat this until user presses ESC<br />
+While Not KeyHit(1)<br />
+; Set a random color<br />
+Color Rnd(255),Rnd(255),Rnd(255)<br />
+; Draw a rectangle at a random location, with a random width and height<br />
+; plus randomly choose if the rectangle is solid or just an outline<br />
+Rect Rnd(640),Rnd(480),Rnd(50),Rnd(50),Rnd(0,1)<br />
+; Blitz is so dang fast, we need a delay so you can watch it draw!<br />
+<br />
+Flip ; <---------- A well placed FLIP is now needed in BlitzPlus<br />
+<br />
+Delay 10<br />
+Wend
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=FrontBuffer&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

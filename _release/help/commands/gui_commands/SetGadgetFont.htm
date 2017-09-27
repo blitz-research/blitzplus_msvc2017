@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>SetGadgetFont gadget,font</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+gadget - A gadget handle<br />
+font - A font handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Sets the font for a gadget.
+<br>
+<br>
+See also: <a class=small href=LoadFont.htm>LoadFont</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/SetGadgetFont.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; load some fonts<br />
+fntArial12 = LoadFont("Arial",12)<br />
+fntComicSans16BoldItalic = LoadFont("Comic Sans",16,True,True,False)<br />
+fntTahoma18Underline = LoadFont("Tahoma",18,False,False,True)<br />
+<br />
+; create a basic window with some gadgets to play with<br />
+win=CreateWindow("SetGadgetFont Example",100,100,200,110,0,49)<br />
+label=CreateLabel("Arial 12",10,10,180,20,win)<br />
+button=CreateButton("Comic Sans 16 Bold Italic",10,40,180,20,win)<br />
+txt=CreateTextField(10,70,180,30,win)<br />
+SetGadgetText txt,"Tahoma 18 Underline"<br />
+<br />
+; set the gadget fonts<br />
+SetGadgetFont label,fntArial12<br />
+SetGadgetFont button,fntComicSans16BoldItalic<br />
+SetGadgetFont txt,fntTahoma18Underline<br />
+<br />
+; a very simple event loop<br />
+Repeat<br />
+	If WaitEvent()=$803 Then Exit<br />
+Forever<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=SetGadgetFont&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

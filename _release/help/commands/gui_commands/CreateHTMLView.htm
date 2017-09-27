@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>CreateHTMLView( x,y,width,height,group[,style] )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+x,y,width,height - Initial shape of the htmlview gadget<br />
+group - A group gadget handle<br />
+style (optional) - Style flag:<br />
+0: Nothing (default)<br />
+1: NOCONTEXTMENU<br />
+2: NONAVIGATE
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Creates an htmlview gadget and returns its handle.<br />
+<br />
+The optional style parameter allows you to change the behaviour of the htmlview gadget. Specifying a value of 1 (NOCONTEXTMENU), will disable the right-button menu. A value of 2 (NONAVIGATE), will stop the user navigating links and will generates a gadget event so you can intercept them.<br />
+<br />
+The gadget events that are generated have eventdata settings 0=loaded 1=usernavigate. 0 is generated when a page's html has loaded after using <a class=small href=../gui_commands/HtmlViewGo.htm>HtmlViewGo</a> . 1 is generated when a user clicks a link (but only when style is set to NONAVIGATE).<br />
+<br />
+About the htmlview gadget:<br />
+<br />
+Htmlview gadgets allow you to display html documents - useful for help files and so on. It is based on the Microsoft Internet Explorer control, and as such everything supported by the version of Internet Explorer that the user has installed will work. Note that this can be both a blessing (CSS and JavaScript support) and a burden (Open in New Window on right clicking links will open a proper IE window).
+<br>
+<br>
+See also: <a class=small href=HTMLViewGo.htm>HTMLViewGo</a>, <a class=small href=HTMLViewBack.htm>HTMLViewBack</a>, <a class=small href=HTMLViewForward.htm>HTMLViewForward</a>, <a class=small href=HtmlViewCurrentURL.htm>HtmlViewCurrentURL</a>, <a class=small href=HtmlViewEventURL.htm>HtmlViewEventURL</a>, <a class=small href=HtmlViewStatus.htm>HtmlViewStatus</a>, <a class=small href=HtmlViewRun.htm>HtmlViewRun</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/CreateHTMLView.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; A Basic Blitz Web Browser!<br />
+win=CreateWindow("Basic Blitz Web Browser",100,100,500,500,0,35)<br />
+html = CreateHtmlView(0,0,500,500,win)<br />
+SetGadgetLayout html,1,1,1,1 ; ensure the HTML view will stretch to meet the size of the window when it is resized.<br />
+HtmlViewGo html,"http:\\www.blitzbasic.com"<br />
+<br />
+; a simple loop<br />
+Repeat<br />
+id = WaitEvent()<br />
+If id=$803 Then Exit<br />
+Forever<br />
+<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=CreateHTMLView&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

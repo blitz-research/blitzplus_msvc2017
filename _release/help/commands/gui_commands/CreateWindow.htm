@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>CreateWindow( title$,x,y,width,height[,group[,style]] )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+title$ - Initial title text of the window<br />
+x,y,width,height - Initial shape of the window<br />
+group - An optional group gadget handle<br />
+style - Optional style flags
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+CreateWindow creates a window gadget and returns a handle to it.<br />
+<br />
+If the group parameter is omitted, the window is created on the desktop.<br />
+<br />
+Flags can be any combination of:<br />
+<br />
+1 - The window has a title bar<br />
+2 - The window is resizable<br />
+4 - The window has a menu<br />
+8 - The window has a status bar<br />
+16 - The window is a 'tool' window<br />
+32 - The window shape is in 'client coordinates'<br />
+<br />
+The default style is '15' - a resizable window with title bar, menu and status bar.  If the style is set to '0', the result is a borderless window with no features.<br />
+<br />
+Tool windows are special windows with a smaller title bar that do not appear in the task bar.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/CreateWindow.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Example provided by Mark Tiffany<br />
+CreateWindow("Test Window - Borderless (0)",0,0,400,100,0,0) <br />
+CreateWindow("Test Window - Tool Window (17)",0,100,400,100,0,17) <br />
+CreateWindow("Test Window - Basic (3)",0,200,400,100,0,3) <br />
+CreateWindow("Test Window - With Menu (7)",0,300,400,100,0,7) <br />
+CreateWindow("Test Window - With Status Bar (11)",0,400,400,100,0,11) <br />
+CreateWindow("Test Window - Default (15)",0,500,400,100,0)<br />
+<br />
+; wait until the user closes one of the windows<br />
+Repeat<br />
+	If WaitEvent()=$803 Then Exit<br />
+Forever<br />
+<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=CreateWindow&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

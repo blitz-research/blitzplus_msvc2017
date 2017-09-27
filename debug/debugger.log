@@ -1,0 +1,13 @@
+﻿  debuggerapp.cpp
+  debugtree.cpp
+  mainframe.cpp
+  prefs.cpp
+  sourcefile.cpp
+  stdafx.cpp
+  stdutil.cpp
+  tabber.cpp
+  Generating Code...
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1198,5): warning MSB8012: TargetPath(D:\dev\blitzplus_msvc2017\debugger\.\Debug\debugger.dll) does not match the Linker's OutputFile property value (D:\dev\release\blitzplusrelease\bin\debugger.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library .\Debug\debugger.lib and object .\Debug\debugger.exp
+  debugger.vcxproj -> D:\dev\blitzplus_msvc2017\debugger\.\Debug\debugger.dll
+  debugger.vcxproj -> .\Debug\debugger.pdb (Full PDB)

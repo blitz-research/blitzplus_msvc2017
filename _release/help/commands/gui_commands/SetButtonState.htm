@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>SetButtonState button,state</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+button - A button gadget handle<br />
+state - True/False value indicating whether the button is currently turned on.
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+SetButtonState allows you to set the state of checkbox and radio style buttons.<br />
+<br />
+A True value will cause the button to 'turn on', while false will turn it off.
+<br>
+<br>
+See also: <a class=small href=CreateButton.htm>CreateButton</a>, <a class=small href=ButtonState.htm>ButtonState</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/SetButtonState.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Example based on one provided by Mag, extended by Mark Tiffany<br />
+<br />
+; first, let's create a window<br />
+WinHandle=CreateWindow("Desert Menu",0,0,400,250) <br />
+<br />
+; now create some buttons<br />
+OptionButton1=CreateButton("Apple Pie",50,10,300,40,WinHandle,3)<br />
+OptionButton2=CreateButton("Cheesecake",50,40,300,40,WinHandle,3)<br />
+Checkbox=CreateButton("With Cream",50,70,300,40,WinHandle,2)<br />
+ExitButton=CreateButton("Place Order",50,120,300,40,WinHandle)<br />
+<br />
+; pre-select Apple Pie<br />
+SetButtonState OptionButton1,1<br />
+<br />
+; now loop and deal with events as they arise<br />
+Repeat <br />
+	If WaitEvent()=$401 Then <br />
+		If EventSource()=ExitButton Then Exit <br />
+	End If <br />
+Forever <br />
+<br />
+; and report the selected options!<br />
+msg$ = "You selected "<br />
+If ButtonState(OptionButton1) Then<br />
+	msg$=msg$+"Apple Pie "<br />
+ElseIf ButtonState(OptionButton2) Then<br />
+	msg$=msg$+"Cheesecake "<br />
+Else<br />
+	msg$=msg$+"Nothing "<br />
+End If<br />
+If ButtonState(Checkbox) Then msg$=msg$+"with cream"<br />
+Notify msg$<br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=SetButtonState&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <ProjectGuid>{F8B7C380-3D01-409F-84BA-C791D483A9F7}</ProjectGuid>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\_release\bin\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>runtime_dbg</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\_release\bin\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>runtime</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PreprocessorDefinitions>_WINDOWS;_USRDLL;BLITZPLUS_EXPORTS;PLUS;WIN32;_DEBUG;%(PreprocessorDefinitions);_WIN32_WINNT=0x601</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Debug\blitzplus.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <CallingConvention>StdCall</CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Debug\blitzplus.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x1409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\blitzplus.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>../_release/bin/runtime_dbg.dll</OutputFile>
+      <ImportLibrary>.\Debug\runtime_dbg.lib</ImportLibrary>
+      <AdditionalDependencies>amstrmid.lib;dxguid.lib;opengl32.lib;wsock32.lib;comctl32.lib;winmm.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Custom</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PreprocessorDefinitions>_WINDOWS;_USRDLL;BLITZPLUS_EXPORTS;PLUS;WIN32;NDEBUG;%(PreprocessorDefinitions);_WIN32_WINT=0x601;_WIN32_WINNT=0x601</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\blitzplus.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+      <CallingConvention>StdCall</CallingConvention>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ControlFlowGuard>false</ControlFlowGuard>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\blitzplus.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x1409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\blitzplus.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>../_release/bin/runtime.dll</OutputFile>
+      <ImportLibrary>.\Release\runtime.lib</ImportLibrary>
+      <AdditionalDependencies>amstrmid.lib;dxguid.lib;opengl32.lib;wsock32.lib;winmm.lib;comctl32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="b2d_link.cpp" />
+    <ClCompile Include="basic.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="gui_link.cpp" />
+    <ClCompile Include="link.cpp" />
+    <ClCompile Include="sys_link.cpp" />
+    <ClCompile Include="userlibs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="basic.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="link.h" />
+    <ClInclude Include="runtime.h" />
+    <ClInclude Include="userlibs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="blitzplus.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\app\app.vcxproj">
+      <Project>{be3ce095-cc37-4209-9a32-0d1a2f9d66d3}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\audio\audio.vcxproj">
+      <Project>{245a53c3-5938-4066-9046-6f37fb78cc3f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\bank\bank.vcxproj">
+      <Project>{bd81d27f-6957-42b7-a961-b5ce3a216a27}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\blitz2d\blitz2d.vcxproj">
+      <Project>{7e44c920-c422-4885-91ec-ccd09e976abb}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\canvas\canvas.vcxproj">
+      <Project>{a0ee1452-d524-43ff-8dda-a2cb7ccde889}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\debug\debug.vcxproj">
+      <Project>{234f3773-ce6f-44fd-9a43-9daef89510b7}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\event\event.vcxproj">
+      <Project>{17c65e4d-c2ba-439c-869e-731c0898ab3e}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\filesys\filesys.vcxproj">
+      <Project>{cd2b0b6f-30d4-4cfa-9657-780962f564a6}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\font\font.vcxproj">
+      <Project>{aa291e93-b3b8-4839-b27b-d8118d2a54fe}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\freeimage\FreeImageLib\FreeImageLib.vcxproj">
+      <Project>{0c7bd7a8-5a0a-4ced-a18b-db7187c2cf0d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\freeimage\LibJPEG\LibJPEG.vcxproj">
+      <Project>{4d936323-b459-429e-b192-39b9290e3883}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\freeimage\LibPNG\LibPNG.vcxproj">
+      <Project>{80d29696-da27-4767-b736-af0b0dce4500}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\freeimage\ZLib\ZLib.vcxproj">
+      <Project>{7feb7d92-c789-4a2c-b1f3-06c54ce276ee}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\graphics\graphics.vcxproj">
+      <Project>{0acd6c79-c12e-4bd9-8273-2b55f8786365}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\grdriver2d\grdriver2d.vcxproj">
+      <Project>{20131d4f-6388-48f0-a19d-512ea9528ee1}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\grdriver\grdriver.vcxproj">
+      <Project>{9b27c1ab-8542-4126-b46c-90355e2562a7}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\gui\gui.vcxproj">
+      <Project>{0542eb63-bf71-43ea-b39e-78137172c9d8}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\joystick\joystick.vcxproj">
+      <Project>{b5cdde6f-4241-4c2b-9bee-87e8744716af}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\math\math.vcxproj">
+      <Project>{1f6910b3-1c12-4c33-acc6-658bbe803a46}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\module\module.vcxproj">
+      <Project>{9717f037-17f4-4270-afae-7bb4eabf740b}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\movie\movie.vcxproj">
+      <Project>{09ff00b3-f670-40c5-9841-c4a5fc517d02}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\object\object.vcxproj">
+      <Project>{dd064938-20c9-4f8e-a54b-654def476dad}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\opengl\opengl.vcxproj">
+      <Project>{703e35f0-e725-40c4-9f28-3e0f0a5e33f9}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\process\process.vcxproj">
+      <Project>{1016e8c1-74e2-4fa5-a021-34295bb86835}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\rsource\rsource.vcxproj">
+      <Project>{0d02b778-2d96-4bd1-ac48-2f2c97868865}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\screen\screen.vcxproj">
+      <Project>{faeab161-ce41-424c-ac80-1da68e7db227}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\stream\stream.vcxproj">
+      <Project>{6ea13545-4c97-4446-b696-6f006b662c1f}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\string\string.vcxproj">
+      <Project>{c6acc8f2-adb6-4f3a-a4c7-745548cb5902}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\tcpip\tcpip.vcxproj">
+      <Project>{0d60102e-ed7b-4df0-86e0-d3e4ec3edb10}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\timer\timer.vcxproj">
+      <Project>{11c69fc1-acd4-42d9-a3f1-7562194921a8}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\time\time.vcxproj">
+      <Project>{faf160db-f19f-49da-a3da-fe9edc477db2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32canvas\win32canvas.vcxproj">
+      <Project>{05296078-3139-45ca-9d05-6abd132bb58d}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32ddcanvas\win32ddcanvas.vcxproj">
+      <Project>{4e7a6ec7-e437-4572-8a90-52a8a42d175f}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32ddgrdriver2d\win32ddgrdriver2d.vcxproj">
+      <Project>{3e2991a5-1f1d-4b5a-bd0d-080b6a8a17cb}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32ddscreen\win32ddscreen.vcxproj">
+      <Project>{0d47e874-a381-4aef-9bf5-ae533ffc440d}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32dd\win32dd.vcxproj">
+      <Project>{8a4fc8f7-c3dd-4790-a649-b23f9e89f6a6}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32dib\win32dib.vcxproj">
+      <Project>{2fbd9fcc-cf00-47d2-9b10-c8e631bad3e6}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32dsmovie\win32dsmovie.vcxproj">
+      <Project>{0dbdf3c4-ca1b-4e4b-b4e5-d8db865830b1}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32event\win32event.vcxproj">
+      <Project>{ca2f3d88-96d7-4e12-bdbf-80fb73af40d8}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32font\win32font.vcxproj">
+      <Project>{d8439599-4b2f-4c0e-8230-4445268e0782}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32gdicanvas\win32gdicanvas.vcxproj">
+      <Project>{b85c329c-2f20-4db4-b199-8a6edb9c5cc6}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32gdigrdriver2d\win32gdigrdriver2d.vcxproj">
+      <Project>{9f8f54fe-64d5-4c67-9acd-53c595a9a668}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32gdiscreen\win32gdiscreen.vcxproj">
+      <Project>{4e978915-0504-4ddd-b14d-8616525ceae5}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32gdi\win32gdi.vcxproj">
+      <Project>{bb3d8aa9-8b66-4024-9c2a-df109e1b317b}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32glcanvas\win32glcanvas.vcxproj">
+      <Project>{b22632da-a6eb-4d53-b80b-a0f58aa674cb}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32glgrdriver2d\win32glgrdriver2d.vcxproj">
+      <Project>{aa66d49a-4b8e-4081-9ff6-d619b673fb92}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32glscreen\win32glscreen.vcxproj">
+      <Project>{ef837b0f-1363-4ab0-b3e9-e84b09df3c58}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32gl\win32gl.vcxproj">
+      <Project>{5f355627-bb4c-448e-bd9e-887e243f1c79}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32gui\win32gui.vcxproj">
+      <Project>{b6244bc0-3f25-468f-b06d-0bfcc7308c54}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32hwnd\win32hwnd.vcxproj">
+      <Project>{99d819a6-5279-44e3-ba39-bdb9f974e10b}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32screen\win32screen.vcxproj">
+      <Project>{d4d440be-0702-4b14-8179-51c87d07c953}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\win32timer\win32timer.vcxproj">
+      <Project>{c4b3e99b-f958-41c3-9a26-c92fc4437f64}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\audio\fmod375\lib\fmodvc.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

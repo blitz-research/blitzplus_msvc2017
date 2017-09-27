@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>DisableGadget gadget</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+gadget - a gadget handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Disables the specified gadget. This means the user will not be able to manipulate the gadget, and the gadget will not generate any action events.
+<br>
+<br>
+See also: <a class=small href=EnableGadget.htm>EnableGadget</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/DisableGadget.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Create a window<br />
+win=CreateWindow("Test Hide / Show / Enable / Disable Gadget",100,100,200,90,0,17)<br />
+<br />
+; and create a label to hide and show<br />
+label=CreateLabel("Here I am!",100,30,90,20,win)<br />
+HideGadget label ; make sure it's hidden initially<br />
+<br />
+; and two buttons to control our label<br />
+buttonShow=CreateButton("Show",10,10,80,20,win)<br />
+buttonHide=CreateButton("Hide",10,40,80,20,win)<br />
+DisableGadget buttonHide ; disbale Hide initially<br />
+<br />
+; now a small event loop<br />
+Repeat<br />
+	id=WaitEvent()<br />
+	Select id<br />
+	<br />
+		; exit on window close<br />
+		Case $803 : Exit<br />
+		<br />
+		; dependent on the button hit, hide or show the label<br />
+		Case $401<br />
+			If EventSource()=buttonHide Then<br />
+				HideGadget label<br />
+				DisableGadget buttonHide<br />
+				EnableGadget buttonShow<br />
+			ElseIf EventSource()=buttonShow Then<br />
+				ShowGadget label<br />
+				EnableGadget buttonHide<br />
+				DisableGadget buttonShow<br />
+			End If<br />
+	End Select<br />
+Forever<br />
+<br />
+End ; bye!
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=DisableGadget&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

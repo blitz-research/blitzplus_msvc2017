@@ -1,0 +1,23 @@
+Dagger
+Sword
+Throwing Star
+Throwing Axe
+Club
+Axe
+Mace
+Bow
+Crossbow
+Armour
+Boots
+Helmet
+Amulet
+Cloak
+Gloves
+Ring
+Belt
+Quiver
+Bracers
+Wand
+Ring
+Staff
+Bladed staff

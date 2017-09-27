@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<TITLE>Events</TITLE>
+<LINK href="css/commands.css" type=text/css rel=stylesheet>
+</HEAD>
+<BODY>
+<H1>Events</H1>
+<TABLE borderColor=#003d78 cellSpacing=0 cellPadding=2 width="100%" border=1>
+  <TBODY>
+  <TR>
+    <TD align=middle>&nbsp;</TD>
+    <TD align=middle><B>Event ID</B></TD>
+    <TD align=middle><B>Name</B></TD>
+    <TD align=middle><B>Description</B></TD>
+    <TD align=middle><B>Event Data</B></TD>
+    <TD align=middle><B>Notes</B></TD></TR>
+  <TR>
+    <TD vAlign=top align=left rowSpan=3><B>Keyboard Events</B></TD>
+    <TD>$101</TD>
+    <TD vAlign=top>Key Down</TD>
+    <TD vAlign=top>Generated when the user presses a key.</TD>
+    <TD vAlign=top>EventData contains the raw scancode of the key.</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top>$102</TD>
+    <TD vAlign=top>Key Up</TD>
+    <TD vAlign=top>Generated when the user releases a key.</TD>
+    <TD vAlign=top>EventData contains the raw scancode of the key.</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top>$103</TD>
+    <TD vAlign=top>Key Stroke</TD>
+    <TD vAlign=top>Generated when the user presses a key or when a keystroke 
+      is automatically generated due to keyboard repeat.</TD>
+    <TD vAlign=top>EventData contains the ASCII code of the key.</TD>
+    <TD vAlign=top>As this event is generated purely by the Operating System, 
+      the ASCII code returned by EventData is different to the raw scancode 
+      returned by the Key Down and Key Up events.</TD></TR>
+  <TR>
+    <TD vAlign=top align=left rowSpan=6><B>Mouse Events</B></TD>
+    <TD vAlign=top>$201</TD>
+    <TD vAlign=top>Mouse Down</TD>
+    <TD vAlign=top>Generated when the user presses a mouse button while the 
+      mouse is positioned over a gadget.</TD>
+    <TD vAlign=top>EventData contains the button being pressed: 1 for the left 
+      button, 2 for the right button or 3 for the middle button.<BR>EventSource 
+      contains the gadget handle.</TD>
+    <TD vAlign=top>You will not get a Mouse Down event for buttons, just a 
+      gadget action event ($401).<BR>This event only applies to canvas and 
+      window gadgets.</TD></TR>
+  <TR>
+    <TD vAlign=top>$202</TD>
+    <TD vAlign=top>Mouse Up</TD>
+    <TD vAlign=top>Generated when the user releases a mouse button while the 
+      mouse is positioned over a gadget.</TD>
+    <TD vAlign=top>EventData contains the button being released: 1 for the 
+      left button, 2 for the right button or 3 for the middle 
+      button.<BR>EventSource contains the gadget handle.</TD>
+    <TD vAlign=top>You will not get a Mouse Up event for buttons, just a 
+      gadget action event ($401).<BR>This event only applies to canvas and 
+      window gadgets.</TD></TR>
+  <TR>
+    <TD vAlign=top>$203</TD>
+    <TD vAlign=top>Mouse Move</TD>
+    <TD vAlign=top>Generated when the user moves the mouse while it is 
+      positioned over a canvas gadget.</TD>
+    <TD vAlign=top>EventX and EventY contain the new mouse 
+      coordinates.<BR>EventSource contains the canvas gadget handle.</TD>
+    <TD vAlign=top>Only applies to canvas gadgets.</TD></TR>
+  <TR>
+    <TD vAlign=top>$204</TD>
+    <TD vAlign=top>Mouse Wheel</TD>
+    <TD vAlign=top>Generated when the user spins the mouse wheel.</TD>
+    <TD vAlign=top>EventData contains the number of 'clicks' the wheel has 
+      been spun.</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top>$205</TD>
+    <TD vAlign=top>Mouse Enter</TD>
+    <TD vAlign=top>Generated when the mouse pointer enters a canvas gadget.</TD>
+    <TD vAlign=top>EventSource contains the canvas gadget handle.</TD>
+    <TD vAlign=top>Only applies to canvas gadgets.</TD></TR>
+  <TR>
+    <TD vAlign=top>$206</TD>
+    <TD vAlign=top>Mouse Leave</TD>
+    <TD vAlign=top>Generated when the mouse pointer leaves a canvas gadget.</TD>
+    <TD vAlign=top>EventSource contains the canvas gadget handle.</TD>
+    <TD vAlign=top>Only applies to canvas gadgets.</TD></TR>
+  <TR>
+    <TD vAlign=top align=left><B>Gadget Events</B></TD>
+    <TD vAlign=top>$401</TD>
+    <TD vAlign=top>Gadget Action</TD>
+    <TD vAlign=top>Generated when the user changes the state of a gadget.</TD>
+    <TD vAlign=top>EventSource contains the handle of the gadget that caused 
+      the event.</TD>
+    <TD vAlign=top>This can include such actions as pressing a button, or 
+      typing into a textfield.</TD></TR>
+  <TR>
+    <TD vAlign=top align=left rowSpan=4><B>Window Events</B></TD>
+    <TD vAlign=top>$801</TD>
+    <TD vAlign=top>Window Move</TD>
+    <TD vAlign=top>Generated when the user moves a window.</TD>
+    <TD vAlign=top>EventSource contains the handle of the window gadget that 
+      has moved.<BR>EventX and EventY contain the new location of the window.</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top>$802</TD>
+    <TD vAlign=top>Window Size</TD>
+    <TD vAlign=top>Generated when the user sizes a window.</TD>
+    <TD vAlign=top>EventSource contains the handle of the window gadget that 
+      has sized.<BR>EventX and EventY contain the new size of the window.</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top>$803</TD>
+    <TD vAlign=top>Window Close</TD>
+    <TD vAlign=top>Generated when the user clicks a window's 'close' box.</TD>
+    <TD vAlign=top>EventSource contains the handle of the window gadget being 
+      closed.</TD>
+    <TD vAlign=top>It is up to the program to actually close the window (see 
+      FreeGadget).</TD></TR>
+  <TR>
+    <TD vAlign=top>$804</TD>
+    <TD vAlign=top>Window Activate</TD>
+    <TD vAlign=top>Generated when the user activates a window.</TD>
+    <TD vAlign=top>EventSource contains the handle of the window gadget that 
+      was activated.</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD align=left><B>Menu Events</B></TD>
+    <TD vAlign=top>$1001</TD>
+    <TD vAlign=top>Menu Action</TD>
+    <TD vAlign=top>Generated when the user selects a menu.</TD>
+    <TD vAlign=top>EventData contains the integer identifier of the menu 
+      selected.</TD>
+    <TD vAlign=top>The identifier returnedis is that specified when creating 
+      the menu (see CreateMenu).</TD></TR>
+  <TR>
+    <TD vAlign=top align=left rowSpan=5><B>Application Events</B></TD>
+    <TD vAlign=top>$2001</TD>
+    <TD vAlign=top>Application Suspend</TD>
+    <TD vAlign=top>Generated when the user switches to another application.</TD>
+    <TD vAlign=top>&nbsp;</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top>$2002</TD>
+    <TD vAlign=top>Application Resume</TD>
+    <TD vAlign=top>Generated when the user switches back to your 
+    application.</TD>
+    <TD vAlign=top>&nbsp;</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top>$2003</TD>
+    <TD vAlign=top>Display Change</TD>
+    <TD vAlign=top>Generated when the display mode changes.</TD>
+    <TD vAlign=top>&nbsp;</TD>
+    <TD vAlign=top>THIS DOESN'T APPEAR TO WORK!</TD></TR>
+  <TR>
+    <TD vAlign=top>$2004</TD>
+    <TD vAlign=top>Begin Modal</TD>
+    <TD vAlign=top>Generated when the application goes into a modal event 
+    loop.</TD>
+    <TD vAlign=top>&nbsp;</TD>
+    <TD vAlign=top>This is typically caused by resizing a window or dragging a 
+      slider. You shouldn't generally have to worry about modal event 
+  loops.</TD></TR>
+  <TR>
+    <TD vAlign=top>$2005</TD>
+    <TD vAlign=top>End Modal</TD>
+    <TD vAlign=top>Generated when the application ends a modal event loop.</TD>
+    <TD vAlign=top>&nbsp;</TD>
+    <TD vAlign=top>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top align=left><B>Timer Events</B></TD>
+    <TD vAlign=top>$4001</TD>
+    <TD vAlign=top>Timer Tick</TD>
+    <TD vAlign=top>Generated when a custom timer ticks over (see Timers).</TD>
+    <TD vAlign=top>EventSource contains the handle of the timer.<BR>EventData 
+      contains the total number of timer ticks that have occurred.</TD>
+    <TD vAlign=top>&nbsp;</TD></TR></TBODY></TABLE>
+<P><a target="_top" href="index.htm">Index</a></P></BODY></HTML>

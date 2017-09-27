@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>SetTextAreaFont textarea,font</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+textarea - A textarea gadget handle<br />
+font - A font handle
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Sets the font to be used by a textarea gadget.
+<br>
+<br>
+See also: <a class=small href=CreateTextArea.htm>CreateTextArea</a>, <a class=small href=SetTextAreaColor.htm>SetTextAreaColor</a>.
+</td>
+</tr>
+</table>
+<h1><a href=../gui_examples/SetTextAreaFont.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+; Example provided by Mag, added to documentation by Mark Tiffany<br />
+win=CreateWindow ("Test SetTextAreaFont",0,0,300,300) ; create a window first <br />
+txtbox=CreateTextArea(0,0,200,200,win) ; create text area in the above window <br />
+SetGadgetText txtbox,"Some text goes here" ; put some text in text area <br />
+chg=CreateButton("Change Font",200,0,80,20,win) ; create button <br />
+Repeat <br />
+ id=WaitEvent() ; wait for user action (in the form of an event) <br />
+ If id=$803 Then End ; quit the program when we receive a Window close event <br />
+ If id=$401 And EventSource()=chg Then ; when Change Font is pressed <br />
+ SetTextAreaFont txtbox,RequestFont() ; <--- CHANGE FONT FOR TEXTAREA <br />
+ End If<br />
+Forever <br />
+End
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=SetTextAreaFont&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>

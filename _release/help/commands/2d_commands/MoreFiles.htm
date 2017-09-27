@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>BlitzPlus Docs</title>
+<link rel=stylesheet href=../css/commands.css type=text/css>
+</head>
+<body>
+<h1>MoreFiles( dirhandle )</h1>
+<h1>Parameters</h1>
+<table>
+<tr>
+<td>
+filehandle = valid filehandle assigned from the ReadDir command
+</td>
+</tr>
+</table>
+<h1>Description</h1>
+<table>
+<tr>
+<td>
+Returns true if more files are available to be read from the specified directory.
+</td>
+</tr>
+</table>
+<h1><a href=../2d_examples/MoreFiles.bb>Example</a></h1>
+<table>
+<tr>
+<td>
+;select a folder to read<br />
+folder$=CurrentDir$()<br />
+<br />
+;open directory for reading<br />
+dir=ReadDir( folder$ )<br />
+<br />
+;while more files in the directory...<br />
+While MoreFiles( dir )<br />
+<br />
+ - ;print 'em out!<br />
+ - Print NextFile$( dir )<br />
+<br />
+Wend<br />
+<br />
+Stop
+</td>
+</tr>
+</table>
+<br>
+<a target=_top href=../index.htm>Index</a><br>
+<br>
+Click <a href=http://www.blitzbasic.co.nz/bpdocs/command.php?name=MoreFiles&ref=comments target=_blank>here</a> to view the latest version of this page online</body>
+</html>
