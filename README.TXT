@@ -8,11 +8,13 @@ To rebuild:
 
 1) Open blitzplus.sln in msvc2017.
 
-2) Select release config and rebuild entire solution.
+2) Select release config and rebuild the entire solution.
 
-3) Select debug config and rebuild blitzplus project only.
+3) Select debug config and rebuild the blitzplus project only.
 
 4) This will rebuild everything into the _release and _release/bin dirs. Feel free to delete .pdb and .ilk files here.
+
+5) Note: This version of blitzplus uses the dynamic version of the fmod audio lib. When redistributing programs built with blitzplus_msvc2017, you will need to also include the fmod.dll file found in the _runtime/bin directory with your programs. This should be placed in the same directory as your program's executable.
 
 BlitzPlus is released under the zlib/libpng license.
 
