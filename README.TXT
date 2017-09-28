@@ -1,12 +1,14 @@
-BlitzPlus open source release (minus audio).
+BlitzPlus open source release.
 
-You will need:
+Too lazy to build? Grab the prebuilt version from https://blitzresearch.itch.io/
+
+To build BlitzPlus you will need:
 
 * Visual Studio Community 2017. Install "Desktop development with C++" plus "MFC and ATL support" plus "ASP.NET and web development".
 
 To rebuild:
 
-1) Open blitzplus.sln in msvc2017.
+1) Open blitzplus.sln in Visual Studio.
 
 2) Select release config and rebuild the entire solution.
 
