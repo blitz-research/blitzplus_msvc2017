@@ -1,9 +1,0 @@
-﻿  checkie.cpp
-  checkdx.cpp
-  C:\Program Files (x86)\Windows Kits\8.1\Include\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  bblaunch.cpp
-  Generating Code...
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1198,5): warning MSB8012: TargetPath(D:\dev\blitzplus_msvc2017\bblaunch\.\Debug\bblaunch.exe) does not match the Linker's OutputFile property value (D:\dev\blitzplus_msvc2017\blitzbasic\blitzbasic.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1200,5): warning MSB8012: TargetName(bblaunch) does not match the Linker's OutputFile property value (blitzbasic). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
-  bblaunch.vcxproj -> D:\dev\blitzplus_msvc2017\bblaunch\.\Debug\bblaunch.exe
-  bblaunch.vcxproj -> .\Debug\bblaunch.pdb (Full PDB)

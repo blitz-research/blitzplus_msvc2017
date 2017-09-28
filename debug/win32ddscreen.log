@@ -1,6 +1,0 @@
-﻿  win32dddesktopscreen.cpp
-  win32ddfullscreen.cpp
-  win32ddscreen.cpp
-  win32ddvirtualscreen.cpp
-  Generating Code...
-  win32ddscreen.vcxproj -> D:\dev\blitzplus_msvc2017\win32ddscreen\.\Debug\win32ddscreen.lib
