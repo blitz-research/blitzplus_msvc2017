@@ -1,0 +1,8 @@
+Debug
+Release
+blitzide.prefs
+*.exe
+*.dll
+*.pdb
+*.ilk
+.vs
